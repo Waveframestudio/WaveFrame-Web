@@ -4,6 +4,7 @@ import Lenis from "lenis"
 
 import "./index.css"
 import App from "./App.tsx"
+import { LanguageProvider } from "./lib/LanguageContext"
 
 function Root() {
   useEffect(() => {
@@ -18,7 +19,11 @@ function Root() {
     return () => lenis.destroy()
   }, [])
 
-  return <App />
+  return (
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>
+  )
 }
 
 createRoot(document.getElementById("root")!).render(

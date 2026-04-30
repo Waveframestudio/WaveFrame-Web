@@ -4,6 +4,7 @@ import { Float, Environment } from "@react-three/drei"
 import * as THREE from "three"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useLanguage } from "@/lib/LanguageContext"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -46,6 +47,7 @@ function ShowcaseCube() {
 }
 
 export function Showcase() {
+  const { language } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null)
   const textRef = useRef<HTMLDivElement>(null)
   const visualRef = useRef<HTMLDivElement>(null)
@@ -82,21 +84,34 @@ export function Showcase() {
       <div className="relative max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
         <div ref={textRef} className="space-y-8 opacity-0">
           <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 border border-border/40">
-            <span className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">Tecnología</span>
+            <span className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">
+              {language === 'es' ? 'Tecnología' : 'Technology'}
+            </span>
           </div>
           <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-            <span className="text-foreground block">Arquitectura</span>
-            <span className="text-gradient block">diseñada para</span>
-            <span className="text-foreground block">el extremo.</span>
+            <span className="text-foreground block">{language === 'es' ? 'Arquitectura' : 'Architecture'}</span>
+            <span className="text-gradient block">{language === 'es' ? 'diseñada para' : 'designed for'}</span>
+            <span className="text-foreground block">{language === 'es' ? 'el extremo.' : 'the extreme.'}</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed text-lg">
-            Construida sobre infraestructura distribuida global con redundancia activa. Cada nodo aprende del conjunto.
+            {language === 'es' 
+              ? 'Construida sobre infraestructura distribuida global con redundancia activa. Cada nodo aprende del conjunto.' 
+              : 'Built on global distributed infrastructure with active redundancy. Each node learns from the collective.'}
           </p>
           <div className="space-y-4">
             {[
-              { title: "Multi-región activa", desc: "12 regiones simultáneas, failover en &lt;50ms" },
-              { title: "Edge Computing nativo", desc: "Inferencia a menos de 5ms del usuario final" },
-              { title: "Self-healing automático", desc: "Recuperación autónoma sin intervención humana" },
+              { 
+                title: language === 'es' ? "Multi-región activa" : "Active Multi-region", 
+                desc: language === 'es' ? "12 regiones simultáneas, failover en &lt;50ms" : "12 simultaneous regions, failover in &lt;50ms" 
+              },
+              { 
+                title: language === 'es' ? "Edge Computing nativo" : "Native Edge Computing", 
+                desc: language === 'es' ? "Inferencia a menos de 5ms del usuario final" : "Inference under 5ms from the end user" 
+              },
+              { 
+                title: language === 'es' ? "Self-healing automático" : "Automatic Self-healing", 
+                desc: language === 'es' ? "Recuperación autónoma sin intervención humana" : "Autonomous recovery without human intervention" 
+              },
             ].map((item, i) => (
               <div key={i} className="flex gap-4 p-4 rounded-xl border border-border/30 hover:border-primary/30 transition-colors duration-300 group">
                 <div className="w-5 h-5 rounded-full border border-primary/50 flex items-center justify-center shrink-0 mt-0.5 group-hover:border-primary transition-colors">
@@ -151,7 +166,7 @@ export function Showcase() {
               <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-4 left-4 text-xs font-mono text-primary/60">
                   <div>WAVEFRAME_CORE v3.2.1</div>
-                  <div className="mt-0.5 text-primary/40">ESTADO: EN LÍNEA</div>
+                  <div className="mt-0.5 text-primary/40">{language === 'es' ? 'ESTADO: EN LÍNEA' : 'STATUS: ONLINE'}</div>
                 </div>
                 <div className="absolute top-4 right-4 flex gap-1">
                   {[...Array(3)].map((_, i) => (
@@ -165,9 +180,9 @@ export function Showcase() {
 
           <div className="showcase-stats grid grid-cols-3 gap-4">
             {[
-              { value: "12", label: "Regiones globales" },
-              { value: "<5ms", label: "Latencia Edge" },
-              { value: "99.99%", label: "SLA garantizado" },
+              { value: "12", label: language === 'es' ? "Regiones globales" : "Global Regions" },
+              { value: "<5ms", label: language === 'es' ? "Latencia Edge" : "Edge Latency" },
+              { value: "99.99%", label: language === 'es' ? "SLA garantizado" : "Guaranteed SLA" },
             ].map((stat, i) => (
               <div key={i} className="showcase-stat opacity-0 glass-card rounded-xl p-4 text-center">
                 <div className="text-2xl font-black text-gradient-static">{stat.value}</div>

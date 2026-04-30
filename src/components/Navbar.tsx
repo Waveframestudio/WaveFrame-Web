@@ -1,14 +1,16 @@
 import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
+import { useLanguage } from "@/lib/LanguageContext"
 
 const links = [
-  { label: "Servicios", href: "#features" },
-  { label: "Nosotros", href: "#about" },
-  { label: "Proyectos", href: "#projects" },
-  { label: "Contacto", href: "#cta" },
+  { label: "nav.services", href: "#features" },
+  { label: "nav.about", href: "#about" },
+  { label: "nav.projects", href: "#projects" },
+  { label: "nav.contact", href: "#cta" },
 ]
 
 export function Navbar() {
+  const { language, setLanguage, t } = useLanguage()
   const navRef = useRef<HTMLElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -74,18 +76,22 @@ export function Navbar() {
               onClick={() => scrollTo(l.href)}
               className="px-5 py-2 rounded-full text-[11px] font-bold tracking-widest uppercase text-white/50 hover:text-white hover:bg-white/5 transition-all duration-300"
             >
-              {l.label}
+              {t(l.label)}
             </button>
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-6">
-          <button
-            onClick={() => scrollTo("#cta")}
-            className="cyber-button text-[11px] font-bold tracking-widest uppercase !px-8 !py-3"
-          >
-            Empezar
+        <div className="hidden md:flex items-center gap-6 relative group">
+          <button className="text-[11px] font-bold tracking-widest uppercase text-white/50 hover:text-white transition-colors flex items-center gap-2 py-2">
+            {language === 'es' ? 'ESP' : 'ENG'}
+            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="opacity-50 group-hover:opacity-100 transition-opacity">
+              <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
           </button>
+          <div className="absolute top-full right-0 mt-2 w-24 glass-card rounded-xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden flex flex-col">
+            <button onClick={() => setLanguage('es')} className={`w-full text-left px-4 py-3 text-[11px] font-bold tracking-widest uppercase hover:bg-white/5 transition-colors ${language === 'es' ? 'text-primary' : 'text-white/50'}`}>ESP</button>
+            <button onClick={() => setLanguage('en')} className={`w-full text-left px-4 py-3 text-[11px] font-bold tracking-widest uppercase hover:bg-white/5 transition-colors ${language === 'en' ? 'text-primary' : 'text-white/50'}`}>ENG</button>
+          </div>
         </div>
 
         <button
@@ -106,16 +112,14 @@ export function Navbar() {
               onClick={() => scrollTo(l.href)}
               className="text-left text-2xl font-black text-white/60 hover:text-primary transition-colors"
             >
-              {l.label}
+              {t(l.label)}
             </button>
           ))}
           <div className="h-px bg-white/10 my-2" />
-          <button
-            onClick={() => scrollTo("#cta")}
-            className="w-full py-4 rounded-xl text-sm font-bold tracking-widest uppercase bg-primary text-white"
-          >
-            Empezar
-          </button>
+          <div className="flex gap-4">
+            <button onClick={() => setLanguage('es')} className={`flex-1 py-4 rounded-xl text-sm font-bold tracking-widest uppercase transition-colors ${language === 'es' ? 'bg-primary text-black' : 'glass border border-white/10 text-white'}`}>ESP</button>
+            <button onClick={() => setLanguage('en')} className={`flex-1 py-4 rounded-xl text-sm font-bold tracking-widest uppercase transition-colors ${language === 'en' ? 'bg-primary text-black' : 'glass border border-white/10 text-white'}`}>ENG</button>
+          </div>
         </div>
       )}
     </nav>

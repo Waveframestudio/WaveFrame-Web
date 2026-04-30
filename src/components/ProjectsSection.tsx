@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useLanguage } from "@/lib/LanguageContext"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -22,6 +23,7 @@ const projectsRow2 = [
 ]
 
 export function ProjectsSection() {
+  const { language } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -44,10 +46,13 @@ export function ProjectsSection() {
         <div className="project-header text-center space-y-6">
           <div className="inline-flex items-center gap-3 glass px-4 py-2 rounded-full border border-primary/20">
             <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-            <span className="text-[10px] font-black tracking-[0.3em] uppercase text-primary">Portafolio</span>
+            <span className="text-[10px] font-black tracking-[0.3em] uppercase text-primary">
+              {language === 'es' ? 'Trabajos' : 'Works'}
+            </span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
-            Proyectos <span className="text-gradient">Destacados</span>
+            {language === 'es' ? 'Proyectos ' : 'Featured '}
+            <span className="text-gradient">{language === 'es' ? 'Destacados' : 'Projects'}</span>
           </h2>
         </div>
       </div>

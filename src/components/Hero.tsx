@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { HeroScene } from "./HeroScene"
+import { useLanguage } from "@/lib/LanguageContext"
 
 function HUD() {
   const [latency, setLatency] = useState("0.02")
@@ -39,7 +40,7 @@ function HUD() {
           <div>ALT: {coords.alt}km</div>
         </div>
         <div className="flex justify-end gap-1">
-          {[1,2,3,4,5].map(i => <div key={i} className="w-1 h-4 bg-white/10" style={{ animation: `pulse-height 2s infinite ${i * 0.2}s` }} />)}
+          {[1, 2, 3, 4, 5].map(i => <div key={i} className="w-1 h-4 bg-white/10" style={{ animation: `pulse-height 2s infinite ${i * 0.2}s` }} />)}
         </div>
       </div>
 
@@ -63,23 +64,24 @@ function FallbackOrb() {
   )
 }
 
-const phrases = [
-  ["Redefinimos", "el Futuro"],
-  ["Evolucionamos", "Ideas"],
-  ["Impulsamos", "Visiones"],
-  ["Forjamos", "Software"],
-  ["Ingeniería", "de Elite"],
-  ["Arquitectura", "Digital"],
-  ["Potenciamos", "Negocios"],
-  ["Escalamos", "Sistemas"],
-  ["Transformación", "Radical"],
-  ["Código", "de Vanguardia"],
-  ["Desarrollamos", "Soluciones"],
+const phrasesES = [
+  ["Redefinimos", "el Futuro"], ["Evolucionamos", "Ideas"], ["Impulsamos", "Visiones"], ["Forjamos", "Software"],
+  ["Ingeniería", "de Elite"], ["Arquitectura", "Digital"], ["Potenciamos", "Negocios"], ["Escalamos", "Sistemas"],
+  ["Transformación", "Radical"], ["Código", "de Vanguardia"], ["Desarrollamos", "Soluciones"],
+]
+
+const phrasesEN = [
+  ["Redefining", "the Future"], ["Evolving", "Ideas"], ["Driving", "Visions"], ["Forging", "Software"],
+  ["Elite", "Engineering"], ["Digital", "Architecture"], ["Empowering", "Business"], ["Scaling", "Systems"],
+  ["Radical", "Transformation"], ["Cutting-edge", "Code"], ["Developing", "Solutions"],
 ]
 
 export function Hero() {
+  const { language, t } = useLanguage()
+  const phrases = language === 'es' ? phrasesES : phrasesEN
+  
   const [webGLAvailable, setWebGLAvailable] = useState(true)
-  const [currentPhrase, setCurrentPhrase] = useState(["Desarrollamos", "Soluciones"])
+  const [currentPhrase, setCurrentPhrase] = useState(phrases[0])
   const titleRef = useRef<HTMLHeadingElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
@@ -96,44 +98,44 @@ export function Hero() {
     }
 
     const ctx = gsap.context(() => {
-// ... (rest of the existing useEffect code)
+      // ... (rest of the existing useEffect code)
       // 1. Initial State
-      gsap.set([".hud-element", ".title-reveal", ".hero-description", ".hero-cta", ".scroll-indicator", ".hero-canvas-container"], { 
-        opacity: 0 
+      gsap.set([".hud-element", ".title-reveal", ".hero-description", ".hero-cta", ".scroll-indicator", ".hero-canvas-container"], {
+        opacity: 0
       })
 
       // 2. Entrance Timeline
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
-      
+
       tl.to(".hero-canvas-container", {
         opacity: 1,
         duration: 3,
         ease: "power2.inOut"
       })
-      .to(".hud-element", {
-        opacity: 1,
-        duration: 2,
-        stagger: 0.2
-      }, "-=2.5")
-      .fromTo(".title-reveal", 
-        { y: 100, skewY: 10, opacity: 0 },
-        { y: 0, skewY: 0, opacity: 1, duration: 1.5, stagger: 0.2 },
-        "-=1.5"
-      )
-      .to(".hero-description", {
-        opacity: 1,
-        y: 0,
-        duration: 1.2
-      }, "-=1")
-      .fromTo(".hero-cta", 
-        { opacity: 0, y: 20 },
-        { opacity: 1, y: 0, duration: 1, stagger: 0.1 },
-        "-=0.8"
-      )
-      .to(".scroll-indicator", {
-        opacity: 1,
-        duration: 1.5
-      }, "-=0.5")
+        .to(".hud-element", {
+          opacity: 1,
+          duration: 2,
+          stagger: 0.2
+        }, "-=2.5")
+        .fromTo(".title-reveal",
+          { y: 100, skewY: 10, opacity: 0 },
+          { y: 0, skewY: 0, opacity: 1, duration: 1.5, stagger: 0.2 },
+          "-=1.5"
+        )
+        .to(".hero-description", {
+          opacity: 1,
+          y: 0,
+          duration: 1.2
+        }, "-=1")
+        .fromTo(".hero-cta",
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 1, stagger: 0.1 },
+          "-=0.8"
+        )
+        .to(".scroll-indicator", {
+          opacity: 1,
+          duration: 1.5
+        }, "-=0.5")
 
       // 3. Glitch Loop (Infinite)
       const glitchTl = gsap.timeline({ repeat: -1, repeatDelay: 4 })
@@ -162,9 +164,9 @@ export function Hero() {
   }, [])
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      id="hero" 
+      id="hero"
       className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[#060c14]"
     >
       {/* Background Canvas */}
@@ -174,7 +176,7 @@ export function Hero() {
 
       {/* Grain/Noise Overlay */}
       <div className="absolute inset-0 pointer-events-none z-[1] bg-noise opacity-[0.03]" />
-      
+
       {/* HUD Layers */}
       <HUD />
 
@@ -184,7 +186,7 @@ export function Hero() {
           <div className="flex flex-col items-center">
             <div className="title-reveal inline-flex items-center gap-2 glass px-5 py-2 rounded-full border border-white/10 mb-8">
               <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
-              <span className="text-xs font-black tracking-[0.4em] uppercase text-white/70">Empresa de Desarrollo de Software</span>
+              <span className="text-xs font-black tracking-[0.4em] uppercase text-white/70">{t('hero.badge')}</span>
             </div>
 
             <h1 ref={titleRef} className="text-[12vw] md:text-[10vw] font-black leading-[0.9] tracking-tighter text-white uppercase italic overflow-visible py-2">
@@ -194,21 +196,21 @@ export function Hero() {
           </div>
 
           <p className="hero-description max-w-2xl mx-auto text-xl md:text-2xl text-white/40 font-medium leading-relaxed translate-y-10">
-            Fusionamos diseño de vanguardia con ingeniería de alto impacto para convertir visiones ambiciosas en realidades digitales imbatibles.
+            {t('hero.desc')}
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-10">
-            <button 
-              onClick={() => document.getElementById('showcase')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            <button
+              onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
               className="hero-cta cyber-button px-10 py-5 text-lg"
             >
-              Explorar trabajos
+              {t('hero.cta.connect')}
             </button>
-            <button 
+            <button
               onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
               className="hero-cta px-10 py-5 text-lg rounded-xl font-black text-white/50 hover:text-white transition-colors tracking-widest uppercase text-xs"
             >
-              Cómo trabajamos // 01
+              {t('hero.cta.how')}
             </button>
           </div>
         </div>
@@ -217,7 +219,7 @@ export function Hero() {
       {/* Decorative side text */}
       <div className="absolute left-10 top-1/2 -translate-y-1/2 hidden xl:block">
         <div className="text-[10px] font-bold tracking-[0.5em] uppercase text-white/10 origin-left -rotate-90">
-          Interfaz de Sistema Avanzada // WaveFrame
+          {t('hero.side')}
         </div>
       </div>
 
@@ -226,7 +228,7 @@ export function Hero() {
         <div className="w-px h-20 bg-gradient-to-b from-white/20 to-transparent relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full bg-primary animate-scroll-line" />
         </div>
-        <span className="text-[10px] font-black tracking-[0.3em] uppercase text-white/20">Desliza para Explorar</span>
+        <span className="text-[10px] font-black tracking-[0.3em] uppercase text-white/20">{t('hero.scroll')}</span>
       </div>
     </section>
   )

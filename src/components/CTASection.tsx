@@ -4,6 +4,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { Float, Environment, Sphere, MeshDistortMaterial, Points, PointMaterial } from "@react-three/drei"
 import * as THREE from "three"
+import { useLanguage } from "@/lib/LanguageContext"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -34,6 +35,7 @@ function Starfield() {
 }
 
 export function CTASection() {
+  const { language } = useLanguage()
   const sectionRef = useRef<HTMLElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -75,34 +77,43 @@ export function CTASection() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-primary"></span>
           </span>
-          <span className="text-xs font-black tracking-[0.3em] uppercase text-primary">Contacto</span>
+          <span className="text-xs font-black tracking-[0.3em] uppercase text-primary">
+            {language === 'es' ? 'Contacto' : 'Contact'}
+          </span>
         </div>
 
         <h2 className="cta-item opacity-0 text-6xl md:text-9xl font-black tracking-tighter mb-10 leading-[0.85] text-white">
-          Tu proyecto <br />
-          <span className="text-gradient">empieza aquí.</span>
+          {language === 'es' ? 'Tu proyecto' : 'Your project'} <br />
+          <span className="text-gradient">{language === 'es' ? 'empieza aquí.' : 'starts here.'}</span>
         </h2>
 
         <p className="cta-item opacity-0 text-white/50 text-2xl leading-relaxed mb-14 max-w-3xl mx-auto font-medium">
-          ¿Listo para dominar tu industria con tecnología de vanguardia? Agenda una sesión estratégica de 30 minutos y hagamos realidad tu próxima gran innovación.
+          {language === 'es'
+            ? '¿Listo para dominar tu industria con tecnología de vanguardia? Agenda una sesión estratégica de 30 minutos y hagamos realidad tu próxima gran innovación.'
+            : 'Ready to dominate your industry with cutting-edge technology? Schedule a 30-minute strategic session and let\'s make your next great innovation a reality.'}
         </p>
 
         <div className="cta-item opacity-0 flex flex-col sm:flex-row gap-6 justify-center mb-20">
           <a href="https://wa.me/5491163704522" target="_blank" rel="noopener noreferrer" className="cyber-button px-12 py-5 text-lg flex items-center justify-center">
-            Hablar por WhatsApp
+            {language === 'es' ? 'Hablar por WhatsApp' : 'Chat on WhatsApp'}
           </a>
           <a href="mailto:wave1frame@gmail.com" className="px-12 py-5 text-lg rounded-xl font-black glass glass-hover text-white border border-white/10 transition-all hover:scale-105 flex items-center justify-center">
-            Enviar Email
+            {language === 'es' ? 'Enviar Email' : 'Send Email'}
           </a>
         </div>
 
         <div className="cta-item opacity-0 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-          {[
+          {(language === 'es' ? [
             { label: "Tiempo Online", val: "100%" },
             { label: "Protección", val: "Total" },
             { label: "Regiones", val: "Global" },
             { label: "Soporte", val: "24/7/365" },
-          ].map((item) => (
+          ] : [
+            { label: "Uptime", val: "100%" },
+            { label: "Protection", val: "Full" },
+            { label: "Regions", val: "Global" },
+            { label: "Support", val: "24/7/365" },
+          ]).map((item) => (
             <div key={item.label} className="glass p-6 rounded-2xl border border-white/5">
               <div className="text-3xl font-black text-white mb-1">{item.val}</div>
               <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/40">{item.label}</div>

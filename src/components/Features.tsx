@@ -1,49 +1,61 @@
 import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useLanguage } from "@/lib/LanguageContext"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const features = [
+const featuresES = [
   {
-    tag: "Next-Gen",
-    color: "from-primary/30 to-transparent",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-      </svg>
-    ),
+    tag: "Next-Gen", color: "from-primary/30 to-transparent",
+    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
     title: "Interfaces Inmersivas",
     desc: "Experiencias web de alto impacto construidas con el stack más avanzado para dominar el mercado digital con velocidad extrema.",
     metric: "Ultra-Fast Load",
   },
   {
-    tag: "Native",
-    color: "from-chart-2/30 to-transparent",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-      </svg>
-    ),
+    tag: "Native", color: "from-chart-2/30 to-transparent",
+    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>,
     title: "Ecosistemas Móviles",
     desc: "Aplicaciones de alto rendimiento que redefinen la interacción en iOS y Android, diseñadas para escalar sin límites.",
     metric: "Global Scale",
   },
   {
-    tag: "Intelligent",
-    color: "from-chart-4/30 to-transparent",
-    icon: (
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
+    tag: "Intelligent", color: "from-chart-4/30 to-transparent",
+    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
     title: "Arquitecturas Autónomas",
     desc: "Libera el potencial de tu empresa con sistemas inteligentes que automatizan procesos complejos mientras tú te enfocas en crecer.",
     metric: "Efficiency +300%",
   },
 ]
 
+const featuresEN = [
+  {
+    tag: "Next-Gen", color: "from-primary/30 to-transparent",
+    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
+    title: "Immersive Interfaces",
+    desc: "High-impact web experiences built with the most advanced stack to dominate the digital market with extreme speed.",
+    metric: "Ultra-Fast Load",
+  },
+  {
+    tag: "Native", color: "from-chart-2/30 to-transparent",
+    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>,
+    title: "Mobile Ecosystems",
+    desc: "High-performance applications that redefine interaction on iOS and Android, designed to scale limitlessly.",
+    metric: "Global Scale",
+  },
+  {
+    tag: "Intelligent", color: "from-chart-4/30 to-transparent",
+    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+    title: "Autonomous Architectures",
+    desc: "Unleash your company's potential with intelligent systems that automate complex processes while you focus on growth.",
+    metric: "Efficiency +300%",
+  },
+]
+
 export function Features() {
+  const { language } = useLanguage()
+  const features = language === 'es' ? featuresES : featuresEN
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -104,13 +116,18 @@ export function Features() {
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center mb-24 space-y-4">
           <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full border border-white/10 mb-4 animate-float">
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary">Sistemas Core</span>
+            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary">
+              {language === 'es' ? 'Sistemas Core' : 'Core Systems'}
+            </span>
           </div>
           <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white">
-            Diseñado para el <span className="text-gradient">Extremo.</span>
+            {language === 'es' ? 'Diseñado para el ' : 'Designed for the '}
+            <span className="text-gradient">{language === 'es' ? 'Extremo.' : 'Extreme.'}</span>
           </h2>
           <p className="text-white/40 text-lg md:text-xl max-w-2xl mx-auto font-medium">
-            Cada módulo ha sido forjado para soportar las cargas de trabajo más exigentes con una elegancia visual sin precedentes.
+            {language === 'es' 
+              ? 'Cada módulo ha sido forjado para soportar las cargas de trabajo más exigentes con una elegancia visual sin precedentes.' 
+              : 'Each module has been forged to withstand the most demanding workloads with unprecedented visual elegance.'}
           </p>
         </div>
 
@@ -155,12 +172,12 @@ export function Features() {
               {[...Array(6)].map((_, i) => (
                 <div key={i} className="flex items-center gap-16 px-8">
                   {[
-                    { s: "E-Commerce", icon: <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /> },
-                    { s: "Apps Móviles", icon: <path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /> },
-                    { s: "Apps Web", icon: <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /> },
-                    { s: "Apps De Escritorio", icon: <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> },
-                    { s: "Autobots", icon: <path d="M13 10V3L4 14h7v7l9-11h-7z" /> },
-                    { s: "Webs", icon: <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /> }
+                    { s: language === 'es' ? "E-Commerce" : "E-Commerce", icon: <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /> },
+                    { s: language === 'es' ? "Apps Móviles" : "Mobile Apps", icon: <path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /> },
+                    { s: language === 'es' ? "Apps Web" : "Web Apps", icon: <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /> },
+                    { s: language === 'es' ? "Apps De Escritorio" : "Desktop Apps", icon: <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> },
+                    { s: language === 'es' ? "Autobots" : "Autobots", icon: <path d="M13 10V3L4 14h7v7l9-11h-7z" /> },
+                    { s: language === 'es' ? "Webs" : "Websites", icon: <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /> }
                   ].map((item) => (
                     <div key={item.s} className="flex items-center gap-6 group/item cursor-default">
                       <svg className="w-8 h-8 text-primary transition-all duration-500 group-hover/item:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -187,7 +204,14 @@ export function Features() {
             <div className="flex whitespace-nowrap animate-[ticker_60s_linear_infinite_reverse] w-fit">
               {[...Array(6)].map((_, i) => (
                 <div key={i} className="flex items-center gap-20 px-10">
-                  {["Webs", "Autobots", "Apps De Escritorio", "Apps Web", "Apps Móviles", "E-Commerce"].map((s) => (
+                  {[
+                    language === 'es' ? "Webs" : "Websites", 
+                    language === 'es' ? "Autobots" : "Autobots", 
+                    language === 'es' ? "Apps De Escritorio" : "Desktop Apps", 
+                    language === 'es' ? "Apps Web" : "Web Apps", 
+                    language === 'es' ? "Apps Móviles" : "Mobile Apps", 
+                    language === 'es' ? "E-Commerce" : "E-Commerce"
+                  ].map((s) => (
                     <div key={s} className="flex items-center gap-10 group/item cursor-default">
                       <span className="text-4xl font-black tracking-tighter text-white/20 group-hover/item:text-white transition-all duration-500">
                         {s}
