@@ -40,28 +40,33 @@ const chapters = [
 
 function Story3D({ activeIndex }: { activeIndex: number }) {
   const meshRef = useRef<THREE.Mesh>(null)
+  const materialRef = useRef<any>(null)
+  const lightRef = useRef<any>(null)
   
   useFrame((state) => {
     if (!meshRef.current) return
     const t = state.clock.getElapsedTime()
     meshRef.current.rotation.y = t * 0.2
     meshRef.current.rotation.x = Math.sin(t * 0.3) * 0.1
-  })
 
-  const materialProps = useMemo(() => {
-    return {
-      color: chapters[activeIndex].color,
-      distort: 0.4 + activeIndex * 0.1,
-      speed: 2 + activeIndex,
+    const targetColor = new THREE.Color(chapters[activeIndex].color)
+    if (materialRef.current) {
+      materialRef.current.color.lerp(targetColor, 0.05)
+      materialRef.current.distort = THREE.MathUtils.lerp(materialRef.current.distort, 0.4 + activeIndex * 0.1, 0.05)
+      materialRef.current.speed = THREE.MathUtils.lerp(materialRef.current.speed, 2 + activeIndex, 0.05)
     }
-  }, [activeIndex])
+    if (lightRef.current) {
+      lightRef.current.color.lerp(targetColor, 0.05)
+    }
+  })
 
   return (
     <group>
       <Float speed={2} rotationIntensity={1} floatIntensity={1}>
         <Sphere args={[2, 32, 32]} ref={meshRef}>
           <MeshDistortMaterial
-            {...materialProps}
+            ref={materialRef}
+            color={chapters[0].color}
             roughness={0.1}
             metalness={0.8}
             transparent
@@ -69,7 +74,7 @@ function Story3D({ activeIndex }: { activeIndex: number }) {
           />
         </Sphere>
       </Float>
-      <pointLight position={[5, 5, 5]} color={chapters[activeIndex].color} intensity={5} />
+      <pointLight ref={lightRef} position={[5, 5, 5]} intensity={5} color={chapters[0].color} />
       <Environment preset="night" />
     </group>
   )
@@ -138,7 +143,7 @@ export function StorySection() {
       <div className="relative max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-start justify-between gap-0 lg:gap-10 xl:gap-20">
         {/* Left Content (Pinned on Desktop) */}
         <div ref={leftRef} className="w-full lg:flex-1 h-auto lg:h-screen flex items-center z-20 pointer-events-none lg:pointer-events-auto py-20 lg:py-0">
-          <div key={activeChapter} className="story-card w-full glass-card p-10 md:p-14 rounded-[3rem] border border-white/5 space-y-8 backdrop-blur-3xl shadow-2xl pointer-events-auto animate-fade-in">
+          <div className="story-card w-full glass-card p-10 md:p-14 rounded-[3rem] border border-white/5 space-y-8 backdrop-blur-3xl shadow-2xl pointer-events-auto transition-all duration-700">
             <div className="flex items-center justify-between">
               <span className="text-8xl font-black text-white/10 leading-none">{chapters[activeChapter].num}</span>
               <div className="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10">

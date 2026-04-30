@@ -3,8 +3,8 @@ import { gsap } from "gsap"
 
 const links = [
   { label: "Servicios", href: "#features" },
-  { label: "Infraestructura", href: "#showcase" },
   { label: "Nosotros", href: "#about" },
+  { label: "Proyectos", href: "#projects" },
   { label: "Contacto", href: "#cta" },
 ]
 

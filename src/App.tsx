@@ -6,6 +6,7 @@ import { Features } from "@/components/Features"
 import { Showcase } from "@/components/Showcase"
 import { StorySection } from "@/components/StorySection"
 import { AboutSection } from "@/components/AboutSection"
+import { ProjectsSection } from "@/components/ProjectsSection"
 import { CTASection } from "@/components/CTASection"
 import { Footer } from "@/components/Footer"
 
@@ -49,6 +50,7 @@ export function App() {
         <Showcase />
         <StorySection />
         <AboutSection />
+        <ProjectsSection />
         <CTASection />
       </main>
       <Footer />
