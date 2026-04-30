@@ -39,7 +39,7 @@ export function ProjectsSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="projects" className="relative py-32 bg-[#060c14] overflow-hidden border-t border-white/5 scroll-mt-32">
+    <section ref={sectionRef} id="projects" className="relative pt-10 pb-32 bg-[#060c14] overflow-hidden border-t border-white/5 scroll-mt-32">
       <div className="max-w-7xl mx-auto px-6 mb-16 relative z-10">
         <div className="project-header text-center space-y-6">
           <div className="inline-flex items-center gap-3 glass px-4 py-2 rounded-full border border-primary/20">
