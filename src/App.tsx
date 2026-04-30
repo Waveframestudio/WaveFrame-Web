@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 import { Navbar } from "@/components/Navbar"
 import { Hero } from "@/components/Hero"
 import { Features } from "@/components/Features"
@@ -9,6 +10,7 @@ import { AboutSection } from "@/components/AboutSection"
 import { ProjectsSection } from "@/components/ProjectsSection"
 import { CTASection } from "@/components/CTASection"
 import { Footer } from "@/components/Footer"
+import { PrivacyPage } from "@/components/PrivacyPage"
 
 function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null)
@@ -39,22 +41,43 @@ function CursorGlow() {
   )
 }
 
+function HomePage() {
+  return (
+    <main>
+      <Hero />
+      <Features />
+      <Showcase />
+      <StorySection />
+      <AboutSection />
+      <ProjectsSection />
+      <CTASection />
+    </main>
+  )
+}
+
+// Scroll to top on route change
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 export function App() {
   return (
-    <div className="relative min-h-screen bg-background">
-      <CursorGlow />
-      <Navbar />
-      <main>
-        <Hero />
-        <Features />
-        <Showcase />
-        <StorySection />
-        <AboutSection />
-        <ProjectsSection />
-        <CTASection />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <div className="relative min-h-screen bg-background">
+        <ScrollToTop />
+        <CursorGlow />
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/privacidad" element={<PrivacyPage />} />
+        </Routes>
+        <Footer />
+      </div>
+    </BrowserRouter>
   )
 }
 

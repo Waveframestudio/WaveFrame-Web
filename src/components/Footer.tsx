@@ -1,11 +1,12 @@
+import { Link } from "react-router-dom"
 import { useLanguage } from "@/lib/LanguageContext"
 
 export function Footer() {
   const { language } = useLanguage()
   return (
     <footer className="relative border-t border-white/5 py-24 overflow-hidden bg-[#060c14]">
-      <div className="absolute inset-0 bg-grid opacity-5 mask-radial" />
-      <div className="relative max-w-7xl mx-auto px-6">
+      <div className="absolute inset-0 bg-grid opacity-5 mask-radial pointer-events-none" />
+      <div className="relative max-w-7xl mx-auto px-6 z-20">
         <div className="grid md:grid-cols-4 gap-16 mb-20">
           <div className="md:col-span-2 space-y-8">
             <div className="flex items-center gap-3">
@@ -31,12 +32,13 @@ export function Footer() {
             <p className="text-lg text-white/40 max-w-sm leading-relaxed font-medium">
               {language === 'es' ? 'Diseño y desarrollo de software innovador de alto valor.' : 'Innovative high-value software design and development.'}
             </p>
-            <div className="flex gap-4">
-              {["𝕏", "In", "Git"].map((s) => (
-                <div key={s} className="w-10 h-10 rounded-xl glass border border-white/5 flex items-center justify-center text-xs font-bold text-white/40 hover:text-white hover:border-primary/40 hover:scale-110 transition-all cursor-pointer">
-                  {s}
-                </div>
-              ))}
+            <div className="flex gap-6">
+              <a href="https://www.instagram.com/waveframe.studio" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-primary hover:scale-110 transition-all cursor-pointer group p-1">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-1 transition-transform"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </a>
+              <a href="https://www.linkedin.com/company/110369081/admin/dashboard/" target="_blank" rel="noopener noreferrer" className="text-white/40 hover:text-primary hover:scale-110 transition-all cursor-pointer group p-1">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-y-1 transition-transform"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
             </div>
           </div>
 
@@ -70,12 +72,15 @@ export function Footer() {
             {language === 'es' ? '© 2026 WaveFrame Studio. Todos los derechos reservados.' : '© 2026 WaveFrame Studio. All rights reserved.'}
           </div>
           <div className="flex gap-8">
-            {(language === 'es'
-              ? ["Protocolo de Privacidad", "Términos de Servicio"]
-              : ["Privacy Protocol", "Terms of Service"]
-            ).map((l) => (
-              <span key={l} className="text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase">{l}</span>
-            ))}
+            <Link 
+              to="/privacidad" 
+              className="text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase"
+            >
+              {language === 'es' ? 'Protocolo de Privacidad' : 'Privacy Protocol'}
+            </Link>
+            <span className="text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase">
+              {language === 'es' ? 'Términos de Servicio' : 'Terms of Service'}
+            </span>
           </div>
         </div>
       </div>

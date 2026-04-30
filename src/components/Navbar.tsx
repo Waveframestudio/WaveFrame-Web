@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { useLanguage } from "@/lib/LanguageContext"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 
 const links = [
   { label: "nav.services", href: "#features" },
@@ -11,6 +12,8 @@ const links = [
 
 export function Navbar() {
   const { language, setLanguage, t } = useLanguage()
+  const location = useLocation()
+  const navigate = useNavigate()
   const navRef = useRef<HTMLElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -28,6 +31,14 @@ export function Navbar() {
 
   const scrollTo = (href: string) => {
     setMobileOpen(false)
+    if (location.pathname !== "/") {
+      navigate("/")
+      setTimeout(() => {
+        const element = document.querySelector(href)
+        if (element) element.scrollIntoView({ behavior: "smooth", block: "start" })
+      }, 100)
+      return
+    }
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" })
@@ -42,8 +53,7 @@ export function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        <button onClick={() => scrollTo("#hero")} className="flex items-center gap-3 group cursor-pointer">
-          {/* Logo Icon - Hidden at top, shown on scroll */}
+        <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3 group cursor-pointer">
           <div 
             className={`relative flex items-center justify-center overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left ${
               scrolled ? "opacity-100 scale-100 w-[34px] mr-1" : "opacity-0 scale-50 w-0 mr-0"
@@ -67,7 +77,7 @@ export function Navbar() {
             <span className="bg-gradient-to-r from-[#6040ff] to-[#ff4081] bg-clip-text text-transparent">Frame</span>
             <span className="text-white/40 ml-1.5 font-bold italic text-sm tracking-widest uppercase">Studio</span>
           </span>
-        </button>
+        </Link>
 
         <div className="hidden md:flex items-center gap-2 p-1.5 glass rounded-full border border-white/5">
           {links.map((l) => (
