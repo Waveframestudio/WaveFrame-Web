@@ -94,7 +94,7 @@ export function CTASection() {
         </p>
 
         <div className="cta-item opacity-0 flex flex-col sm:flex-row gap-6 justify-center mb-20">
-          <a href="https://wa.me/5491163704522" target="_blank" rel="noopener noreferrer" className="cyber-button px-12 py-5 text-lg flex items-center justify-center">
+          <a href="https://wa.me/5493876117799" target="_blank" rel="noopener noreferrer" className="cyber-button px-12 py-5 text-lg flex items-center justify-center">
             {language === 'es' ? 'Hablar por WhatsApp' : 'Chat on WhatsApp'}
           </a>
           <a href="mailto:wave1frame@gmail.com" className="px-12 py-5 text-lg rounded-xl font-black glass glass-hover text-white border border-white/10 transition-all hover:scale-105 flex items-center justify-center">

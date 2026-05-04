@@ -7,6 +7,10 @@ export function Footer() {
   const navigate = useNavigate()
 
   const scrollTo = (href: string) => {
+    if (href.startsWith('http')) {
+      window.open(href, '_blank', 'noopener,noreferrer')
+      return
+    }
     if (href.startsWith('/')) {
       navigate(href)
       window.scrollTo(0, 0)
@@ -36,14 +40,14 @@ export function Footer() {
       { label: "Nosotros", href: "#about" },
       { label: "Cómo Trabajamos", href: "#story" },
       { label: "FAQ", href: "/faq" },
-      { label: "Contacto", href: "#cta" }
+      { label: "Contacto", href: "https://wa.me/5493876117799" }
     ]
     : [
       { label: "Projects", href: "#projects" },
       { label: "About Us", href: "#about" },
       { label: "How We Work", href: "#story" },
       { label: "FAQ", href: "/faq" },
-      { label: "Contact", href: "#cta" }
+      { label: "Contact", href: "https://wa.me/5493876117799" }
     ]
 
   return (
