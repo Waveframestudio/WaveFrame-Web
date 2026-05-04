@@ -17,6 +17,8 @@ export function Navbar() {
   const navRef = useRef<HTMLElement>(null)
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [langOpen, setLangOpen] = useState(false)
+  const langRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     gsap.fromTo(
@@ -26,7 +28,18 @@ export function Navbar() {
     )
     const onScroll = () => setScrolled(window.scrollY > 50)
     window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
+
+    const handleClickOutside = (event: MouseEvent) => {
+      if (langRef.current && !langRef.current.contains(event.target as Node)) {
+        setLangOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside)
+    
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
   }, [])
 
   const scrollTo = (href: string) => {
@@ -91,16 +104,26 @@ export function Navbar() {
           ))}
         </div>
 
-        <div className="hidden md:flex items-center gap-6 relative group">
-          <button className="text-[11px] font-bold tracking-widest uppercase text-white/50 hover:text-white transition-colors flex items-center gap-2 py-2">
+        <div ref={langRef} className="hidden md:flex items-center gap-6 relative">
+          <button 
+            onClick={() => setLangOpen(!langOpen)}
+            className={`text-[11px] font-bold tracking-widest uppercase transition-colors flex items-center gap-2 py-2 ${
+              langOpen ? 'text-primary' : 'text-white/50 hover:text-white'
+            }`}
+          >
             {language === 'es' ? 'ESP' : 'ENG'}
-            <svg width="10" height="6" viewBox="0 0 10 6" fill="none" className="opacity-50 group-hover:opacity-100 transition-opacity">
+            <svg 
+              width="10" height="6" viewBox="0 0 10 6" fill="none" 
+              className={`transition-all duration-300 ${langOpen ? 'rotate-180 text-primary' : 'opacity-50 text-white'}`}
+            >
               <path d="M1 1L5 5L9 1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>
-          <div className="absolute top-full right-0 mt-2 w-24 glass-card rounded-xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 translate-y-2 group-hover:translate-y-0 overflow-hidden flex flex-col">
-            <button onClick={() => setLanguage('es')} className={`w-full text-left px-4 py-3 text-[11px] font-bold tracking-widest uppercase hover:bg-white/5 transition-colors ${language === 'es' ? 'text-primary' : 'text-white/50'}`}>ESP</button>
-            <button onClick={() => setLanguage('en')} className={`w-full text-left px-4 py-3 text-[11px] font-bold tracking-widest uppercase hover:bg-white/5 transition-colors ${language === 'en' ? 'text-primary' : 'text-white/50'}`}>ENG</button>
+          <div className={`absolute top-full right-0 mt-2 w-24 glass-card rounded-xl border border-white/10 transition-all duration-300 overflow-hidden flex flex-col z-50 ${
+            langOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible translate-y-2'
+          }`}>
+            <button onClick={() => { setLanguage('es'); setLangOpen(false); }} className={`w-full text-left px-4 py-3 text-[11px] font-bold tracking-widest uppercase hover:bg-white/5 transition-colors ${language === 'es' ? 'text-primary' : 'text-white/50'}`}>ESP</button>
+            <button onClick={() => { setLanguage('en'); setLangOpen(false); }} className={`w-full text-left px-4 py-3 text-[11px] font-bold tracking-widest uppercase hover:bg-white/5 transition-colors ${language === 'en' ? 'text-primary' : 'text-white/50'}`}>ENG</button>
           </div>
         </div>
 
