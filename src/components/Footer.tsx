@@ -76,11 +76,14 @@ export function Footer() {
               to="/privacidad" 
               className="text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase"
             >
-              {language === 'es' ? 'Protocolo de Privacidad' : 'Privacy Protocol'}
+              {language === 'es' ? 'Políticas de Privacidad' : 'Privacy Policies'}
             </Link>
-            <span className="text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase">
+            <Link 
+              to="/terminos"
+              className="text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase"
+            >
               {language === 'es' ? 'Términos de Servicio' : 'Terms of Service'}
-            </span>
+            </Link>
           </div>
         </div>
       </div>

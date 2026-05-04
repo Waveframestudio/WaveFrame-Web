@@ -11,6 +11,7 @@ import { ProjectsSection } from "@/components/ProjectsSection"
 import { CTASection } from "@/components/CTASection"
 import { Footer } from "@/components/Footer"
 import { PrivacyPage } from "@/components/PrivacyPage"
+import { TermsPage } from "@/components/TermsPage"
 
 function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null)
@@ -74,6 +75,7 @@ export function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/privacidad" element={<PrivacyPage />} />
+          <Route path="/terminos" element={<TermsPage />} />
         </Routes>
         <Footer />
       </div>
