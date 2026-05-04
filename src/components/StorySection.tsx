@@ -104,6 +104,14 @@ export function StorySection() {
   const [activeChapter, setActiveChapter] = useState(0)
 
   useEffect(() => {
+    gsap.fromTo(
+      ".story-content-fade",
+      { opacity: 0, y: 20, filter: "blur(10px)" },
+      { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.8, ease: "power4.out" }
+    )
+  }, [activeChapter])
+
+  useEffect(() => {
     const mm = gsap.matchMedia()
 
     mm.add("(min-width: 1024px)", () => {
@@ -161,36 +169,38 @@ export function StorySection() {
       <div className="relative max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-start justify-between gap-0 lg:gap-10 xl:gap-20">
         {/* Left Content (Pinned on Desktop) */}
         <div ref={leftRef} className="w-full lg:flex-1 h-auto lg:h-screen flex items-center z-20 pointer-events-none lg:pointer-events-auto py-20 lg:py-0">
-          <div className="story-card w-full glass-card p-10 md:p-14 rounded-[3rem] border border-white/5 space-y-8 backdrop-blur-3xl shadow-2xl pointer-events-auto transition-all duration-700">
-            <div className="flex items-center justify-between">
-              <span className="text-8xl font-black text-white/10 leading-none">{chapters[activeChapter].num}</span>
-              <div className="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10">
+          <div className="story-card w-full glass-card p-10 md:p-14 rounded-[3rem] border border-white/5 backdrop-blur-3xl shadow-2xl pointer-events-auto transition-all duration-700">
+            <div key={activeChapter} className="story-content-fade space-y-8">
+              <div className="flex items-center justify-between">
+                <span className="text-8xl font-black text-white/10 leading-none">{chapters[activeChapter].num}</span>
+                <div className="w-20 h-20 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10">
+                  <div 
+                    className="w-10 h-10 rounded-full animate-pulse transition-all duration-500" 
+                    style={{ 
+                      backgroundColor: chapters[activeChapter].color,
+                      boxShadow: `0 0 30px ${chapters[activeChapter].color}`
+                    }} 
+                  />
+                </div>
+              </div>
+              
+              <div className="space-y-4">
                 <div 
-                  className="w-10 h-10 rounded-full animate-pulse transition-all duration-500" 
-                  style={{ 
-                    backgroundColor: chapters[activeChapter].color,
-                    boxShadow: `0 0 30px ${chapters[activeChapter].color}`
-                  }} 
-                />
+                  className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-bold tracking-[0.2em] uppercase transition-colors duration-500" 
+                  style={{ color: chapters[activeChapter].color }}
+                >
+                  WaveFrame Studio // {chapters[activeChapter].tag}
+                </div>
+                <h3 className="text-4xl md:text-6xl font-black text-white leading-tight tracking-tighter">
+                  {chapters[activeChapter].title}
+                </h3>
+                <p className="text-white/40 text-xl leading-relaxed font-medium">
+                  {chapters[activeChapter].body}
+                </p>
               </div>
-            </div>
-            
-            <div className="space-y-4">
-              <div 
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-white/10 text-[10px] font-bold tracking-[0.2em] uppercase transition-colors duration-500" 
-                style={{ color: chapters[activeChapter].color }}
-              >
-                WaveFrame Studio // {chapters[activeChapter].tag}
-              </div>
-              <h3 className="text-4xl md:text-6xl font-black text-white leading-tight tracking-tighter">
-                {chapters[activeChapter].title}
-              </h3>
-              <p className="text-white/40 text-xl leading-relaxed font-medium">
-                {chapters[activeChapter].body}
-              </p>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-3 mt-8">
               {chapters.map((_, i) => (
                 <div 
                   key={i} 
