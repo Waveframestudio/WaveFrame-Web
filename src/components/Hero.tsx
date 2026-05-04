@@ -3,7 +3,7 @@ import { gsap } from "gsap"
 import { HeroScene } from "./HeroScene"
 import { useLanguage } from "@/lib/LanguageContext"
 
-function HUD() {
+export function HUD() {
   const [latency, setLatency] = useState("0.02")
   const [coords, setCoords] = useState({ lat: "34.0522", lng: "118.2437", alt: "42.1" })
 
@@ -53,7 +53,7 @@ function HUD() {
   )
 }
 
-function FallbackOrb() {
+export function FallbackOrb() {
   return (
     <div className="absolute inset-0 flex items-center justify-center">
       <div className="relative w-64 h-64">
@@ -98,7 +98,6 @@ export function Hero() {
     }
 
     const ctx = gsap.context(() => {
-      // ... (rest of the existing useEffect code)
       // 1. Initial State
       gsap.set([".hud-element", ".title-reveal", ".hero-description", ".hero-cta", ".scroll-indicator", ".hero-canvas-container"], {
         opacity: 0
@@ -127,15 +126,15 @@ export function Hero() {
           y: 0,
           duration: 1.2
         }, "-=1")
+        .to(".scroll-indicator", {
+          opacity: 1,
+          duration: 1.5
+        }, "-=1")
         .fromTo(".hero-cta",
           { opacity: 0, y: 20 },
           { opacity: 1, y: 0, duration: 1, stagger: 0.1 },
           "-=0.8"
         )
-        .to(".scroll-indicator", {
-          opacity: 1,
-          duration: 1.5
-        }, "-=0.5")
 
       // 3. Glitch Loop (Infinite)
       const glitchTl = gsap.timeline({ repeat: -1, repeatDelay: 4 })
@@ -198,21 +197,6 @@ export function Hero() {
           <p className="hero-description max-w-2xl mx-auto text-xl md:text-2xl text-white/40 font-medium leading-relaxed translate-y-10">
             {t('hero.desc')}
           </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-10">
-            <button
-              onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              className="hero-cta cyber-button px-10 py-5 text-lg"
-            >
-              {t('hero.cta.connect')}
-            </button>
-            <button
-              onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-              className="hero-cta px-10 py-5 text-lg rounded-xl font-black text-white/50 hover:text-white transition-colors tracking-widest uppercase text-xs"
-            >
-              {t('hero.cta.how')}
-            </button>
-          </div>
         </div>
       </div>
 
@@ -223,10 +207,26 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Bottom Scroll Indicator */}
-      <div className="scroll-indicator absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-4">
-        <div className="w-px h-20 bg-gradient-to-b from-white/20 to-transparent relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full bg-primary animate-scroll-line" />
+      {/* Bottom Scroll Indicator & CTAs */}
+      <div className="scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-10 w-full max-w-4xl px-6">
+        <div className="flex items-center justify-center gap-16 w-full">
+          <button
+            onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            className="hero-cta cyber-button px-10 py-5 text-base"
+          >
+            {t('hero.cta.connect')}
+          </button>
+          
+          <div className="w-px h-24 bg-gradient-to-b from-white/20 via-white/20 to-transparent relative overflow-hidden shrink-0">
+            <div className="absolute top-0 left-0 w-full h-full bg-primary animate-scroll-line" />
+          </div>
+
+          <button
+            onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            className="hero-cta px-10 py-5 font-black text-white/50 hover:text-white transition-colors tracking-widest uppercase text-xs whitespace-nowrap"
+          >
+            {t('hero.cta.how')}
+          </button>
         </div>
         <span className="text-[10px] font-black tracking-[0.3em] uppercase text-white/20">{t('hero.scroll')}</span>
       </div>

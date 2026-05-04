@@ -1,36 +1,56 @@
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLanguage } from "@/lib/LanguageContext"
 import { Link } from "react-router-dom"
+import { HUD, FallbackOrb } from "./Hero"
+import { HeroScene } from "./HeroScene"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export function PrivacyPage() {
   const { language } = useLanguage()
   const containerRef = useRef<HTMLDivElement>(null)
+  const [webGLAvailable, setWebGLAvailable] = useState(true)
 
   useEffect(() => {
     window.scrollTo(0, 0)
+
+    try {
+      const canvas = document.createElement("canvas")
+      setWebGLAvailable(!!(window.WebGLRenderingContext && (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))))
+    } catch (e) {
+      setWebGLAvailable(false)
+    }
     
     const ctx = gsap.context(() => {
-      gsap.from(".privacy-header", {
+      // Reveal background elements
+      gsap.to(".privacy-bg-canvas", { opacity: 0.15, duration: 2, ease: "power2.out" })
+      gsap.to(".hud-element", { opacity: 1, duration: 1.5, stagger: 0.2, ease: "power3.out" })
+
+      // Intro animation for header
+      gsap.from(".privacy-reveal", {
         opacity: 0,
-        y: 50,
+        y: 40,
         duration: 1.2,
+        stagger: 0.15,
         ease: "power4.out"
       })
 
-      gsap.from(".privacy-section", {
-        opacity: 0,
-        y: 30,
-        duration: 1,
-        stagger: 0.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".privacy-content",
-          start: "top 80%",
-        }
+      // Individual section animations
+      const sections = gsap.utils.toArray<HTMLElement>(".privacy-section")
+      sections.forEach((section) => {
+        gsap.from(section, {
+          opacity: 0,
+          y: 60,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: section,
+            start: "top 85%",
+            toggleActions: "play none none none"
+          }
+        })
       })
     }, containerRef)
 
@@ -38,12 +58,13 @@ export function PrivacyPage() {
   }, [])
 
   const content = language === 'es' ? {
-    title: "Protocolo de Privacidad",
-    subtitle: "WaveFrame Studio // Seguridad & Transparencia",
+    badge: "Seguridad & Transparencia",
+    title: "Políticas de ",
+    titleAccent: "Privacidad",
     sections: [
       {
         title: "1. Introducción",
-        body: "En WaveFrame Studio ('nosotros', 'nuestro', o 'la Agencia'), la privacidad y seguridad de sus datos son nuestra prioridad absoluta. Este Protocolo de Privacidad describe cómo recopilamos, utilizamos y protegemos la información personal que usted nos proporciona a través de nuestro sitio web y servicios."
+        body: "En WaveFrame Studio ('nosotros', 'nuestro', o 'la Agencia'), la privacidad y seguridad de sus datos son nuestra prioridad absoluta. Estas Políticas de Privacidad describen cómo recopilamos, utilizamos y protegemos la información personal que usted nos proporciona a través de nuestro sitio web y servicios."
       },
       {
         title: "2. Recopilación de Información",
@@ -70,21 +91,22 @@ export function PrivacyPage() {
         body: "Usted tiene derecho a acceder, rectificar o eliminar sus datos personales en cualquier momento. También puede oponerse al procesamiento de sus datos o solicitar la limitación del mismo."
       },
       {
-        title: "8. Cambios en este Protocolo",
-        body: "Nos reservamos el derecho de actualizar este Protocolo de Privacidad en cualquier momento. Le notificaremos cualquier cambio sustancial publicando la nueva política en esta página."
+        title: "8. Cambios en estas Políticas",
+        body: "Nos reservamos el derecho de actualizar estas Políticas de Privacidad en cualquier momento. Le notificaremos cualquier cambio sustancial publicando la nueva política en esta página."
       },
       {
         title: "9. Contacto",
-        body: "Si tiene alguna pregunta sobre este Protocolo de Privacidad, no dude en contactarnos a través de wave1frame@gmail.com."
+        body: "Si tiene alguna pregunta sobre estas Políticas de Privacidad, no dude en contactarnos a través de wave1frame@gmail.com."
       }
     ]
   } : {
-    title: "Privacy Protocol",
-    subtitle: "WaveFrame Studio // Security & Transparency",
+    badge: "Security & Transparency",
+    title: "Privacy ",
+    titleAccent: "Policies",
     sections: [
       {
         title: "1. Introduction",
-        body: "At WaveFrame Studio ('we', 'our', or 'the Agency'), the privacy and security of your data are our absolute priority. This Privacy Protocol describes how we collect, use, and protect the personal information you provide to us through our website and services."
+        body: "At WaveFrame Studio ('we', 'our', or 'the Agency'), the privacy and security of your data are our absolute priority. These Privacy Policies describe how we collect, use, and protect the personal information you provide to us through our website and services."
       },
       {
         title: "2. Information Collection",
@@ -111,60 +133,72 @@ export function PrivacyPage() {
         body: "You have the right to access, rectify, or delete your personal data at any time. You can also object to the processing of your data or request the limitation of it."
       },
       {
-        title: "8. Changes to this Protocol",
-        body: "We reserve the right to update this Privacy Protocol at any time. We will notify you of any material changes by posting the new policy on this page."
+        title: "8. Changes to these Policies",
+        body: "We reserve the right to update these Privacy Policies at any time. We will notify you of any material changes by posting the new policy on this page."
       },
       {
         title: "9. Contact",
-        body: "If you have any questions about this Privacy Protocol, please do not hesitate to contact us at wave1frame@gmail.com."
+        body: "If you have any questions about these Privacy Policies, please do not hesitate to contact us at wave1frame@gmail.com."
       }
     ]
   }
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[#060c14] pt-40 pb-32 overflow-hidden">
-      {/* Background Decor */}
-      <div className="absolute inset-0 bg-grid opacity-5 mask-radial pointer-events-none" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
+    <div ref={containerRef} className="relative min-h-screen pt-40 pb-32 bg-[#060c14]">
+      {/* 1:1 BACKGROUND CLONE FROM HERO - Fixed to viewport for performance */}
+      <div className="privacy-bg-canvas fixed inset-0 z-0 opacity-0 pointer-events-none">
+        {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
+      </div>
 
-      <div className="relative max-w-4xl mx-auto px-6">
-        <div className="privacy-header text-center mb-24 space-y-6">
-          <Link to="/" className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full border border-white/10 mb-4 hover:border-primary/40 transition-colors group">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary">
-              {language === 'es' ? 'Volver al Inicio' : 'Back to Home'}
-            </span>
-          </Link>
-          
-          <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-white">
-            {content.title}
-          </h1>
-          <p className="text-primary font-bold tracking-[0.3em] uppercase text-xs">
-            {content.subtitle}
-          </p>
-        </div>
+      {/* Grain/Noise Overlay */}
+      <div className="fixed inset-0 pointer-events-none z-[1] bg-noise opacity-[0.03]" />
 
-        <div className="privacy-content space-y-16">
-          {content.sections.map((section, i) => (
-            <div key={i} className="privacy-section glass p-8 md:p-12 rounded-[2.5rem] border border-white/5 hover:border-white/10 transition-colors">
-              <h2 className="text-2xl md:text-3xl font-black text-white mb-6 tracking-tight">
-                {section.title}
-              </h2>
-              <p className="text-white/50 text-lg leading-relaxed font-medium">
-                {section.body}
+      {/* HUD Layers - Fixed to viewport */}
+      <div className="fixed inset-0 pointer-events-none z-10">
+        <HUD />
+      </div>
+      
+      {/* Grid Decor - Standard WaveFrame Grid */}
+      <div className="fixed inset-0 bg-grid opacity-5 mask-radial pointer-events-none z-0" />
+      
+      <div className="relative z-20 max-w-7xl mx-auto px-6">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
+          {/* Left Side: Fixed/Sticky Title */}
+          <div className="lg:w-[45%] lg:sticky lg:top-40 h-fit space-y-8 mb-20 lg:mb-0 pr-6">
+            <div className="privacy-reveal inline-flex items-center gap-3 glass px-4 py-2 rounded-full border border-primary/20">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+              <span className="text-[10px] font-black tracking-[0.3em] uppercase text-primary">
+                {content.badge}
+              </span>
+            </div>
+            
+            <h1 className="privacy-reveal text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-white leading-[0.9] uppercase italic overflow-visible">
+              <span className="block">{content.title}</span>
+              <span className="text-gradient block not-italic">{content.titleAccent}</span>
+            </h1>
+          </div>
+
+          {/* Right Side: Scrolling Cards */}
+          <div className="lg:w-[55%] space-y-8">
+            <div className="privacy-content grid gap-8">
+              {content.sections.map((section, i) => (
+                <div key={i} className="privacy-section glass p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] border border-white/5 hover:border-primary/20 transition-all duration-500 group">
+                  <h2 className="text-2xl md:text-3xl font-black text-white mb-6 tracking-tight group-hover:text-primary transition-colors">
+                    {section.title}
+                  </h2>
+                  <p className="text-white/50 text-lg leading-relaxed font-medium">
+                    {section.body}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-20 pt-12 border-t border-white/5">
+              <p className="text-white/20 text-[10px] font-black tracking-[0.4em] uppercase">
+                WaveFrame Studio // {language === 'es' ? 'Edición 2026' : '2026 Edition'}
               </p>
             </div>
-          ))}
-        </div>
-
-        <div className="mt-24 pt-12 border-t border-white/5 text-center">
-          <p className="text-white/20 text-xs font-bold tracking-widest uppercase">
-            {language === 'es' 
-              ? 'Última actualización: 30 de Abril, 2026' 
-              : 'Last updated: April 30, 2026'}
-          </p>
+          </div>
         </div>
       </div>
     </div>
