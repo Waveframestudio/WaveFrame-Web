@@ -6,20 +6,20 @@ import { useLanguage } from "@/lib/LanguageContext"
 gsap.registerPlugin(ScrollTrigger)
 
 const projectsRow1 = [
-  { name: "Rüne Car Rental", image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop", link: "#" },
+  { name: "Rüne Car Rental", image: "/projects/rune.png", link: "#" },
   { name: "SubUrban Store", image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2000&auto=format&fit=crop", link: "#" },
   { name: "GamerTech Store", image: "https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?q=80&w=2000&auto=format&fit=crop", link: "#" },
   { name: "Strong Gym", image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2000&auto=format&fit=crop", link: "#" },
-  { name: "Kiruki Make It Happen", image: "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=2000&auto=format&fit=crop", link: "https://kiruki-makeit.netlify.app/" },
-  { name: "Wave Barber", image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2000&auto=format&fit=crop", link: "https://wave-barbershop.netlify.app/" },
+  { name: "Kiruki Make It Happen", image: "/projects/kiruki.png", link: "https://kiruki-makeit.netlify.app/" },
+  { name: "Wave Barber", image: "/projects/wave-barber.png", link: "https://wave-barbershop.netlify.app/" },
 ]
 
 const projectsRow2 = [
-  { name: "Landing Crunchy - Mi Gusto x Flamin' Hot", image: "https://images.unsplash.com/photo-1614729939124-032f0b56c9ce?q=80&w=2000&auto=format&fit=crop", link: "https://migusto.com.ar/crunchy/" },
-  { name: "QR Generator", image: "https://images.unsplash.com/photo-1614730321146-b6fa6a46bcb4?q=80&w=2000&auto=format&fit=crop", link: "https://www.migusto.com.ar/tools/QR/" },
+  { name: "Landing Crunchy - Mi Gusto x Flamin' Hot", image: "/projects/landing-crunchy.png", link: "https://migusto.com.ar/crunchy/" },
+  { name: "QR Generator", image: "/projects/qr-generator.png", link: "https://www.migusto.com.ar/tools/QR/" },
   { name: "Real Time Translator", image: "https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=2000&auto=format&fit=crop", link: "#" },
   { name: "Bulk email system", image: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2000&auto=format&fit=crop", link: "#" },
-  { name: "Photo Party App", image: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2000&auto=format&fit=crop", link: "https://mis15bianca-recuerdos.netlify.app/" },
+  { name: "Photo Party App", image: "/projects/photo-party.png", link: "https://mis15bianca-recuerdos.netlify.app/" },
 ]
 
 export function ProjectsSection() {
