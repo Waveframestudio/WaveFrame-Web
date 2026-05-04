@@ -120,9 +120,9 @@ export function Features() {
               {language === 'es' ? 'Sistemas Core' : 'Core Systems'}
             </span>
           </div>
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white">
-            {language === 'es' ? 'Diseñado para el ' : 'Designed for the '}
-            <span className="text-gradient">{language === 'es' ? 'Extremo.' : 'Extreme.'}</span>
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-[0.9]">
+            <span className="block whitespace-nowrap">{language === 'es' ? 'Diseñado para el' : 'Designed for the'}</span>
+            <span className="text-gradient block whitespace-nowrap">{language === 'es' ? 'Extremo.' : 'Extreme.'}</span>
           </h2>
           <p className="text-white/40 text-lg md:text-xl max-w-2xl mx-auto font-medium">
             {language === 'es' 

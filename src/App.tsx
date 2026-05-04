@@ -12,6 +12,7 @@ import { CTASection } from "@/components/CTASection"
 import { Footer } from "@/components/Footer"
 import { PrivacyPage } from "@/components/PrivacyPage"
 import { TermsPage } from "@/components/TermsPage"
+import { FAQPage } from "@/components/FAQPage"
 
 function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null)
@@ -76,6 +77,7 @@ export function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/privacidad" element={<PrivacyPage />} />
           <Route path="/terminos" element={<TermsPage />} />
+          <Route path="/faq" element={<FAQPage />} />
         </Routes>
         <Footer />
       </div>

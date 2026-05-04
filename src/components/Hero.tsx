@@ -65,13 +65,13 @@ export function FallbackOrb() {
 }
 
 const phrasesES = [
-  ["Redefinimos", "el Futuro"], ["Evolucionamos", "Ideas"], ["Impulsamos", "Visiones"], ["Forjamos", "Software"],
-  ["Ingeniería", "de Elite"], ["Arquitectura", "Digital"], ["Potenciamos", "Negocios"], ["Escalamos", "Sistemas"],
-  ["Transformación", "Radical"], ["Código", "de Vanguardia"], ["Desarrollamos", "Soluciones"],
+  ["Redefinimos el", "Futuro"], ["Evolucionamos", "Ideas"], ["Impulsamos", "Visiones"], ["Forjamos", "Software"],
+  ["Ingeniería de", "Elite"], ["Arquitectura", "Digital"], ["Potenciamos", "Negocios"], ["Escalamos", "Sistemas"],
+  ["Transformación", "Radical"], ["Código de", "Vanguardia"], ["Desarrollamos", "Soluciones"],
 ]
 
 const phrasesEN = [
-  ["Redefining", "the Future"], ["Evolving", "Ideas"], ["Driving", "Visions"], ["Forging", "Software"],
+  ["Redefining the", "Future"], ["Evolving", "Ideas"], ["Driving", "Visions"], ["Forging", "Software"],
   ["Elite", "Engineering"], ["Digital", "Architecture"], ["Empowering", "Business"], ["Scaling", "Systems"],
   ["Radical", "Transformation"], ["Cutting-edge", "Code"], ["Developing", "Solutions"],
 ]
@@ -188,9 +188,9 @@ export function Hero() {
               <span className="text-xs font-black tracking-[0.4em] uppercase text-white/70">{t('hero.badge')}</span>
             </div>
 
-            <h1 ref={titleRef} className="text-[12vw] md:text-[10vw] font-black leading-[0.9] tracking-tighter text-white uppercase italic overflow-visible py-2">
-              <span className="title-reveal title-glitch block">{currentPhrase[0]}</span>
-              <span className="title-reveal text-gradient block not-italic">{currentPhrase[1]}</span>
+            <h1 ref={titleRef} className="text-[10vw] md:text-[9vw] font-black leading-[0.85] tracking-tighter text-white uppercase italic overflow-visible py-2">
+              <span className="title-reveal title-glitch block whitespace-nowrap">{currentPhrase[0]}</span>
+              <span className="title-reveal text-gradient block not-italic whitespace-nowrap">{currentPhrase[1]}</span>
             </h1>
           </div>
 

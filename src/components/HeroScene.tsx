@@ -154,7 +154,7 @@ export function HeroScene() {
       
       <Environment preset="night" />
       
-      <EffectComposer disableNormalPass>
+      <EffectComposer enableNormalPass={false} multisampling={0}>
         <Bloom luminanceThreshold={1} mipmapBlur intensity={1.5} radius={0.2} />
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
       </EffectComposer>

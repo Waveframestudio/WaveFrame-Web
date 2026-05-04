@@ -88,10 +88,9 @@ export function Showcase() {
               {language === 'es' ? 'Tecnología' : 'Technology'}
             </span>
           </div>
-          <h2 className="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-            <span className="text-foreground block">{language === 'es' ? 'Arquitectura' : 'Architecture'}</span>
-            <span className="text-gradient block">{language === 'es' ? 'diseñada para' : 'designed for'}</span>
-            <span className="text-foreground block">{language === 'es' ? 'el extremo.' : 'the extreme.'}</span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-[0.9]">
+            <span className="text-foreground block">{language === 'es' ? 'Arquitectura diseñada' : 'Architecture designed'}</span>
+            <span className="text-gradient block">{language === 'es' ? 'para el extremo.' : 'for the extreme.'}</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed text-lg">
             {language === 'es' 
