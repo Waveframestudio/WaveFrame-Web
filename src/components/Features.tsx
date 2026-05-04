@@ -110,52 +110,53 @@ export function Features() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="features" className="relative pt-10 pb-40 overflow-hidden scroll-mt-32">
+    <section ref={sectionRef} id="features" className="relative pt-10 pb-10 md:pb-40 overflow-hidden scroll-mt-32">
       <div className="absolute inset-0 bg-grid opacity-10 mask-radial" />
       
       <div className="relative max-w-7xl mx-auto px-6">
-        <div className="text-center mb-24 space-y-4">
+        <div className="text-center mb-16 md:mb-24 space-y-4">
           <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full border border-white/10 mb-4 animate-float">
             <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary">
               {language === 'es' ? 'Sistemas Core' : 'Core Systems'}
             </span>
           </div>
-          <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-white leading-[0.9]">
-            <span className="block whitespace-nowrap">{language === 'es' ? 'Diseñado para el' : 'Designed for the'}</span>
-            <span className="text-gradient block whitespace-nowrap">{language === 'es' ? 'Extremo.' : 'Extreme.'}</span>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter text-white leading-[1.1] md:leading-[0.9]">
+            <span className="block md:whitespace-nowrap">{language === 'es' ? 'Diseñado para el' : 'Designed for the'}</span>
+            <span className="text-gradient block md:whitespace-nowrap">{language === 'es' ? 'Extremo.' : 'Extreme.'}</span>
           </h2>
-          <p className="text-white/40 text-lg md:text-xl max-w-2xl mx-auto font-medium">
+          <p className="text-white/40 text-base md:text-xl max-w-2xl mx-auto font-medium px-4 md:px-0">
             {language === 'es' 
               ? 'Cada módulo ha sido forjado para soportar las cargas de trabajo más exigentes con una elegancia visual sin precedentes.' 
               : 'Each module has been forged to withstand the most demanding workloads with unprecedented visual elegance.'}
           </p>
         </div>
 
-        <div className="features-grid grid lg:grid-cols-3 gap-8 perspective-1000">
-          {features.map((f, i) => (
-            <div
-              key={i}
-              className="feature-card group relative opacity-0 h-full"
-              style={{ transformStyle: "preserve-3d" }}
-            >
-              <div className="tilt-inner relative h-full transition-transform duration-500" style={{ transformStyle: "preserve-3d" }}>
+        <div className="relative md:perspective-1000">
+          <div className="features-grid flex flex-row flex-nowrap md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide pb-12 md:pb-0 touch-pan-x">
+            {features.map((f, i) => (
+              <div
+                key={i}
+                className="feature-card group relative opacity-0 h-full flex-shrink-0 w-[85vw] md:w-auto snap-center"
+                style={{ transformStyle: "preserve-3d" }}
+              >
+                <div className="tilt-inner relative h-full transition-transform duration-500" style={{ transformStyle: "preserve-3d" }}>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-                <div className="relative glass-card p-10 rounded-3xl border border-white/5 group-hover:border-white/20 transition-all duration-500 overflow-hidden h-full">
+                <div className="relative glass-card p-8 md:p-10 rounded-3xl border border-white/5 group-hover:border-white/20 transition-all duration-500 overflow-hidden h-full">
                   <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${f.color} blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
                   
-                  <div className="relative z-10 space-y-8" style={{ transform: "translateZ(50px)" }}>
-                    <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500 border border-primary/20 shadow-[0_0_20px_rgba(var(--primary),0.1)]">
+                  <div className="relative z-10 space-y-6 md:space-y-8" style={{ transform: "translateZ(50px)" }}>
+                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500 border border-primary/20 shadow-[0_0_20px_rgba(var(--primary),0.1)]">
                       {f.icon}
                     </div>
                     
-                    <div className="space-y-4">
-                      <h3 className="text-3xl font-black text-white group-hover:text-primary transition-colors">{f.title}</h3>
-                      <p className="text-white/50 leading-relaxed font-medium text-lg">{f.desc}</p>
+                    <div className="space-y-3 md:space-y-4">
+                      <h3 className="text-2xl md:text-3xl font-black text-white group-hover:text-primary transition-colors">{f.title}</h3>
+                      <p className="text-white/50 leading-relaxed font-medium text-base md:text-lg">{f.desc}</p>
                     </div>
 
-                    <div className="pt-8 flex items-center justify-between border-t border-white/5">
+                    <div className="pt-6 md:pt-8 flex items-center justify-between border-t border-white/5">
                       <span className="text-[10px] font-bold tracking-widest uppercase text-white/30">{f.tag}</span>
-                      <span className="text-xs font-bold text-primary px-4 py-1.5 bg-primary/10 rounded-full border border-primary/20">{f.metric}</span>
+                      <span className="text-[10px] md:text-xs font-bold text-primary px-3 py-1 md:px-4 md:py-1.5 bg-primary/10 rounded-full border border-primary/20">{f.metric}</span>
                     </div>
                   </div>
                 </div>
@@ -163,14 +164,14 @@ export function Features() {
             </div>
           ))}
         </div>
+      </div>
 
-        {/* Services Ticker - Luxury Tech Dual Row */}
-        <div className="mt-32 relative z-20 space-y-4">
+        <div className="mt-8 md:mt-32 relative z-20 space-y-4">
           {/* Row 1: Moving Left - Clean & Bold */}
-          <div className="py-8 bg-white/[0.02] backdrop-blur-md border-t border-white/10 relative overflow-hidden">
+          <div className="py-4 md:py-8 bg-white/[0.02] backdrop-blur-md border-t border-white/10 relative overflow-hidden">
             <div className="flex whitespace-nowrap animate-[ticker_50s_linear_infinite] w-fit">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="flex items-center gap-16 px-8">
+                <div key={i} className="flex items-center gap-10 md:gap-16 px-6 md:px-8">
                   {[
                     { s: language === 'es' ? "E-Commerce" : "E-Commerce", icon: <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /> },
                     { s: language === 'es' ? "Apps Móviles" : "Mobile Apps", icon: <path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /> },
@@ -179,15 +180,15 @@ export function Features() {
                     { s: language === 'es' ? "Autobots" : "Autobots", icon: <path d="M13 10V3L4 14h7v7l9-11h-7z" /> },
                     { s: language === 'es' ? "Webs" : "Websites", icon: <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /> }
                   ].map((item) => (
-                    <div key={item.s} className="flex items-center gap-6 group/item cursor-default">
-                      <svg className="w-8 h-8 text-primary transition-all duration-500 group-hover/item:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <div key={item.s} className="flex items-center gap-4 md:gap-6 group/item cursor-default">
+                      <svg className="w-6 h-6 md:w-8 md:h-8 text-primary transition-all duration-500 group-hover/item:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                         {item.icon}
                       </svg>
-                      <span className="text-4xl font-black tracking-tight text-white group-hover/item:text-primary transition-colors duration-500">
+                      <span className="text-2xl md:text-4xl font-black tracking-tight text-white group-hover/item:text-primary transition-colors duration-500">
                         {item.s}
                       </span>
                       {/* Brand Separator (Waves) */}
-                      <svg width="40" height="20" viewBox="0 0 256 120" className="opacity-20 ml-8">
+                      <svg viewBox="0 0 256 120" className="w-[30px] md:w-[40px] h-[15px] md:h-[20px] opacity-20 ml-4 md:ml-8">
                         <path d="M24 80c40-32 72-48 104-48s64 16 104 48" fill="none" stroke="currentColor" strokeWidth="20" strokeLinecap="round" className="text-white" />
                       </svg>
                     </div>
@@ -200,10 +201,10 @@ export function Features() {
           </div>
 
           {/* Row 2: Moving Right - High Contrast */}
-          <div className="py-8 bg-white/[0.01] border-b border-white/10 relative overflow-hidden">
+          <div className="py-4 md:py-8 bg-white/[0.01] border-b border-white/10 relative overflow-hidden">
             <div className="flex whitespace-nowrap animate-[ticker_60s_linear_infinite_reverse] w-fit">
               {[...Array(6)].map((_, i) => (
-                <div key={i} className="flex items-center gap-20 px-10">
+                <div key={i} className="flex items-center gap-14 md:gap-20 px-8 md:px-10">
                   {[
                     language === 'es' ? "Webs" : "Websites", 
                     language === 'es' ? "Autobots" : "Autobots", 
@@ -212,11 +213,11 @@ export function Features() {
                     language === 'es' ? "Apps Móviles" : "Mobile Apps", 
                     language === 'es' ? "E-Commerce" : "E-Commerce"
                   ].map((s) => (
-                    <div key={s} className="flex items-center gap-10 group/item cursor-default">
-                      <span className="text-4xl font-black tracking-tighter text-white/20 group-hover/item:text-white transition-all duration-500">
+                    <div key={s} className="flex items-center gap-6 md:gap-10 group/item cursor-default">
+                      <span className="text-2xl md:text-4xl font-black tracking-tighter text-white/20 group-hover/item:text-white transition-all duration-500">
                         {s}
                       </span>
-                      <div className="w-2 h-2 rounded-full bg-primary/40 group-hover/item:bg-primary group-hover/item:shadow-[0_0_15px_rgba(51,255,181,0.5)] transition-all" />
+                      <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary/40 group-hover/item:bg-primary group-hover/item:shadow-[0_0_15px_rgba(51,255,181,0.5)] transition-all" />
                     </div>
                   ))}
                 </div>
@@ -225,8 +226,8 @@ export function Features() {
           </div>
 
           {/* Clean Side Fades */}
-          <div className="absolute inset-y-0 left-0 w-64 bg-gradient-to-r from-[#060c14] to-transparent z-10" />
-          <div className="absolute inset-y-0 right-0 w-64 bg-gradient-to-l from-[#060c14] to-transparent z-10" />
+          <div className="absolute inset-y-0 left-0 w-32 md:w-64 bg-gradient-to-r from-[#060c14] to-transparent z-10" />
+          <div className="absolute inset-y-0 right-0 w-32 md:w-64 bg-gradient-to-l from-[#060c14] to-transparent z-10" />
         </div>
       </div>
     </section>

@@ -82,27 +82,27 @@ export function CTASection() {
           </span>
         </div>
 
-        <h2 className="cta-item opacity-0 text-6xl md:text-9xl font-black tracking-tighter mb-10 leading-[0.85] text-white">
+        <h2 className="cta-item opacity-0 text-5xl md:text-9xl font-black tracking-tighter mb-8 md:mb-10 leading-[1] md:leading-[0.85] text-white">
           {language === 'es' ? 'Tu proyecto' : 'Your project'} <br />
           <span className="text-gradient">{language === 'es' ? 'empieza aquí.' : 'starts here.'}</span>
         </h2>
 
-        <p className="cta-item opacity-0 text-white/50 text-2xl leading-relaxed mb-14 max-w-3xl mx-auto font-medium">
+        <p className="cta-item opacity-0 text-white/50 text-lg md:text-2xl leading-relaxed mb-10 md:mb-14 max-w-3xl mx-auto font-medium px-4">
           {language === 'es'
             ? '¿Listo para dominar tu industria con tecnología de vanguardia? Agenda una sesión estratégica de 30 minutos y hagamos realidad tu próxima gran innovación.'
             : 'Ready to dominate your industry with cutting-edge technology? Schedule a 30-minute strategic session and let\'s make your next great innovation a reality.'}
         </p>
 
-        <div className="cta-item opacity-0 flex flex-col sm:flex-row gap-6 justify-center mb-20">
-          <a href="https://wa.me/5493876117799" target="_blank" rel="noopener noreferrer" className="cyber-button px-12 py-5 text-lg flex items-center justify-center">
+        <div className="cta-item opacity-0 flex flex-col sm:flex-row gap-4 md:gap-6 justify-center mb-16 md:mb-20">
+          <a href="https://wa.me/5493876117799" target="_blank" rel="noopener noreferrer" className="cyber-button px-10 py-4 md:px-12 md:py-5 text-base flex items-center justify-center">
             {language === 'es' ? 'Hablar por WhatsApp' : 'Chat on WhatsApp'}
           </a>
-          <a href="mailto:wave1frame@gmail.com" className="px-12 py-5 text-lg rounded-xl font-black glass glass-hover text-white border border-white/10 transition-all hover:scale-105 flex items-center justify-center">
+          <a href="mailto:wave1frame@gmail.com" className="px-10 py-4 md:px-12 md:py-5 text-base rounded-xl font-black glass glass-hover text-white border border-white/10 transition-all hover:scale-105 flex items-center justify-center">
             {language === 'es' ? 'Enviar Email' : 'Send Email'}
           </a>
         </div>
 
-        <div className="cta-item opacity-0 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
+        <div className="cta-item opacity-0 grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 max-w-4xl mx-auto">
           {(language === 'es' ? [
             { label: "Tiempo Online", val: "100%" },
             { label: "Protección", val: "Total" },
@@ -114,9 +114,9 @@ export function CTASection() {
             { label: "Regions", val: "Global" },
             { label: "Support", val: "24/7/365" },
           ]).map((item) => (
-            <div key={item.label} className="glass p-6 rounded-2xl border border-white/5">
-              <div className="text-3xl font-black text-white mb-1">{item.val}</div>
-              <div className="text-[10px] font-bold tracking-[0.2em] uppercase text-white/40">{item.label}</div>
+            <div key={item.label} className="glass p-4 md:p-6 rounded-2xl border border-white/5">
+              <div className="text-2xl md:text-3xl font-black text-white mb-1">{item.val}</div>
+              <div className="text-[8px] md:text-[10px] font-bold tracking-[0.2em] uppercase text-white/40">{item.label}</div>
             </div>
           ))}
         </div>

@@ -111,11 +111,12 @@ export function StorySection() {
     )
   }, [activeChapter])
 
+  const scrollContainerRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     const mm = gsap.matchMedia()
 
     mm.add("(min-width: 1024px)", () => {
-      // Pinning the left panel on desktop
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
@@ -125,7 +126,6 @@ export function StorySection() {
         scrub: true,
       })
 
-      // Chapter triggers with more precise detection
       chapters.forEach((_, i) => {
         ScrollTrigger.create({
           trigger: `.chapter-trigger-${i}`,
@@ -137,24 +137,34 @@ export function StorySection() {
       })
     })
 
-    // Mobile behavior: simple triggers without pinning
     mm.add("(max-width: 1023px)", () => {
-      chapters.forEach((_, i) => {
-        ScrollTrigger.create({
-          trigger: `.chapter-trigger-${i}`,
-          start: "top center",
-          end: "bottom center",
-          onEnter: () => setActiveChapter(i),
-          onEnterBack: () => setActiveChapter(i),
-        })
+      const scrollWidth = scrollContainerRef.current?.scrollWidth || 0
+      const amountToScroll = scrollWidth - window.innerWidth
+
+      gsap.to(scrollContainerRef.current, {
+        x: () => -(scrollContainerRef.current?.scrollWidth! - window.innerWidth),
+        ease: "none",
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: () => `+=${scrollContainerRef.current?.scrollWidth!}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          onUpdate: (self) => {
+            const chapter = Math.floor(self.progress * chapters.length)
+            const safeChapter = Math.min(chapter, chapters.length - 1)
+            setActiveChapter(safeChapter)
+          }
+        }
       })
     })
 
     return () => mm.revert()
-  }, [])
+  }, [chapters.length])
 
   return (
-    <section ref={sectionRef} id="story" className="relative bg-[#060c14] z-10 scroll-mt-32">
+    <section ref={sectionRef} id="story" className="relative bg-[#060c14] z-10 scroll-mt-32 overflow-hidden lg:overflow-visible">
       {/* Fixed 3D Scene */}
       <div className="fixed inset-0 pointer-events-none opacity-40 z-0">
         <Canvas 
@@ -166,9 +176,9 @@ export function StorySection() {
         </Canvas>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 flex flex-col lg:flex-row items-start justify-between gap-0 lg:gap-10 xl:gap-20">
+      <div className="relative max-w-7xl mx-auto px-0 lg:px-6 flex flex-col lg:flex-row items-start justify-between gap-0 lg:gap-10 xl:gap-20">
         {/* Left Content (Pinned on Desktop) */}
-        <div ref={leftRef} className="w-full lg:flex-1 h-auto lg:h-screen flex items-center z-20 pointer-events-none lg:pointer-events-auto py-20 lg:py-0">
+        <div ref={leftRef} className="hidden lg:flex lg:flex-1 h-screen items-center z-20 pointer-events-none lg:pointer-events-auto">
           <div className="story-card w-full glass-card p-10 md:p-14 rounded-[3rem] border border-white/5 backdrop-blur-3xl shadow-2xl pointer-events-auto transition-all duration-700">
             <div key={activeChapter} className="story-content-fade space-y-8">
               <div className="flex items-center justify-between">
@@ -216,14 +226,26 @@ export function StorySection() {
         </div>
 
         {/* Right Scroll Area */}
-        <div className="w-full lg:flex-1 z-10">
+        <div ref={scrollContainerRef} className="w-full flex flex-row lg:block lg:flex-1 z-10">
           {chapters.map((ch, i) => (
-            <div key={i} className={`chapter-trigger-${i} min-h-[100vh] flex flex-col justify-center`}>
+            <div key={i} className={`chapter-trigger-${i} w-screen lg:w-full min-h-screen flex flex-col justify-center flex-shrink-0 px-4 lg:px-0`}>
               {/* Mobile Card - Only visible on small screens */}
-              <div className="lg:hidden glass-card p-8 rounded-3xl border border-white/5 space-y-6 mt-10">
-                <span className="text-4xl font-black text-white/20">{ch.num}</span>
-                <h4 className="text-2xl font-bold text-white">{ch.title}</h4>
-                <p className="text-white/60">{ch.body}</p>
+              <div className="lg:hidden glass-card p-10 rounded-[2.5rem] border border-white/5 space-y-6 relative overflow-hidden">
+                <div className="flex items-center justify-between">
+                  <span className="text-6xl font-black text-white/10 leading-none">{ch.num}</span>
+                  <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
+                    <div 
+                      className="w-4 h-4 rounded-full animate-pulse" 
+                      style={{ 
+                        backgroundColor: ch.color,
+                        boxShadow: `0 0 15px ${ch.color}`
+                      }} 
+                    />
+                  </div>
+                </div>
+                <h4 className="text-3xl font-black text-white tracking-tighter">{ch.title}</h4>
+                <p className="text-white/40 text-lg leading-relaxed font-medium">{ch.body}</p>
+                <div className="h-1 w-20 rounded-full" style={{ backgroundColor: ch.color }} />
               </div>
               
               {/* Desktop Progress Line */}

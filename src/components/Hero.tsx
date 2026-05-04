@@ -22,17 +22,17 @@ export function HUD() {
   return (
     <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden">
       {/* Top Left Status */}
-      <div className="hud-element absolute top-32 left-10 space-y-2 opacity-0">
+      <div className="hud-element absolute top-24 left-6 md:top-32 md:left-10 space-y-2 opacity-0">
         <div className="flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/40">Estado del Sistema</span>
+          <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary animate-pulse" />
+          <span className="text-[8px] md:text-[10px] font-bold tracking-[0.3em] uppercase text-white/40">Estado del Sistema</span>
         </div>
-        <div className="text-lg font-black text-white italic tracking-tighter">OPERATIVO // {latency}ms</div>
-        <div className="w-24 h-px bg-gradient-to-r from-primary/50 to-transparent" />
+        <div className="text-sm md:text-lg font-black text-white italic tracking-tighter">OPERATIVO // {latency}ms</div>
+        <div className="w-16 md:w-24 h-px bg-gradient-to-r from-primary/50 to-transparent" />
       </div>
 
       {/* Bottom Right Data */}
-      <div className="hud-element absolute bottom-20 right-10 text-right space-y-2 opacity-0">
+      <div className="hud-element absolute bottom-24 right-6 md:bottom-20 md:right-10 text-right space-y-2 opacity-0 hidden md:block">
         <div className="text-[10px] font-bold tracking-[0.3em] uppercase text-white/40">Flujo de Datos</div>
         <div className="font-mono text-xs text-primary space-y-1">
           <div>LAT: {coords.lat}° N</div>
@@ -45,7 +45,7 @@ export function HUD() {
       </div>
 
       {/* Center Target */}
-      <div className="hud-element absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] max-w-[500px] max-h-[500px] border border-white/5 rounded-full opacity-0">
+      <div className="hud-element absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] md:w-[40vw] md:h-[40vw] max-w-[500px] max-h-[500px] border border-white/5 rounded-full opacity-0 hidden md:block">
         <div className="absolute inset-0 border-t-2 border-primary/20 rounded-full animate-spin-slow" />
         <div className="absolute inset-[10%] border-b-2 border-chart-2/20 rounded-full animate-spin-reverse" />
       </div>
@@ -180,21 +180,21 @@ export function Hero() {
       <HUD />
 
       {/* Main Content */}
-      <div className="relative z-20 max-w-7xl mx-auto px-6 text-center mt-[-10vh]">
-        <div className="space-y-8">
+      <div className="relative z-20 max-w-7xl mx-auto px-6 text-center mt-[-5vh] md:mt-[-10vh]">
+        <div className="space-y-6 md:space-y-8">
           <div className="flex flex-col items-center">
-            <div className="title-reveal inline-flex items-center gap-2 glass px-5 py-2 rounded-full border border-white/10 mb-8">
-              <div className="w-2 h-2 rounded-full bg-primary animate-ping" />
-              <span className="text-xs font-black tracking-[0.4em] uppercase text-white/70">{t('hero.badge')}</span>
+            <div className="title-reveal inline-flex items-center gap-2 glass px-4 py-1.5 md:px-5 md:py-2 rounded-full border border-white/10 mb-6 md:mb-8">
+              <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary animate-ping" />
+              <span className="text-[8px] md:text-xs font-black tracking-[0.2em] md:tracking-[0.4em] uppercase text-white/70 whitespace-nowrap">{t('hero.badge')}</span>
             </div>
 
-            <h1 ref={titleRef} className="text-[10vw] md:text-[9vw] font-black leading-[0.85] tracking-tighter text-white uppercase italic overflow-visible py-2">
-              <span className="title-reveal title-glitch block whitespace-nowrap">{currentPhrase[0]}</span>
-              <span className="title-reveal text-gradient block not-italic whitespace-nowrap">{currentPhrase[1]}</span>
+            <h1 ref={titleRef} className="text-4xl sm:text-6xl md:text-[9vw] font-black leading-[1.1] md:leading-[0.85] tracking-tighter text-white uppercase italic overflow-visible py-2">
+              <span className="title-reveal title-glitch block md:whitespace-nowrap">{currentPhrase[0]}</span>
+              <span className="title-reveal text-gradient block not-italic md:whitespace-nowrap">{currentPhrase[1]}</span>
             </h1>
           </div>
 
-          <p className="hero-description max-w-2xl mx-auto text-xl md:text-2xl text-white/40 font-medium leading-relaxed translate-y-10">
+          <p className="hero-description max-w-2xl mx-auto text-base md:text-2xl text-white/40 font-medium leading-relaxed translate-y-10 px-4 md:px-0">
             {t('hero.desc')}
           </p>
         </div>
@@ -208,27 +208,27 @@ export function Hero() {
       </div>
 
       {/* Bottom Scroll Indicator & CTAs */}
-      <div className="scroll-indicator absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-10 w-full max-w-4xl px-6">
-        <div className="flex items-center justify-center gap-16 w-full">
+      <div className="scroll-indicator absolute bottom-16 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 md:gap-10 w-full max-w-4xl px-6">
+        <div className="flex flex-row md:flex-row items-center justify-center gap-4 md:gap-16 w-full">
           <button
             onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-            className="hero-cta cyber-button px-10 py-5 text-base"
+            className="hero-cta cyber-button px-4 py-2.5 md:px-10 md:py-5 text-[9px] md:text-base w-auto"
           >
             {t('hero.cta.connect')}
           </button>
           
-          <div className="w-px h-24 bg-gradient-to-b from-white/20 via-white/20 to-transparent relative overflow-hidden shrink-0">
+          <div className="hidden md:block w-px h-24 bg-gradient-to-b from-white/20 via-white/20 to-transparent relative overflow-hidden shrink-0">
             <div className="absolute top-0 left-0 w-full h-full bg-primary animate-scroll-line" />
           </div>
 
           <button
             onClick={() => document.getElementById('story')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-            className="hero-cta px-10 py-5 font-black text-white/50 hover:text-white transition-colors tracking-widest uppercase text-xs whitespace-nowrap"
+            className="hero-cta px-4 py-2 md:py-5 font-black text-white/50 hover:text-white transition-colors tracking-widest uppercase text-[8px] md:text-xs whitespace-nowrap"
           >
             {t('hero.cta.how')}
           </button>
         </div>
-        <span className="text-[10px] font-black tracking-[0.3em] uppercase text-white/20">{t('hero.scroll')}</span>
+        <span className="hidden md:block text-[10px] font-black tracking-[0.3em] uppercase text-white/20">{t('hero.scroll')}</span>
       </div>
     </section>
   )
