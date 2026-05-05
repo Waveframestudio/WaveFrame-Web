@@ -51,11 +51,11 @@ export function Footer() {
     ]
 
   return (
-    <footer className="relative border-t border-white/5 py-24 overflow-hidden bg-[#060c14]">
+    <footer className="relative border-t border-white/5 pt-16 pb-8 md:py-24 overflow-hidden bg-[#060c14]">
       <div className="absolute inset-0 bg-grid opacity-5 mask-radial pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-6 z-20">
-        <div className="grid md:grid-cols-4 gap-16 mb-20">
-          <div className="md:col-span-2 space-y-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-16 mb-10">
+          <div className="col-span-2 space-y-8">
             <div className="flex items-center gap-3">
               <div className="relative flex items-center justify-center">
                 <svg width="28" height="20" viewBox="0 0 256 120" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -97,9 +97,10 @@ export function Footer() {
               <div
                 key={l}
                 onClick={() => scrollTo('#features')}
-                className="text-sm font-medium text-white/30 hover:text-white transition-colors cursor-pointer"
+                className="group relative w-fit text-sm font-medium text-white/30 hover:text-white transition-colors cursor-pointer"
               >
                 {l}
+                <div className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
               </div>
             ))}
           </div>
@@ -112,30 +113,33 @@ export function Footer() {
               <div
                 key={l.label}
                 onClick={() => scrollTo(l.href)}
-                className="text-sm font-medium text-white/30 hover:text-white transition-colors cursor-pointer"
+                className="group relative w-fit text-sm font-medium text-white/30 hover:text-white transition-colors cursor-pointer"
               >
                 {l.label}
+                <div className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
               </div>
             ))}
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-10 border-t border-white/5">
-          <div className="text-[10px] font-bold tracking-widest text-white/20 uppercase">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-6 pt-6 border-t border-white/5">
+          <div className="text-[10px] font-bold tracking-widest text-white/20 uppercase whitespace-nowrap">
             {language === 'es' ? '© 2026 WaveFrame Studio. Todos los derechos reservados.' : '© 2026 WaveFrame Studio. All rights reserved.'}
           </div>
-          <div className="flex gap-8">
+          <div className="flex gap-4 md:gap-8">
             <Link
               to="/privacidad"
-              className="text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase"
+              className="group relative text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase"
             >
               {language === 'es' ? 'Políticas de Privacidad' : 'Privacy Policies'}
+              <div className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
             <Link
               to="/terminos"
-              className="text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase"
+              className="group relative text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase"
             >
               {language === 'es' ? 'Términos de Servicio' : 'Terms of Service'}
+              <div className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
           </div>
         </div>
