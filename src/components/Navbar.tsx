@@ -237,7 +237,7 @@ export function Navbar() {
             style={{ transitionDelay: '0.9s' }}
           >
             <span className="title-glitch block">
-              {language === 'es' ? 'Términos y Condiciones' : 'Terms & Conditions'}
+              {language === 'es' ? 'Términos' : 'Terms'}
             </span>
             <div className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
           </Link>

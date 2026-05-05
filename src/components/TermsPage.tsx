@@ -25,7 +25,6 @@ export function TermsPage() {
     const ctx = gsap.context(() => {
       // Reveal background elements
       gsap.to(".terms-bg-canvas", { opacity: 0.15, duration: 2, ease: "power2.out" })
-      gsap.to(".hud-element", { opacity: 1, duration: 1.5, stagger: 0.2, ease: "power3.out" })
 
       // Intro animation for header
       gsap.from(".terms-reveal", {
@@ -119,7 +118,7 @@ export function TermsPage() {
   }
 
   return (
-    <div ref={containerRef} className="relative min-h-screen pt-40 pb-32 bg-[#060c14]">
+    <div ref={containerRef} className="relative min-h-screen pt-28 lg:pt-40 pb-32 bg-[#060c14]">
       {/* 1:1 BACKGROUND CLONE FROM HERO - Fixed to viewport for performance */}
       <div className="terms-bg-canvas fixed inset-0 z-0 opacity-0 pointer-events-none">
         {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
@@ -135,9 +134,9 @@ export function TermsPage() {
       <div className="fixed inset-0 bg-grid opacity-5 mask-radial pointer-events-none z-0" />
       
       <div className="relative z-20 max-w-7xl mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-24">
           {/* Header Section: Centered on Mobile, Sticky Sidebar on Desktop */}
-          <div className="lg:w-[45%] lg:sticky lg:top-40 h-fit flex flex-col items-center lg:items-start text-center lg:text-left space-y-8 mb-16 lg:mb-0">
+          <div className="lg:w-[45%] lg:sticky lg:top-40 h-fit flex flex-col items-center lg:items-start text-center lg:text-left space-y-5 lg:space-y-8 mb-6 lg:mb-0">
             <div className="terms-reveal inline-flex items-center gap-3 glass px-4 py-2 rounded-full border border-primary/20">
               <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               <span className="text-[10px] font-black tracking-[0.3em] uppercase text-primary">
@@ -145,14 +144,14 @@ export function TermsPage() {
               </span>
             </div>
             
-            <h1 className="terms-reveal text-5xl md:text-7xl lg:text-[5vw] xl:text-7xl font-black tracking-tighter text-white leading-[0.9] uppercase italic overflow-visible">
+            <h1 className="terms-reveal text-5xl sm:text-7xl lg:text-[5vw] xl:text-7xl font-black tracking-tighter text-white leading-[0.9] uppercase italic overflow-visible max-w-4xl">
               <span className="block">{content.title}</span>
               <span className="text-gradient block not-italic">{content.titleAccent}</span>
             </h1>
           </div>
 
           {/* Content Section: Scrolling Cards */}
-          <div className="lg:w-[55%] space-y-8">
+          <div className="lg:w-[55%] space-y-6 lg:space-y-8">
             <div className="terms-content grid gap-8">
               {content.sections.map((section, i) => (
                 <div key={i} className="terms-section glass p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] border border-white/5 hover:border-primary/20 transition-all duration-500 group">
