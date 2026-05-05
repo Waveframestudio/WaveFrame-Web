@@ -26,7 +26,7 @@ export function AboutSection() {
   }, [])
 
   return (
-    <section ref={sectionRef} id="about" className="relative py-32 bg-[#060c14] overflow-hidden border-t border-white/5">
+    <section ref={sectionRef} id="about" className="relative py-12 md:py-32 bg-[#060c14] overflow-hidden border-t border-white/5">
       {/* Background grid texture */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
            style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
@@ -34,9 +34,9 @@ export function AboutSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-8">
-            <div className="about-reveal">
+            <div className="about-reveal flex flex-row items-center justify-between lg:flex-col lg:items-start gap-4">
               {/* 3D Logo moved here */}
-              <div className="h-40 w-40 mb-[-20px] relative z-10 pointer-events-none -ml-6">
+              <div className="h-32 w-32 lg:h-40 lg:w-40 mb-0 lg:mb-[-20px] relative z-10 pointer-events-none -ml-2 lg:-ml-6">
                 <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ alpha: true }}>
                   <ambientLight intensity={1.5} />
                   <pointLight position={[10, 10, 10]} intensity={25} color="#3dd6f5" />
@@ -74,7 +74,7 @@ export function AboutSection() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div className="grid grid-cols-2 gap-3 md:gap-6">
             {(language === 'es' ? [
               { title: "Precisión", desc: "Código limpio, escalable y optimizado al milisegundo." },
               { title: "Innovación", desc: "Exploramos las fronteras de la IA y el desarrollo Web3." },
@@ -86,11 +86,11 @@ export function AboutSection() {
               { title: "Commitment", desc: "Your success is our only performance metric." },
               { title: "Design", desc: "Interfaces that captivate and convert from the first click." },
             ]).map((pillar) => (
-              <div key={pillar.title} className="about-reveal glass p-8 rounded-3xl border border-white/5 hover:border-primary/30 transition-all duration-500 group">
-                <div className="text-primary font-black mb-4 tracking-widest uppercase text-xs opacity-50 group-hover:opacity-100 transition-opacity">
+              <div key={pillar.title} className="about-reveal glass p-4 md:p-8 rounded-2xl md:rounded-3xl border border-white/5 hover:border-primary/30 transition-all duration-500 group aspect-square flex flex-col justify-center lg:aspect-auto lg:block">
+                <div className="text-primary font-black mb-1 md:mb-4 tracking-widest uppercase text-[10px] md:text-xs opacity-50 group-hover:opacity-100 transition-opacity">
                   {pillar.title}
                 </div>
-                <div className="text-white/80 font-bold leading-snug">
+                <div className="text-white/80 font-bold leading-tight text-sm md:text-base">
                   {pillar.desc}
                 </div>
               </div>
