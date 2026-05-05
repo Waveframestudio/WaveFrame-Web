@@ -118,7 +118,7 @@ export function FAQPage() {
     ]
   }
 
-  const [activeIndex, setActiveIndex] = useState<number | null>(0)
+  const [activeIndex, setActiveIndex] = useState<number | null>(null)
 
   return (
     <div ref={containerRef} className="relative min-h-screen pt-40 pb-32 bg-[#060c14]">
@@ -128,7 +128,7 @@ export function FAQPage() {
       </div>
 
       <div className="fixed inset-0 pointer-events-none z-[1] bg-noise opacity-[0.03]" />
-      <div className="fixed inset-0 pointer-events-none z-10">
+      <div className="hidden lg:block">
         <HUD />
       </div>
       <div className="fixed inset-0 bg-grid opacity-5 mask-radial pointer-events-none z-0" />
@@ -142,9 +142,9 @@ export function FAQPage() {
             </span>
           </div>
           
-          <h1 className="faq-reveal text-6xl md:text-9xl lg:text-[10rem] font-black tracking-tighter text-white leading-[0.8] uppercase italic overflow-visible px-8">
+          <h1 className="faq-reveal text-5xl sm:text-6xl md:text-9xl lg:text-[10rem] font-black tracking-tighter text-white leading-[0.9] md:leading-[0.8] uppercase italic overflow-visible">
             {content.title}
-            <span className="text-gradient block md:inline not-italic pr-4">{content.titleAccent}</span>
+            <span className="text-gradient block md:inline not-italic">{content.titleAccent}</span>
           </h1>
         </div>
 
