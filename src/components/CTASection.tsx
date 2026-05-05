@@ -95,11 +95,11 @@ export function CTASection() {
             : 'Ready to dominate your industry with cutting-edge technology? Schedule a 30-minute strategic session and let\'s make your next great innovation a reality.'}
         </p>
 
-        <div className="cta-item opacity-0 flex flex-col sm:flex-row gap-4 md:gap-6 justify-center mb-16 md:mb-20">
-          <a href="https://wa.me/5493876117799" target="_blank" rel="noopener noreferrer" className="cyber-button px-10 py-4 md:px-12 md:py-5 text-base flex items-center justify-center">
+        <div className="cta-item opacity-0 flex flex-row gap-3 md:gap-6 justify-center mb-16 md:mb-20">
+          <a href="https://wa.me/5493876117799" target="_blank" rel="noopener noreferrer" className="cyber-button px-4 py-3 md:px-12 md:py-5 text-[10px] md:text-base flex items-center justify-center flex-1 whitespace-nowrap">
             {language === 'es' ? 'Hablar por WhatsApp' : 'Chat on WhatsApp'}
           </a>
-          <a href="mailto:wave1frame@gmail.com" className="px-10 py-4 md:px-12 md:py-5 text-base rounded-xl font-black glass glass-hover text-white border border-white/10 transition-all hover:scale-105 flex items-center justify-center">
+          <a href="mailto:wave1frame@gmail.com" className="px-4 py-3 md:px-12 md:py-5 text-[10px] md:text-base rounded-xl font-black glass glass-hover text-white border border-white/10 transition-all hover:scale-105 flex items-center justify-center flex-1 whitespace-nowrap">
             {language === 'es' ? 'Enviar Email' : 'Send Email'}
           </a>
         </div>

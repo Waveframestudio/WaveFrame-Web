@@ -50,7 +50,7 @@ export function ProjectsSection() {
               {language === 'es' ? 'Trabajos' : 'Works'}
             </span>
           </div>
-          <h2 className="text-4xl md:text-6xl font-black text-white tracking-tighter">
+          <h2 className="text-[34px] sm:text-4xl md:text-6xl font-black text-white tracking-tighter whitespace-nowrap">
             {language === 'es' ? 'Proyectos ' : 'Featured '}
             <span className="text-gradient">{language === 'es' ? 'Destacados' : 'Projects'}</span>
           </h2>
