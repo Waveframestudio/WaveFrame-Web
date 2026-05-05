@@ -66,14 +66,29 @@ export function Navbar() {
 
   const scrollTo = (href: string) => {
     setMobileOpen(false)
+    
+    if (href.startsWith('http')) {
+      window.open(href, '_blank', 'noopener,noreferrer')
+      return
+    }
+
+    if (href.startsWith('/')) {
+      navigate(href)
+      window.scrollTo(0, 0)
+      return
+    }
+
     if (location.pathname !== "/") {
       navigate("/")
       setTimeout(() => {
         const element = document.querySelector(href)
-        if (element) element.scrollIntoView({ behavior: "smooth", block: "start" })
-      }, 100)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" })
+        }
+      }, 800)
       return
     }
+
     const element = document.querySelector(href)
     if (element) {
       element.scrollIntoView({ behavior: "smooth", block: "start" })
@@ -186,7 +201,7 @@ export function Navbar() {
 
         <div className="flex flex-col gap-4">
           <button
-            onClick={() => { scrollTo('#hero'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            onClick={() => scrollTo('#hero')}
             className={`group relative w-fit text-left text-3xl font-black italic uppercase tracking-tighter transition-all duration-500 ${
               mobileOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
             }`}

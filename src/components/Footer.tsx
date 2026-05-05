@@ -20,8 +20,10 @@ export function Footer() {
       navigate("/")
       setTimeout(() => {
         const element = document.querySelector(href)
-        if (element) element.scrollIntoView({ behavior: "smooth", block: "start" })
-      }, 100)
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" })
+        }
+      }, 800)
       return
     }
     const element = document.querySelector(href)

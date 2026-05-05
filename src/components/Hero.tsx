@@ -208,7 +208,7 @@ export function Hero() {
       </div>
 
       {/* Bottom Scroll Indicator & CTAs */}
-      <div className="scroll-indicator absolute bottom-16 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 md:gap-10 w-full max-w-4xl px-6">
+      <div className="scroll-indicator absolute bottom-16 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-6 md:gap-10 w-full max-w-4xl px-6 z-30">
         <div className="flex flex-row md:flex-row items-center justify-center gap-4 md:gap-16 w-full">
           <button
             onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
