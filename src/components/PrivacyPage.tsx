@@ -153,18 +153,16 @@ export function PrivacyPage() {
       {/* Grain/Noise Overlay */}
       <div className="fixed inset-0 pointer-events-none z-[1] bg-noise opacity-[0.03]" />
 
-      {/* HUD Layers - Fixed to viewport */}
-      <div className="fixed inset-0 pointer-events-none z-10">
-        <HUD />
-      </div>
+      {/* HUD Layers - Removed for this page per request */}
+      <div className="fixed inset-0 pointer-events-none z-10" />
       
       {/* Grid Decor - Standard WaveFrame Grid */}
       <div className="fixed inset-0 bg-grid opacity-5 mask-radial pointer-events-none z-0" />
       
       <div className="relative z-20 max-w-7xl mx-auto px-6">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-24">
-          {/* Left Side: Fixed/Sticky Title */}
-          <div className="lg:w-[45%] lg:sticky lg:top-40 h-fit space-y-8 mb-20 lg:mb-0 pr-6">
+        <div className="flex flex-col items-center gap-10 md:gap-16">
+          {/* Header Section: Centered Title & Badge */}
+          <div className="w-full flex flex-col items-center text-center space-y-6">
             <div className="privacy-reveal inline-flex items-center gap-3 glass px-4 py-2 rounded-full border border-primary/20">
               <div className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               <span className="text-[10px] font-black tracking-[0.3em] uppercase text-primary">
@@ -172,14 +170,14 @@ export function PrivacyPage() {
               </span>
             </div>
             
-            <h1 className="privacy-reveal text-4xl md:text-6xl lg:text-7xl font-black tracking-tighter text-white leading-[0.9] uppercase italic overflow-visible">
+            <h1 className="privacy-reveal text-5xl md:text-8xl lg:text-9xl font-black tracking-tighter text-white leading-[0.9] uppercase italic overflow-visible max-w-4xl">
               <span className="block">{content.title}</span>
               <span className="text-gradient block not-italic">{content.titleAccent}</span>
             </h1>
           </div>
 
-          {/* Right Side: Scrolling Cards */}
-          <div className="lg:w-[55%] space-y-8">
+          {/* Content Section: Centered Scrolling Cards */}
+          <div className="w-full max-w-4xl space-y-8">
             <div className="privacy-content grid gap-8">
               {content.sections.map((section, i) => (
                 <div key={i} className="privacy-section glass p-8 md:p-12 rounded-[2rem] md:rounded-[3rem] border border-white/5 hover:border-primary/20 transition-all duration-500 group">

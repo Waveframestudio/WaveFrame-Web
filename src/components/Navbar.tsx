@@ -42,6 +42,28 @@ export function Navbar() {
     }
   }, [])
 
+  useEffect(() => {
+    let ctx = gsap.context(() => {});
+    
+    if (mobileOpen) {
+      document.body.style.overflow = 'hidden'
+      
+      // Start glitch animation loop for menu links
+      ctx.add(() => {
+        gsap.timeline({ repeat: -1, repeatDelay: 2 })
+          .to(".side-menu .title-glitch", { skewX: 20, x: -5, duration: 0.1, color: "#3dd6f5" })
+          .to(".side-menu .title-glitch", { skewX: -20, x: 5, duration: 0.1, color: "#ff4081" })
+          .to(".side-menu .title-glitch", { skewX: 0, x: 0, duration: 0.1, color: "white" })
+      })
+    } else {
+      document.body.style.overflow = 'auto'
+    }
+
+    return () => {
+      ctx.revert()
+    }
+  }, [mobileOpen])
+
   const scrollTo = (href: string) => {
     setMobileOpen(false)
     if (location.pathname !== "/") {
@@ -62,7 +84,7 @@ export function Navbar() {
     <nav
       ref={navRef}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 opacity-0 ${
-        scrolled ? "glass border-b border-white/10 py-3" : "py-8"
+        scrolled ? "nav-scrolled py-3" : "py-8"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
@@ -128,7 +150,7 @@ export function Navbar() {
         </div>
 
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="md:hidden flex flex-col gap-1.5 p-2 relative z-[100]"
           onClick={() => setMobileOpen(!mobileOpen)}
         >
           <span className={`w-6 h-0.5 bg-white transition-all duration-500 ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
@@ -137,24 +159,90 @@ export function Navbar() {
         </button>
       </div>
 
-      {mobileOpen && (
-        <div className="md:hidden glass border-t border-white/10 px-6 py-8 mt-3 flex flex-col gap-4 animate-fade-in">
-          {links.map((l) => (
+      {/* Backdrop for mobile menu */}
+      <div 
+        className={`fixed inset-0 menu-backdrop ${mobileOpen ? 'open' : ''}`}
+        onClick={() => setMobileOpen(false)}
+      />
+
+      {/* Side Menu (Permanent in DOM for transition) */}
+      <div className={`side-menu flex flex-col p-8 pt-6 gap-10 ${mobileOpen ? 'open' : ''}`}>
+        {/* Side Menu Header: Switch and Spacer for X button */}
+        <div className={`flex items-center justify-between transition-all duration-700 delay-100 ${mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'}`}>
+          <div 
+            className="lang-switch"
+            onClick={() => setLanguage(language === 'es' ? 'en' : 'es')}
+          >
+            <div 
+              className="lang-switch-thumb" 
+              style={{ left: language === 'es' ? '4px' : 'calc(50% + 0px)' }}
+            />
+            <div className={`flex-1 text-center text-[10px] font-black z-10 transition-colors duration-300 ${language === 'es' ? 'text-black' : 'text-white/40'}`}>ESP</div>
+            <div className={`flex-1 text-center text-[10px] font-black z-10 transition-colors duration-300 ${language === 'en' ? 'text-black' : 'text-white/40'}`}>ENG</div>
+          </div>
+          {/* Spacer to avoid overlapping with the X button which is fixed at top right */}
+          <div className="w-12 h-12" />
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <button
+            onClick={() => { scrollTo('#hero'); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
+            className={`group relative w-fit text-left text-3xl font-black italic uppercase tracking-tighter transition-all duration-500 ${
+              mobileOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+            }`}
+            style={{ transitionDelay: '0.2s' }}
+          >
+            <span className="title-glitch block">
+              {language === 'es' ? 'Inicio' : 'Home'}
+            </span>
+            <div className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
+          </button>
+          {links.map((l, i) => (
             <button
               key={l.href}
               onClick={() => scrollTo(l.href)}
-              className="text-left text-2xl font-black text-white/60 hover:text-primary transition-colors"
+              className={`group relative w-fit text-left text-3xl font-black italic uppercase tracking-tighter transition-all duration-500 ${
+                mobileOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+              }`}
+              style={{ transitionDelay: `${0.3 + i * 0.1}s` }}
             >
-              {t(l.label)}
+              <span className="title-glitch block">
+                {t(l.label)}
+              </span>
+              <div className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
             </button>
           ))}
-          <div className="h-px bg-white/10 my-2" />
-          <div className="flex gap-4">
-            <button onClick={() => setLanguage('es')} className={`flex-1 py-4 rounded-xl text-sm font-bold tracking-widest uppercase transition-colors ${language === 'es' ? 'bg-primary text-black' : 'glass border border-white/10 text-white'}`}>ESP</button>
-            <button onClick={() => setLanguage('en')} className={`flex-1 py-4 rounded-xl text-sm font-bold tracking-widest uppercase transition-colors ${language === 'en' ? 'bg-primary text-black' : 'glass border border-white/10 text-white'}`}>ENG</button>
-          </div>
+          
+          <div className={`h-px bg-white/10 w-full my-2 transition-all duration-700 delay-700 ${mobileOpen ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'}`} />
+
+          <Link
+            to="/privacidad"
+            onClick={() => setMobileOpen(false)}
+            className={`group relative w-fit text-left text-3xl font-black italic uppercase tracking-tighter transition-all duration-500 ${
+              mobileOpen ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+            }`}
+            style={{ transitionDelay: '0.8s' }}
+          >
+            <span className="title-glitch block">
+              {language === 'es' ? 'Privacidad' : 'Privacy'}
+            </span>
+            <div className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
+          </Link>
+          <Link
+            to="/terminos"
+            onClick={() => setMobileOpen(false)}
+            className={`group relative w-fit text-left text-3xl font-black italic uppercase tracking-tighter transition-all duration-500 ${
+              mobileOpen ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}
+            style={{ transitionDelay: '0.9s' }}
+          >
+            <span className="title-glitch block">
+              {language === 'es' ? 'Términos' : 'Terms'}
+            </span>
+            <div className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
+          </Link>
         </div>
-      )}
+      </div>
     </nav>
   )
 }
