@@ -138,7 +138,7 @@ export function Footer() {
               to="/terminos"
               className="group relative text-[10px] font-bold tracking-widest text-white/20 hover:text-primary transition-colors cursor-pointer uppercase"
             >
-              {language === 'es' ? 'Términos de Servicio' : 'Terms of Service'}
+              {language === 'es' ? 'Términos y Condiciones' : 'Terms & Conditions'}
               <div className="absolute -bottom-1 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
             </Link>
           </div>
