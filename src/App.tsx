@@ -14,10 +14,14 @@ import { PrivacyPage } from "@/components/PrivacyPage"
 import { TermsPage } from "@/components/TermsPage"
 import { FAQPage } from "@/components/FAQPage"
 
+import { useIsMobile } from "@/hooks/useIsMobile"
+
 function CursorGlow() {
   const glowRef = useRef<HTMLDivElement>(null)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
+    if (isMobile) return
     const handleMouseMove = (e: MouseEvent) => {
       if (!glowRef.current) return
       gsap.to(glowRef.current, {
@@ -29,7 +33,9 @@ function CursorGlow() {
     }
     window.addEventListener("mousemove", handleMouseMove, { passive: true })
     return () => window.removeEventListener("mousemove", handleMouseMove)
-  }, [])
+  }, [isMobile])
+
+  if (isMobile) return null
 
   return (
     <div

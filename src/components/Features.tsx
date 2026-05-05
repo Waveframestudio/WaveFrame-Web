@@ -53,10 +53,13 @@ const featuresEN = [
   },
 ]
 
+import { useIsMobile } from "@/hooks/useIsMobile"
+
 export function Features() {
   const { language } = useLanguage()
   const features = language === 'es' ? featuresES : featuresEN
   const sectionRef = useRef<HTMLElement>(null)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -74,40 +77,42 @@ export function Features() {
         }
       )
 
-      const cards = document.querySelectorAll(".feature-card")
-      cards.forEach((card) => {
-        const inner = card.querySelector(".tilt-inner")
-        card.addEventListener("mousemove", (e: any) => {
-          const rect = card.getBoundingClientRect()
-          const x = e.clientX - rect.left
-          const y = e.clientY - rect.top
-          const centerX = rect.width / 2
-          const centerY = rect.height / 2
-          const rotateX = (y - centerY) / 10
-          const rotateY = (centerX - x) / 10
+      if (!isMobile) {
+        const cards = document.querySelectorAll(".feature-card")
+        cards.forEach((card) => {
+          const inner = card.querySelector(".tilt-inner")
+          card.addEventListener("mousemove", (e: any) => {
+            const rect = card.getBoundingClientRect()
+            const x = e.clientX - rect.left
+            const y = e.clientY - rect.top
+            const centerX = rect.width / 2
+            const centerY = rect.height / 2
+            const rotateX = (y - centerY) / 10
+            const rotateY = (centerX - x) / 10
 
-          gsap.to(inner, {
-            rotateX: rotateX,
-            rotateY: rotateY,
-            scale: 1.02,
-            duration: 0.5,
-            ease: "power3.out",
+            gsap.to(inner, {
+              rotateX: rotateX,
+              rotateY: rotateY,
+              scale: 1.02,
+              duration: 0.5,
+              ease: "power3.out",
+            })
+          })
+
+          card.addEventListener("mouseleave", () => {
+            gsap.to(inner, {
+              rotateX: 0,
+              rotateY: 0,
+              scale: 1,
+              duration: 0.5,
+              ease: "power3.out",
+            })
           })
         })
-
-        card.addEventListener("mouseleave", () => {
-          gsap.to(inner, {
-            rotateX: 0,
-            rotateY: 0,
-            scale: 1,
-            duration: 0.5,
-            ease: "power3.out",
-          })
-        })
-      })
+      }
     }, sectionRef)
     return () => ctx.revert()
-  }, [])
+  }, [isMobile])
 
   return (
     <section ref={sectionRef} id="features" className="relative pt-10 pb-10 md:pb-40 overflow-hidden scroll-mt-32">

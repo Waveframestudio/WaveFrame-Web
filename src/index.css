@@ -118,18 +118,18 @@ html.lenis, html.lenis body { height: auto; }
 }
 
 @keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
 }
 
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(calc(-50% - 0.75rem)); }
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(calc(-50% - 0.75rem), 0, 0); }
 }
 
 @keyframes marquee-reverse {
-  0% { transform: translateX(calc(-50% - 0.75rem)); }
-  100% { transform: translateX(0); }
+  0% { transform: translate3d(calc(-50% - 0.75rem), 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 .animate-marquee { animation: marquee 40s linear infinite; }

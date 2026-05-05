@@ -5,6 +5,7 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { Float, Environment, Sphere, MeshDistortMaterial, Points, PointMaterial } from "@react-three/drei"
 import * as THREE from "three"
 import { useLanguage } from "@/lib/LanguageContext"
+import { useIsMobile } from "@/hooks/useIsMobile"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -36,6 +37,7 @@ function Starfield() {
 
 export function CTASection() {
   const { language } = useLanguage()
+  const isMobile = useIsMobile()
   const sectionRef = useRef<HTMLElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
 
@@ -59,11 +61,11 @@ export function CTASection() {
         <Canvas 
           camera={{ position: [0, 0, 5] }}
           dpr={[1, 1.5]}
-          gl={{ powerPreference: "high-performance", antialias: false }}
+          gl={{ powerPreference: "high-performance", antialias: true }}
         >
           <Starfield />
           <Float speed={4} rotationIntensity={2} floatIntensity={2}>
-            <Sphere args={[1.5, 32, 32]} position={[0, 0, -2]}>
+            <Sphere args={[isMobile ? 1 : 1.5, 32, 32]} position={[0, 0, -2]}>
               <MeshDistortMaterial color="#3dd6f5" speed={2} distort={0.6} roughness={0} metalness={1} transparent opacity={0.2} />
             </Sphere>
           </Float>

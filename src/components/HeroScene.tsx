@@ -5,6 +5,7 @@ import { Bloom, EffectComposer, ChromaticAberration, Vignette, Noise } from "@re
 import * as THREE from "three"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useIsMobile } from "@/hooks/useIsMobile"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -12,6 +13,7 @@ function CrystalCore() {
   const meshRef = useRef<THREE.Mesh>(null)
   const innerRef = useRef<THREE.Mesh>(null)
   const groupRef = useRef<THREE.Group>(null)
+  const isMobile = useIsMobile()
 
   useFrame((state) => {
     if (!meshRef.current) return
@@ -36,7 +38,7 @@ function CrystalCore() {
       },
     })
     gsap.to(groupRef.current.scale, {
-      x: 0.5, y: 0.5, z: 0.5,
+      x: isMobile ? 0.4 : 0.5, y: isMobile ? 0.4 : 0.5, z: isMobile ? 0.4 : 0.5,
       scrollTrigger: {
         trigger: "#hero",
         start: "top top",
@@ -44,17 +46,17 @@ function CrystalCore() {
         scrub: 1,
       },
     })
-  }, [])
+  }, [isMobile])
 
   return (
-    <group ref={groupRef}>
+    <group ref={groupRef} scale={isMobile ? 0.7 : 1}>
       <mesh ref={meshRef} castShadow>
         <icosahedronGeometry args={[1.8, 1]} />
         <MeshTransmissionMaterial
           backside
           backsideThickness={10}
           thickness={1.5}
-          samples={4} // Reduced from 16 for performance
+          samples={4}
           transmission={0.9}
           clearcoat={1}
           clearcoatRoughness={0}
@@ -84,13 +86,16 @@ function CrystalCore() {
 function MouseFollower() {
   const ref = useRef<THREE.Mesh>(null)
   const { mouse, viewport } = useThree()
+  const isMobile = useIsMobile()
   
   useFrame(() => {
-    if (!ref.current) return
+    if (!ref.current || isMobile) return
     const x = (mouse.x * viewport.width) / 2
     const y = (mouse.y * viewport.height) / 2
     ref.current.position.set(x, y, 0)
   })
+
+  if (isMobile) return null
 
   return (
     <Trail width={1.5} length={8} color={new THREE.Color("#3dd6f5")} attenuation={(t) => t * t}>
@@ -104,6 +109,8 @@ function MouseFollower() {
 
 function OrbitingRing({ radius, speed, rotX, color, offset = 0 }: { radius: number; speed: number; rotX: number; color: string; offset?: number }) {
   const ref = useRef<THREE.Group>(null)
+  const isMobile = useIsMobile()
+  const adjustedRadius = isMobile ? radius * 0.7 : radius
 
   useFrame((state) => {
     if (!ref.current) return
@@ -113,13 +120,13 @@ function OrbitingRing({ radius, speed, rotX, color, offset = 0 }: { radius: numb
   return (
     <group ref={ref} rotation={[rotX, 0, 0]}>
       <Trail width={0.8} length={10} color={new THREE.Color(color)} attenuation={(t) => t}>
-        <mesh position={[radius, 0, 0]}>
+        <mesh position={[adjustedRadius, 0, 0]}>
           <sphereGeometry args={[0.02, 16, 16]} />
           <meshBasicMaterial color={color} />
         </mesh>
       </Trail>
       <mesh>
-        <torusGeometry args={[radius, 0.005, 16, 128]} />
+        <torusGeometry args={[adjustedRadius, 0.005, 16, 128]} />
         <meshBasicMaterial color={color} transparent opacity={0.1} />
       </mesh>
     </group>
@@ -127,10 +134,18 @@ function OrbitingRing({ radius, speed, rotX, color, offset = 0 }: { radius: numb
 }
 
 export function HeroScene() {
+  const isMobile = useIsMobile()
+
   return (
     <Canvas 
-      gl={{ antialias: false, alpha: true, stencil: false, depth: true, powerPreference: "high-performance" }} 
-      dpr={[1, 1.5]} // Cap DPR
+      gl={{ 
+        antialias: true, 
+        alpha: true, 
+        stencil: false, 
+        depth: true, 
+        powerPreference: "high-performance"
+      }} 
+      dpr={[1, 1.5]}
       style={{ width: "100%", height: "100%" }}
     >
       <PerspectiveCamera makeDefault position={[0, 0, 8]} fov={35} />
@@ -150,11 +165,11 @@ export function HeroScene() {
       <OrbitingRing radius={3.2} speed={-0.5} rotX={1.5} color="#6040ff" offset={Math.PI} />
       <OrbitingRing radius={4.0} speed={0.3} rotX={0.8} color="#00e8d0" offset={Math.PI / 2} />
       
-      <Sparkles count={30} scale={15} size={2} speed={0.4} opacity={0.3} color="#3dd6f5" />
+      <Sparkles count={isMobile ? 15 : 30} scale={15} size={2} speed={0.4} opacity={0.3} color="#3dd6f5" />
       
       <Environment preset="night" />
       
-      <EffectComposer enableNormalPass={false} multisampling={0}>
+      <EffectComposer enableNormalPass={false} multisampling={isMobile ? 0 : 8}>
         <Bloom luminanceThreshold={1} mipmapBlur intensity={1.5} radius={0.2} />
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
       </EffectComposer>
