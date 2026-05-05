@@ -230,12 +230,12 @@ export function StorySection() {
           {chapters.map((ch, i) => (
             <div key={i} className={`chapter-trigger-${i} w-screen lg:w-full min-h-screen flex flex-col justify-center flex-shrink-0 px-4 lg:px-0`}>
               {/* Mobile Card - Only visible on small screens */}
-              <div className="lg:hidden glass-card p-10 rounded-[2.5rem] border border-white/5 space-y-6 relative overflow-hidden">
+              <div className="lg:hidden glass-card p-10 md:p-14 rounded-[2.5rem] border border-white/5 space-y-6 md:space-y-8 relative overflow-hidden md:max-w-[640px] md:mx-auto md:min-h-[580px] flex flex-col md:justify-between">
                 <div className="flex items-center justify-between">
-                  <span className="text-6xl font-black text-white/10 leading-none">{ch.num}</span>
+                  <span className="text-6xl md:text-8xl font-black text-white/10 leading-none">{ch.num}</span>
                   <div className="w-12 h-12 rounded-xl bg-white/5 flex items-center justify-center border border-white/10">
                     <div 
-                      className="w-4 h-4 rounded-full animate-pulse" 
+                      className="w-5 h-5 md:w-7 md:h-7 rounded-full animate-pulse" 
                       style={{ 
                         backgroundColor: ch.color,
                         boxShadow: `0 0 15px ${ch.color}`
@@ -243,9 +243,9 @@ export function StorySection() {
                     />
                   </div>
                 </div>
-                <h4 className="text-3xl font-black text-white tracking-tighter">{ch.title}</h4>
-                <p className="text-white/40 text-lg leading-relaxed font-medium">{ch.body}</p>
-                <div className="h-1 w-20 rounded-full" style={{ backgroundColor: ch.color }} />
+                <h4 className="text-3xl md:text-5xl font-black text-white tracking-tighter">{ch.title}</h4>
+                <p className="text-white/40 text-lg md:text-xl leading-relaxed font-medium">{ch.body}</p>
+                <div className="h-1 w-20 md:w-28 rounded-full" style={{ backgroundColor: ch.color }} />
               </div>
               
               {/* Desktop Progress Line */}

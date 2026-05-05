@@ -136,12 +136,13 @@ export function Features() {
           </p>
         </div>
 
-        <div className="relative md:perspective-1000">
-          <div className="features-grid flex flex-row flex-nowrap md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory -mx-6 px-6 md:mx-0 md:px-0 scrollbar-hide pb-12 md:pb-0 touch-pan-x">
+        <div className="relative lg:perspective-1000">
+          {/* Carousel for mobile & tablet, grid for desktop */}
+          <div className="features-grid flex flex-row flex-nowrap lg:grid lg:grid-cols-3 gap-6 lg:gap-8 overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory -mx-6 px-6 lg:mx-0 lg:px-0 scrollbar-hide pb-12 lg:pb-0 touch-pan-x">
             {features.map((f, i) => (
               <div
                 key={i}
-                className="feature-card group relative opacity-0 h-full flex-shrink-0 w-[85vw] md:w-auto snap-center"
+              className="feature-card group relative opacity-0 h-full flex-shrink-0 w-[85vw] md:w-[420px] lg:w-auto snap-center"
                 style={{ transformStyle: "preserve-3d" }}
               >
                 <div className="tilt-inner relative h-full transition-transform duration-500" style={{ transformStyle: "preserve-3d" }}>
@@ -170,6 +171,13 @@ export function Features() {
           ))}
         </div>
       </div>
+
+        {/* Scroll hint dots — visible on mobile & tablet only */}
+        <div className="flex lg:hidden justify-center gap-2 mt-2 pb-2">
+          {features.map((_, i) => (
+            <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/20" />
+          ))}
+        </div>
 
         <div className="mt-8 md:mt-32 relative z-20 space-y-4">
           {/* Row 1: Moving Left - Clean & Bold */}
