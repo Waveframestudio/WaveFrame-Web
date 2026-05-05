@@ -34,7 +34,7 @@ export function AboutSection() {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div className="space-y-8">
-            <div className="about-reveal flex flex-row items-center justify-between lg:flex-col lg:items-start gap-4">
+            <div className="about-reveal flex flex-row items-center lg:flex-col lg:items-start gap-4">
               {/* 3D Logo moved here */}
               <div className="h-32 w-32 lg:h-40 lg:w-40 mb-0 lg:mb-[-20px] relative z-10 pointer-events-none -ml-2 lg:-ml-6">
                 <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ alpha: true }}>
@@ -87,10 +87,10 @@ export function AboutSection() {
               { title: "Design", desc: "Interfaces that captivate and convert from the first click." },
             ]).map((pillar) => (
               <div key={pillar.title} className="about-reveal glass p-4 md:p-8 rounded-2xl md:rounded-3xl border border-white/5 hover:border-primary/30 transition-all duration-500 group aspect-square flex flex-col justify-center lg:aspect-auto lg:block">
-                <div className="text-primary font-black mb-1 md:mb-4 tracking-widest uppercase text-[10px] md:text-xs opacity-50 group-hover:opacity-100 transition-opacity">
+                <div className="text-primary font-black mb-1 md:mb-4 tracking-widest uppercase text-[10px] md:text-sm lg:text-xs opacity-50 group-hover:opacity-100 transition-opacity">
                   {pillar.title}
                 </div>
-                <div className="text-white/80 font-bold leading-tight text-sm md:text-base">
+                <div className="text-white/80 font-bold leading-tight text-sm md:text-xl lg:text-base md:leading-relaxed lg:leading-tight">
                   {pillar.desc}
                 </div>
               </div>
