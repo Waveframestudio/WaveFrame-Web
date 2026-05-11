@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from "react"
+import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Canvas, useFrame } from "@react-three/fiber"
@@ -138,8 +138,6 @@ export function StorySection() {
     })
 
     mm.add("(max-width: 1023px)", () => {
-      const scrollWidth = scrollContainerRef.current?.scrollWidth || 0
-      const amountToScroll = scrollWidth - window.innerWidth
 
       gsap.to(scrollContainerRef.current, {
         x: () => -(scrollContainerRef.current?.scrollWidth! - window.innerWidth),
