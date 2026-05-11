@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
+import { useGSAP } from "@gsap/react"
 import { Canvas, useFrame } from "@react-three/fiber"
 import { Float, MeshDistortMaterial, Environment, Sphere } from "@react-three/drei"
 import * as THREE from "three"
@@ -113,10 +114,12 @@ export function StorySection() {
 
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  useGSAP(() => {
     const mm = gsap.matchMedia()
 
     mm.add("(min-width: 1024px)", () => {
+      if (!sectionRef.current || !leftRef.current) return
+      
       ScrollTrigger.create({
         trigger: sectionRef.current,
         start: "top top",
@@ -138,6 +141,7 @@ export function StorySection() {
     })
 
     mm.add("(max-width: 1023px)", () => {
+      if (!sectionRef.current || !scrollContainerRef.current) return
 
       gsap.to(scrollContainerRef.current, {
         x: () => -(scrollContainerRef.current?.scrollWidth! - window.innerWidth),
@@ -157,9 +161,7 @@ export function StorySection() {
         }
       })
     })
-
-    return () => mm.revert()
-  }, [chapters.length])
+  }, { dependencies: [chapters.length], scope: sectionRef })
 
   return (
     <section ref={sectionRef} id="story" className="relative bg-[#060c14] z-10 scroll-mt-32 overflow-hidden lg:overflow-visible">

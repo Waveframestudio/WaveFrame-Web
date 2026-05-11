@@ -27,25 +27,29 @@ function CrystalCore() {
   })
 
   useEffect(() => {
-    if (!groupRef.current) return
-    gsap.to(groupRef.current.rotation, {
-      y: Math.PI * 4,
-      scrollTrigger: {
-        trigger: "#hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: 1,
-      },
+    const ctx = gsap.context(() => {
+      if (!groupRef.current) return
+      gsap.to(groupRef.current.rotation, {
+        y: Math.PI * 4,
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      })
+      gsap.to(groupRef.current.scale, {
+        x: isMobile ? 0.4 : 0.5, y: isMobile ? 0.4 : 0.5, z: isMobile ? 0.4 : 0.5,
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      })
     })
-    gsap.to(groupRef.current.scale, {
-      x: isMobile ? 0.4 : 0.5, y: isMobile ? 0.4 : 0.5, z: isMobile ? 0.4 : 0.5,
-      scrollTrigger: {
-        trigger: "#hero",
-        start: "top top",
-        end: "bottom top",
-        scrub: 1,
-      },
-    })
+
+    return () => ctx.revert()
   }, [isMobile])
 
   return (
@@ -143,7 +147,8 @@ export function HeroScene() {
         alpha: true, 
         stencil: false, 
         depth: true, 
-        powerPreference: "high-performance"
+        powerPreference: "high-performance",
+        precision: "highp"
       }} 
       dpr={[1, 1.5]}
       style={{ width: "100%", height: "100%" }}

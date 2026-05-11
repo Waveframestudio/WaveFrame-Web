@@ -6,6 +6,18 @@ import "./index.css"
 import App from "./App.tsx"
 import { LanguageProvider } from "./lib/LanguageContext"
 
+// Silence persistent library-level warnings
+const originalWarn = console.warn;
+console.warn = (...args) => {
+  if (typeof args[0] === 'string' && (
+    args[0].includes('THREE.Clock') || 
+    args[0].includes('X4122') || 
+    args[0].includes('GSAP target') || 
+    args[0].includes('escape its sandboxing')
+  )) return;
+  originalWarn(...args);
+};
+
 function Root() {
   useEffect(() => {
     const lenis = new Lenis()
