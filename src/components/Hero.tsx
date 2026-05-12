@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
+import { HeroScene } from "./HeroScene"
 import { useLanguage } from "@/lib/LanguageContext"
 
 export function HUD() {
@@ -79,6 +80,7 @@ export function Hero() {
   const { language, t } = useLanguage()
   const phrases = language === 'es' ? phrasesES : phrasesEN
   
+  const [webGLAvailable, setWebGLAvailable] = useState(true)
   const [currentPhrase, setCurrentPhrase] = useState(phrases[0])
   const titleRef = useRef<HTMLHeadingElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -88,6 +90,12 @@ export function Hero() {
     const randomIdx = Math.floor(Math.random() * phrases.length)
     setCurrentPhrase(phrases[randomIdx])
 
+    try {
+      const canvas = document.createElement("canvas")
+      setWebGLAvailable(!!(window.WebGLRenderingContext && (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))))
+    } catch (e) {
+      setWebGLAvailable(false)
+    }
 
     const ctx = gsap.context(() => {
       // 1. Initial State
@@ -166,6 +174,10 @@ export function Hero() {
       {/* HUD Layers */}
       <HUD />
 
+      {/* 3D Scene - Local for both mobile and desktop */}
+      <div className="hero-canvas-container absolute inset-0 z-0 pointer-events-none opacity-0">
+        {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
+      </div>
 
       {/* Main Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-6 text-center mt-[-5vh] md:mt-[-10vh]">
