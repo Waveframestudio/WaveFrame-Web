@@ -98,18 +98,18 @@ export function Navbar() {
   return (
     <nav
       ref={navRef}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 opacity-0 ${
+      className={`fixed top-0 left-0 right-0 z-50 ${
         scrolled ? "py-3" : "py-8"
-      }`}
+      } transition-[padding] duration-700`}
     >
       {/* Navbar background layer */}
       <div 
         className={`absolute inset-0 transition-all duration-500 ${
-          scrolled ? "nav-scrolled opacity-100" : "opacity-0"
+          scrolled && !mobileOpen ? "nav-scrolled opacity-100" : "opacity-0"
         }`} 
       />
 
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between relative z-10">
+      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between relative">
         <Link to="/" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-3 group cursor-pointer">
           <div 
             className={`relative flex items-center justify-center overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] origin-left ${
