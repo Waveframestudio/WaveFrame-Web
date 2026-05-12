@@ -164,8 +164,8 @@ export function StorySection() {
   }, { dependencies: [chapters.length], scope: sectionRef })
 
   return (
-    <section ref={sectionRef} id="story" className="relative bg-[#060c14] z-10 scroll-mt-32 overflow-hidden lg:overflow-visible">
-      {/* Fixed 3D Scene */}
+    <section ref={sectionRef} id="story" className="relative z-10 scroll-mt-32 overflow-hidden lg:overflow-visible">
+      {/* Fixed 3D Scene Overlay for this section */}
       <div className="fixed inset-0 pointer-events-none opacity-40 z-0">
         <Canvas 
           camera={{ position: [0, 0, 8], fov: 40 }}
@@ -175,6 +175,7 @@ export function StorySection() {
           <Story3D activeIndex={activeChapter} />
         </Canvas>
       </div>
+
 
       <div className="relative max-w-7xl mx-auto px-0 lg:px-6 flex flex-col lg:flex-row items-start justify-between gap-0 lg:gap-10 xl:gap-20">
         {/* Left Content (Pinned on Desktop) */}

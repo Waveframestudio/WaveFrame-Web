@@ -166,13 +166,8 @@ export function Hero() {
     <section
       ref={containerRef}
       id="hero"
-      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden bg-[#060c14]"
+      className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden"
     >
-      {/* Background Canvas */}
-      <div className="hero-canvas-container absolute inset-0 z-0 opacity-0">
-        {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
-      </div>
-
       {/* Grain/Noise Overlay */}
       <div className="absolute inset-0 pointer-events-none z-[1] bg-noise opacity-[0.03]" />
 

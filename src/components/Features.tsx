@@ -2,6 +2,8 @@ import { useEffect, useRef } from "react"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLanguage } from "@/lib/LanguageContext"
+import { useIsMobile } from "@/hooks/useIsMobile"
+import { useGSAP } from "@gsap/react"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -53,71 +55,67 @@ const featuresEN = [
   },
 ]
 
-import { useIsMobile } from "@/hooks/useIsMobile"
-
 export function Features() {
   const { language } = useLanguage()
   const features = language === 'es' ? featuresES : featuresEN
   const sectionRef = useRef<HTMLElement>(null)
   const isMobile = useIsMobile()
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        ".feature-card",
-        { opacity: 0, y: 40, rotateX: -15 },
-        {
-          opacity: 1,
-          y: 0,
-          rotateX: 0,
-          duration: 1.2,
-          ease: "power4.out",
-          stagger: 0.15,
-          scrollTrigger: { trigger: ".features-grid", start: "top 80%" },
-        }
-      )
+  useGSAP(() => {
+    gsap.fromTo(
+      ".feature-card",
+      { opacity: 0, y: 40, rotateX: -15 },
+      {
+        opacity: 1,
+        y: 0,
+        rotateX: 0,
+        duration: 1.2,
+        ease: "power4.out",
+        stagger: 0.15,
+        scrollTrigger: { trigger: ".features-grid", start: "top 80%" },
+      }
+    )
 
-      if (!isMobile) {
-        const cards = document.querySelectorAll(".feature-card")
-        cards.forEach((card) => {
-          const inner = card.querySelector(".tilt-inner")
-          card.addEventListener("mousemove", (e: any) => {
-            const rect = card.getBoundingClientRect()
-            const x = e.clientX - rect.left
-            const y = e.clientY - rect.top
-            const centerX = rect.width / 2
-            const centerY = rect.height / 2
-            const rotateX = (y - centerY) / 10
-            const rotateY = (centerX - x) / 10
+    if (!isMobile) {
+      const cards = document.querySelectorAll(".feature-card")
+      cards.forEach((card) => {
+        const inner = card.querySelector(".tilt-inner")
+        if (!inner) return
+        
+        card.addEventListener("mousemove", (e: any) => {
+          const rect = card.getBoundingClientRect()
+          const x = e.clientX - rect.left
+          const y = e.clientY - rect.top
+          const centerX = rect.width / 2
+          const centerY = rect.height / 2
+          const rotateX = (y - centerY) / 10
+          const rotateY = (centerX - x) / 10
 
-            gsap.to(inner, {
-              rotateX: rotateX,
-              rotateY: rotateY,
-              scale: 1.02,
-              duration: 0.5,
-              ease: "power3.out",
-            })
-          })
-
-          card.addEventListener("mouseleave", () => {
-            gsap.to(inner, {
-              rotateX: 0,
-              rotateY: 0,
-              scale: 1,
-              duration: 0.5,
-              ease: "power3.out",
-            })
+          gsap.to(inner, {
+            rotateX: rotateX,
+            rotateY: rotateY,
+            scale: 1.02,
+            duration: 0.5,
+            ease: "power3.out",
           })
         })
-      }
-    }, sectionRef)
-    return () => ctx.revert()
-  }, [isMobile])
+
+        card.addEventListener("mouseleave", () => {
+          gsap.to(inner, {
+            rotateX: 0,
+            rotateY: 0,
+            scale: 1,
+            duration: 0.5,
+            ease: "power3.out",
+          })
+        })
+      })
+    }
+  }, { scope: sectionRef, dependencies: [isMobile] })
+
 
   return (
-    <section ref={sectionRef} id="features" className="relative pt-10 pb-10 md:pb-40 overflow-hidden scroll-mt-32">
-      <div className="absolute inset-0 bg-grid opacity-10 mask-radial" />
-      
+    <section ref={sectionRef} id="features" className="relative pt-20 pb-10 md:pb-40 overflow-hidden scroll-mt-32">
       <div className="relative max-w-7xl mx-auto px-6">
         <div className="text-center mb-16 md:mb-24 space-y-4">
           <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full border border-white/10 mb-4 animate-float">
