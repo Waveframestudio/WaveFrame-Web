@@ -135,7 +135,7 @@ function OrbitingRing({ radius, speed, rotX, color, offset = 0 }: { radius: numb
 }
 
 export function HeroScene() {
-
+  const isMobile = useIsMobile()
   return (
     <Canvas 
       gl={{ 
