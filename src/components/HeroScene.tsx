@@ -27,7 +27,31 @@ function CrystalCore() {
   })
 
   useEffect(() => {
-    // Reverted: Background is now static (no scroll animations) on both mobile and desktop
+    if (!isMobile) return
+
+    const ctx = gsap.context(() => {
+      if (!groupRef.current) return
+      gsap.to(groupRef.current.rotation, {
+        y: Math.PI * 4,
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      })
+      gsap.to(groupRef.current.scale, {
+        x: 0.4, y: 0.4, z: 0.4,
+        scrollTrigger: {
+          trigger: "#hero",
+          start: "top top",
+          end: "bottom top",
+          scrub: 1,
+        },
+      })
+    })
+
+    return () => ctx.revert()
   }, [isMobile])
 
   return (
