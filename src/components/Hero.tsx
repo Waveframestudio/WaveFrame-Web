@@ -174,6 +174,11 @@ export function Hero() {
       {/* HUD Layers */}
       <HUD />
 
+      {/* 3D Scene */}
+      <div className="hero-canvas-container absolute inset-0 z-0 pointer-events-none opacity-0">
+        <HeroScene />
+      </div>
+
       {/* Main Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-6 text-center mt-[-5vh] md:mt-[-10vh]">
         <div className="space-y-6 md:space-y-8">

@@ -78,9 +78,6 @@ export function App() {
   return (
     <BrowserRouter>
       <div className="relative min-h-screen bg-background">
-        <div className="fixed inset-0 z-0 pointer-events-none opacity-40">
-          <HeroScene />
-        </div>
         <ScrollToTop />
         <CursorGlow />
         <Navbar />

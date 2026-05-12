@@ -27,29 +27,7 @@ function CrystalCore() {
   })
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (!groupRef.current) return
-      gsap.to(groupRef.current.rotation, {
-        y: Math.PI * 4,
-        scrollTrigger: {
-          trigger: "#hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        },
-      })
-      gsap.to(groupRef.current.scale, {
-        x: isMobile ? 0.4 : 0.5, y: isMobile ? 0.4 : 0.5, z: isMobile ? 0.4 : 0.5,
-        scrollTrigger: {
-          trigger: "#hero",
-          start: "top top",
-          end: "bottom top",
-          scrub: 1,
-        },
-      })
-    })
-
-    return () => ctx.revert()
+    // Reverted: Removed ScrollTrigger animations that modified desktop behavior
   }, [isMobile])
 
   return (
