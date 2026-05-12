@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { HeroScene } from "./HeroScene"
 import { useLanguage } from "@/lib/LanguageContext"
-import { useIsMobile } from "@/hooks/useIsMobile"
 
 export function HUD() {
   const [latency, setLatency] = useState("0.02")
@@ -79,7 +78,6 @@ const phrasesEN = [
 
 export function Hero() {
   const { language, t } = useLanguage()
-  const isMobile = useIsMobile()
   const phrases = language === 'es' ? phrasesES : phrasesEN
   
   const [webGLAvailable, setWebGLAvailable] = useState(true)

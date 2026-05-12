@@ -74,7 +74,6 @@ function ScrollToTop() {
 
 
 export function App() {
-  const isMobile = useIsMobile()
   return (
     <BrowserRouter>
       <div className="relative min-h-screen bg-background">
