@@ -5,7 +5,6 @@ import { Bloom, EffectComposer, Vignette } from "@react-three/postprocessing"
 import * as THREE from "three"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { useIsMobile } from "@/hooks/useIsMobile"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -13,7 +12,6 @@ function CrystalCore() {
   const meshRef = useRef<THREE.Mesh>(null)
   const innerRef = useRef<THREE.Mesh>(null)
   const groupRef = useRef<THREE.Group>(null)
-  const isMobile = useIsMobile()
 
   useFrame((state) => {
     if (!meshRef.current) return
@@ -28,10 +26,10 @@ function CrystalCore() {
 
   useEffect(() => {
     // Reverted: Background is now static (no scroll animations) on both mobile and desktop
-  }, [isMobile])
+  }, [])
 
   return (
-    <group ref={groupRef} scale={isMobile ? 0.7 : 1}>
+    <group ref={groupRef} scale={1}>
       <mesh ref={meshRef} castShadow>
         <icosahedronGeometry args={[1.8, 1]} />
         <MeshTransmissionMaterial
@@ -68,16 +66,13 @@ function CrystalCore() {
 function MouseFollower() {
   const ref = useRef<THREE.Mesh>(null)
   const { mouse, viewport } = useThree()
-  const isMobile = useIsMobile()
   
   useFrame(() => {
-    if (!ref.current || isMobile) return
+    if (!ref.current) return
     const x = (mouse.x * viewport.width) / 2
     const y = (mouse.y * viewport.height) / 2
     ref.current.position.set(x, y, 0)
   })
-
-  if (isMobile) return null
 
   return (
     <Trail width={1.5} length={8} color={new THREE.Color("#3dd6f5")} attenuation={(t) => t * t}>
@@ -91,8 +86,7 @@ function MouseFollower() {
 
 function OrbitingRing({ radius, speed, rotX, color, offset = 0 }: { radius: number; speed: number; rotX: number; color: string; offset?: number }) {
   const ref = useRef<THREE.Group>(null)
-  const isMobile = useIsMobile()
-  const adjustedRadius = isMobile ? radius * 0.7 : radius
+  const adjustedRadius = radius
 
   useFrame((state) => {
     if (!ref.current) return
@@ -116,7 +110,6 @@ function OrbitingRing({ radius, speed, rotX, color, offset = 0 }: { radius: numb
 }
 
 export function HeroScene() {
-  const isMobile = useIsMobile()
 
   return (
     <Canvas 
@@ -148,11 +141,11 @@ export function HeroScene() {
       <OrbitingRing radius={3.2} speed={-0.5} rotX={1.5} color="#6040ff" offset={Math.PI} />
       <OrbitingRing radius={4.0} speed={0.3} rotX={0.8} color="#00e8d0" offset={Math.PI / 2} />
       
-      <Sparkles count={isMobile ? 15 : 30} scale={15} size={2} speed={0.4} opacity={0.3} color="#3dd6f5" />
+      <Sparkles count={30} scale={15} size={2} speed={0.4} opacity={0.3} color="#3dd6f5" />
       
       <Environment preset="night" />
       
-      <EffectComposer enableNormalPass={false} multisampling={isMobile ? 0 : 8}>
+      <EffectComposer enableNormalPass={false} multisampling={8}>
         <Bloom luminanceThreshold={1} mipmapBlur intensity={1.5} radius={0.2} />
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
       </EffectComposer>
