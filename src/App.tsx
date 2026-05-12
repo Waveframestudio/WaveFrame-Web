@@ -72,7 +72,6 @@ function ScrollToTop() {
   return null;
 }
 
-import { HeroScene } from "@/components/HeroScene"
 
 export function App() {
   return (

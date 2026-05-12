@@ -176,7 +176,7 @@ export function Hero() {
 
       {/* 3D Scene */}
       <div className="hero-canvas-container absolute inset-0 z-0 pointer-events-none opacity-0">
-        <HeroScene />
+        {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
       </div>
 
       {/* Main Content */}
