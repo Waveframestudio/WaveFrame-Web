@@ -176,12 +176,10 @@ export function Hero() {
       {/* HUD Layers */}
       <HUD />
 
-      {/* 3D Scene - Only local on desktop */}
-      {!isMobile && (
-        <div className="hero-canvas-container absolute inset-0 z-0 pointer-events-none opacity-0">
-          {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
-        </div>
-      )}
+      {/* 3D Scene - Local for both mobile and desktop */}
+      <div className="hero-canvas-container absolute inset-0 z-0 pointer-events-none opacity-0">
+        {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
+      </div>
 
       {/* Main Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-6 text-center mt-[-5vh] md:mt-[-10vh]">
