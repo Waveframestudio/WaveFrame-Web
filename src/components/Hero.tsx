@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { gsap } from "gsap"
 import { HeroScene } from "./HeroScene"
 import { useLanguage } from "@/lib/LanguageContext"
+import { useIsMobile } from "@/hooks/useIsMobile"
 
 export function HUD() {
   const [latency, setLatency] = useState("0.02")
@@ -78,6 +79,7 @@ const phrasesEN = [
 
 export function Hero() {
   const { language, t } = useLanguage()
+  const isMobile = useIsMobile()
   const phrases = language === 'es' ? phrasesES : phrasesEN
   
   const [webGLAvailable, setWebGLAvailable] = useState(true)
@@ -174,10 +176,12 @@ export function Hero() {
       {/* HUD Layers */}
       <HUD />
 
-      {/* 3D Scene */}
-      <div className="hero-canvas-container absolute inset-0 z-0 pointer-events-none opacity-0">
-        {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
-      </div>
+      {/* 3D Scene - Only local on desktop */}
+      {!isMobile && (
+        <div className="hero-canvas-container absolute inset-0 z-0 pointer-events-none opacity-0">
+          {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
+        </div>
+      )}
 
       {/* Main Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-6 text-center mt-[-5vh] md:mt-[-10vh]">
