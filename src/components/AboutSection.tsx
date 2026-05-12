@@ -4,11 +4,13 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Canvas } from "@react-three/fiber"
 import { Logo3DModel } from "./Logo3D"
 import { useLanguage } from "@/lib/LanguageContext"
+import { useIsMobile } from "@/hooks/useIsMobile"
 
 gsap.registerPlugin(ScrollTrigger)
 
 export function AboutSection() {
   const { language } = useLanguage()
+  const isMobile = useIsMobile()
   const sectionRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
@@ -27,9 +29,11 @@ export function AboutSection() {
 
   return (
     <section ref={sectionRef} id="about" className="relative py-12 md:py-32 bg-[#060c14] overflow-hidden border-t border-white/5">
-      {/* Background grid texture */}
-      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-           style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+      {/* Background grid texture - Hidden on mobile */}
+      {!isMobile && (
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+             style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+      )}
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
