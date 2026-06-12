@@ -1,7 +1,7 @@
 <div align="center">
   <img src="public/favicon.svg" alt="WaveFrame Logo" width="120" />
   
-  # WAVEFRAME!
+  # WAVEFRAME
   ### *Digital Engineering & Avant-Garde Design*
 
   ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
