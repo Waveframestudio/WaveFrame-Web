@@ -15,6 +15,7 @@
 
 # Redirecciones/Proxy (Status 200) para juegos independientes
 /projects/juegos/cyber-pong/*    https://wf-cyberpong.netlify.app/:splat  200
+/projects/juegos/wave-kart/*     https://wave-kart.netlify.app/:splat    200
 /projects/juegos/wave-racing/*   https://wave-racing.netlify.app/:splat   200
 /projects/juegos/framesteroids/* https://framesteroids.netlify.app/:splat 200
 

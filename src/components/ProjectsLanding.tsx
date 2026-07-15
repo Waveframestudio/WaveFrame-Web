@@ -149,14 +149,24 @@ const PROJECTS_DATA: Record<"webs" | "apps" | "juegos", ProjectItem[]> = {
       descEn: "Retro-futuristic Pong arcade game featuring cyberpunk aesthetics, powerups, and synth sound effects."
     },
     {
-      id: "wave-racing",
-      name: "Wave Racing",
+      id: "wave-kart",
+      name: "Wave-Kart",
       image: "/projects/wave-kart.png",
-      link: "/projects/juegos/wave-racing/",
+      link: "/projects/juegos/wave-kart/",
       isLocalRewrite: true,
       tags: ["Three.js", "React Three Fiber", "Web GL", "Cannon.js"],
       descEs: "Simulador de carreras de karts en 3D con físicas realistas y multijugador local.",
       descEn: "3D kart racing simulator featuring realistic physics and local multiplayer."
+    },
+    {
+      id: "wave-racing",
+      name: "Wave Racing",
+      image: "/projects/wave-kart.png", // Usar imagen de wave-kart temporalmente o similar
+      link: "/projects/juegos/wave-racing/",
+      isLocalRewrite: true,
+      tags: ["Three.js", "React Three Fiber", "WebGL", "Speed Run"],
+      descEs: "Juego de carreras arcade de alta velocidad con físicas y curvas de alta dificultad.",
+      descEn: "High-speed arcade racing game with specialized physics and difficult corners."
     },
     {
       id: "wavetris",
