@@ -13,6 +13,7 @@ import { Footer } from "@/components/Footer"
 import { PrivacyPage } from "@/components/PrivacyPage"
 import { TermsPage } from "@/components/TermsPage"
 import { FAQPage } from "@/components/FAQPage"
+import { ProjectsLanding } from "@/components/ProjectsLanding"
 
 import { useIsMobile } from "@/hooks/useIsMobile"
 
@@ -92,6 +93,8 @@ export function App() {
           <Route path="/privacidad" element={<PrivacyPage />} />
           <Route path="/terminos" element={<TermsPage />} />
           <Route path="/faq" element={<FAQPage />} />
+          <Route path="/projects" element={<ProjectsLanding />} />
+          <Route path="/projects/:category" element={<ProjectsLanding />} />
         </Routes>
         <Footer />
       </div>

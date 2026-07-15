@@ -7,7 +7,7 @@ import { MobileMenu } from "./MobileMenu"
 const links = [
   { label: "nav.services", href: "#features" },
   { label: "nav.about", href: "#about" },
-  { label: "nav.projects", href: "#projects" },
+  { label: "nav.projects", href: "/projects" },
   { label: "nav.contact", href: "#cta" },
 ]
 

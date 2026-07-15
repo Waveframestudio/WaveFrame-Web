@@ -1,0 +1,23 @@
+# =============================================================================
+# REDIRECTS DE NETLIFY - WAVEFRAME
+# =============================================================================
+#
+# Reglas de enrutamiento y proxy (rewrite status 200) para servir subproyectos
+# independientes en subrutas de waveframe.com.ar/projects/
+#
+# IMPORTANTE: 
+# 1. El orden de las reglas importa. Netlify evalúa las reglas de arriba a abajo.
+# 2. Las reglas de rewrite con status 200 permiten cargar aplicaciones alojadas
+#    en otros deploys/servidores manteniendo la URL de waveframe.com.ar intacta.
+# 3. Los proyectos externos proxyados deben compilarse usando el prefijo de base URL
+#    correspondiente (ej. base: '/projects/juegos/cyber-pong/' en Vite) para que
+#    los recursos estáticos (assets) carguen de forma correcta.
+
+# Redirecciones/Proxy (Status 200) para juegos independientes
+/projects/juegos/cyber-pong/*    https://wf-cyberpong.netlify.app/:splat  200
+/projects/juegos/wave-racing/*   https://wave-racing.netlify.app/:splat   200
+/projects/juegos/framesteroids/* https://framesteroids.netlify.app/:splat 200
+
+# Redirección SPA estándar de React Router (Shell Principal)
+# Esta regla redirige todas las rutas no coincidentes con archivos físicos a index.html
+/*  /index.html  200
