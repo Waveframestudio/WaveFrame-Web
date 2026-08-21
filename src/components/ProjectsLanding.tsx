@@ -8,6 +8,7 @@ interface ProjectItem {
   id: string
   name: string
   image: string
+  video?: string
   link: string
   isLocalRewrite?: boolean
   tags: string[]
@@ -15,7 +16,7 @@ interface ProjectItem {
   descEn: string
 }
 
-const PROJECTS_DATA: Record<"webs" | "apps" | "juegos", ProjectItem[]> = {
+const PROJECTS_DATA: Record<"webs" | "apps" | "games", ProjectItem[]> = {
   webs: [
     {
       id: "rune",
@@ -137,12 +138,13 @@ const PROJECTS_DATA: Record<"webs" | "apps" | "juegos", ProjectItem[]> = {
       descEn: "Secure password generator and real-time cryptographic strength auditor."
     }
   ],
-  juegos: [
+  games: [
     {
       id: "cyber-pong",
       name: "Cyber Pong",
       image: "/projects/cyber-pong.png",
-      link: "/projects/juegos/cyber-pong/",
+      video: "/Demos/Games/Cyberpong.webm",
+      link: "https://wave-cyberpong.netlify.app/",
       isLocalRewrite: true,
       tags: ["React", "Vite", "Canvas API", "Web Audio API", "GSAP"],
       descEs: "Videojuego retro-futurista de Pong con estéticas cyberpunk, power-ups y sonido sintetizado.",
@@ -152,17 +154,19 @@ const PROJECTS_DATA: Record<"webs" | "apps" | "juegos", ProjectItem[]> = {
       id: "wave-kart",
       name: "Wave-Kart",
       image: "/projects/wave-kart.png",
-      link: "/projects/juegos/wave-kart/",
+      video: "/Demos/Games/wavekart.webm",
+      link: "https://wavekart-game.netlify.app/",
       isLocalRewrite: true,
-      tags: ["Three.js", "React Three Fiber", "Web GL", "Cannon.js"],
-      descEs: "Simulador de carreras de karts en 3D con físicas realistas y multijugador local.",
-      descEn: "3D kart racing simulator featuring realistic physics and local multiplayer."
+      tags: ["React", "Vite", "Three.js", "Canvas API"],
+      descEs: "Juego de carreras de karts arcade con power-ups, disparos, minas, logo 3D y controles táctiles.",
+      descEn: "Arcade kart racing game featuring powerups, projectiles, mines, 3D logo, and touch controls."
     },
     {
       id: "wave-racing",
       name: "Wave Racing",
-      image: "/projects/wave-kart.png", // Usar imagen de wave-kart temporalmente o similar
-      link: "/projects/juegos/wave-racing/",
+      image: "/projects/wave-kart.png",
+      video: "/Demos/Games/Wave Racing Gameplay.webm",
+      link: "https://waveracing-game.netlify.app/",
       isLocalRewrite: true,
       tags: ["Three.js", "React Three Fiber", "WebGL", "Speed Run"],
       descEs: "Juego de carreras arcade de alta velocidad con físicas y curvas de alta dificultad.",
@@ -170,19 +174,21 @@ const PROJECTS_DATA: Record<"webs" | "apps" | "juegos", ProjectItem[]> = {
     },
     {
       id: "wavetris",
-      name: "WaveTris Tetris",
+      name: "WaveTris",
       image: "/projects/wavetris.png",
-      link: "/projects/juegos/wavetris/",
+      video: "/Demos/Games/WaveTris.webm",
+      link: "https://wavetris.netlify.app/",
       isLocalRewrite: true,
-      tags: ["React", "CSS Grid", "Web Audio API"],
-      descEs: "Adaptación estilizada del clásico Tetris con animaciones modernas y música retro.",
-      descEn: "Stylized adaptation of the classic Tetris game with modern animations and retro soundtrack."
+      tags: ["React", "Vite", "Canvas API", "Web Audio API"],
+      descEs: "Adaptación estilizada del clásico Tetris con animaciones modernas, sonido retro y controles táctiles.",
+      descEn: "Stylized adaptation of classic Tetris featuring modern animations, retro sound, and touch controls."
     },
     {
       id: "framesteroids",
       name: "Framesteroids",
       image: "/projects/asteroids.png",
-      link: "/projects/juegos/framesteroids/",
+      video: "/Demos/Games/Framestoroids.webm",
+      link: "https://framesteroids.netlify.app/",
       isLocalRewrite: true,
       tags: ["HTML5 Canvas", "Vector Math", "Physics Engine"],
       descEs: "Remake del clásico arcade espacial con controles vectoriales fluidos y sistema de puntuación.",
@@ -192,13 +198,150 @@ const PROJECTS_DATA: Record<"webs" | "apps" | "juegos", ProjectItem[]> = {
       id: "buscaminas",
       name: "Buscaminas Retro",
       image: "/projects/buscaminas.png",
-      link: "/projects/juegos/buscaminas/",
+      video: "/Demos/Games/Buscaminas.mp4",
+      link: "https://wf-minesweeper.netlify.app/",
       isLocalRewrite: true,
-      tags: ["React", "CSS Variables", "Local Storage"],
-      descEs: "El clásico juego de lógica buscaminas con selector de dificultad y diseño responsive.",
-      descEn: "The classic minesweeper logic game featuring difficulty levels and responsive layout."
+      tags: ["React", "Vite", "Three.js", "CSS Variables"],
+      descEs: "El clásico juego de lógica buscaminas con estética neón, selector de dificultad y logo 3D.",
+      descEn: "The classic minesweeper logic game featuring neon aesthetics, difficulty selector, and 3D logo."
     }
   ]
+}
+
+function ProjectCard({ project, category, language }: { project: ProjectItem; category: string; language: string }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const videoRef = useRef<HTMLVideoElement>(null)
+
+  useEffect(() => {
+    if (videoRef.current && project.video) {
+      videoRef.current.currentTime = 0.5
+    }
+  }, [project.video])
+
+  useEffect(() => {
+    const cardEl = cardRef.current
+    const videoEl = videoRef.current
+    if (!cardEl || !videoEl || !project.video) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const isMobileDevice = window.innerWidth <= 768 || 'ontouchstart' in window
+          if (isMobileDevice) {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.4) {
+              videoEl.play().catch(() => {})
+            } else {
+              videoEl.pause()
+              videoEl.currentTime = 0.5
+            }
+          }
+        })
+      },
+      { threshold: [0, 0.4, 0.8] }
+    )
+
+    observer.observe(cardEl)
+    return () => observer.disconnect()
+  }, [project.video])
+
+  const handleMouseEnter = () => {
+    if (window.innerWidth > 768 && videoRef.current) {
+      videoRef.current.play().catch(() => {})
+    }
+  }
+
+  const handleMouseLeave = () => {
+    if (window.innerWidth > 768 && videoRef.current) {
+      videoRef.current.pause()
+      videoRef.current.currentTime = 0.5
+    }
+  }
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className="group relative flex flex-col justify-between rounded-2xl bg-white/5 border border-white/5 overflow-hidden hover:border-white/20 transition-all duration-300"
+    >
+      {/* Media Frame (Video Frame Poster + Hover Video) */}
+      <div className="relative h-48 overflow-hidden bg-zinc-950">
+        {project.video ? (
+          <video
+            ref={videoRef}
+            src={`${project.video}#t=0.5`}
+            loop
+            muted
+            playsInline
+            preload="metadata"
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        ) : (
+          <img
+            src={project.image}
+            alt={project.name}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+            onError={(e) => {
+              e.currentTarget.src = "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop&q=60"
+            }}
+          />
+        )}
+
+        <div className="absolute inset-0 bg-gradient-to-t from-[#03070c] via-transparent to-transparent opacity-60 pointer-events-none" />
+        
+        {/* Category Badge */}
+        <div className="absolute top-4 right-4 glass px-3 py-1.5 rounded-full border border-white/10 text-[10px] uppercase font-bold text-primary tracking-wider pointer-events-none">
+          {category}
+        </div>
+      </div>
+
+      {/* Info del Proyecto */}
+      <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+        <div className="space-y-2">
+          <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">
+            {project.name}
+          </h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            {language === 'es' ? project.descEs : project.descEn}
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          {/* Tags */}
+          <div className="flex flex-wrap gap-1.5">
+            {project.tags.map((tag) => (
+              <span key={tag} className="text-[10px] px-2 py-0.5 rounded bg-white/5 border border-white/5 text-zinc-400 font-medium">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Botón de Acción */}
+          {project.isLocalRewrite ? (
+            <a
+              href={project.link}
+              target={project.link.startsWith("http") ? "_blank" : undefined}
+              rel={project.link.startsWith("http") ? "noopener noreferrer" : undefined}
+              className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-primary text-primary-foreground font-black text-xs uppercase tracking-widest hover:brightness-110 transition-all"
+            >
+              {language === 'es' ? 'Jugar Ahora' : 'Play Now'}
+            </a>
+          ) : (
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/10 text-white font-bold text-xs uppercase tracking-wider hover:bg-white/15 transition-all border border-white/5"
+            >
+              {language === 'es' ? 'Ver Proyecto' : 'View Project'}
+              <ExternalLink className="w-3.5 h-3.5" />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export function ProjectsLanding() {
@@ -236,7 +379,7 @@ export function ProjectsLanding() {
   const categoriesConfig = [
     { id: "webs", label: "Webs" },
     { id: "apps", label: "Apps" },
-    { id: "juegos", label: "Juegos" }
+    { id: "games", label: language === 'es' ? "Juegos" : "Games" }
   ]
 
   return (
@@ -322,73 +465,12 @@ export function ProjectsLanding() {
         {category && isValidCategory && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
             {PROJECTS_DATA[activeCategory].map((project) => (
-              <div
-                key={project.id}
-                className="group relative flex flex-col justify-between rounded-2xl bg-white/5 border border-white/5 overflow-hidden hover:border-white/20 transition-all duration-300"
-              >
-                {/* Imagen del Proyecto */}
-                <div className="relative h-48 overflow-hidden bg-zinc-950">
-                  <img
-                    src={project.image}
-                    alt={project.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    loading="lazy"
-                    onError={(e) => {
-                      // Fallback en caso de que la imagen no exista localmente aún
-                      e.currentTarget.src = "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800&auto=format&fit=crop&q=60"
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#03070c] via-transparent to-transparent opacity-60" />
-                  
-                  {/* Badge de Categoría */}
-                  <div className="absolute top-4 right-4 glass px-3 py-1.5 rounded-full border border-white/10 text-[10px] uppercase font-bold text-primary tracking-wider">
-                    {category}
-                  </div>
-                </div>
-
-                {/* Info del Proyecto */}
-                <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
-                  <div className="space-y-2">
-                    <h3 className="text-xl font-bold text-white group-hover:text-primary transition-colors">
-                      {project.name}
-                    </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {language === 'es' ? project.descEs : project.descEn}
-                    </p>
-                  </div>
-
-                  <div className="space-y-4">
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1.5">
-                      {project.tags.map((tag) => (
-                        <span key={tag} className="text-[10px] px-2 py-0.5 rounded bg-white/5 border border-white/5 text-zinc-400 font-medium">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Botón de Acción */}
-                    {project.isLocalRewrite ? (
-                      <a
-                        href={project.link}
-                        className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-primary text-primary-foreground font-black text-xs uppercase tracking-widest hover:brightness-110 transition-all"
-                      >
-                        {language === 'es' ? 'Jugar Ahora' : 'Play Now'}
-                      </a>
-                    ) : (
-                      <a
-                        href={project.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full inline-flex items-center justify-center gap-2 py-2.5 rounded-xl bg-white/10 text-white font-bold text-xs uppercase tracking-wider hover:bg-white/15 transition-all border border-white/5"
-                      >
-                        {language === 'es' ? 'Ver Proyecto' : 'View Project'}
-                        <ExternalLink className="w-3.5 h-3.5" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-              </div>
+              <ProjectCard 
+                key={project.id} 
+                project={project} 
+                category={category} 
+                language={language} 
+              />
             ))}
           </div>
         )}
