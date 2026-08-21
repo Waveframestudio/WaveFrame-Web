@@ -157,9 +157,9 @@ const PROJECTS_DATA: Record<"webs" | "apps" | "games", ProjectItem[]> = {
       video: "/Demos/Games/wavekart.webm",
       link: "https://wavekart-game.netlify.app/",
       isLocalRewrite: true,
-      tags: ["React", "Vite", "Three.js", "Canvas API"],
-      descEs: "Juego de carreras de karts arcade con power-ups, disparos, minas, logo 3D y controles táctiles.",
-      descEn: "Arcade kart racing game featuring powerups, projectiles, mines, 3D logo, and touch controls."
+      tags: ["2D", "Mario Kart Style", "React", "Touch Controls"],
+      descEs: "Juego 2D de carreras de karts inspirado en Mario Kart con power-ups, disparos, minas y controles táctiles.",
+      descEn: "2D Mario Kart-inspired kart racing game featuring powerups, projectiles, mines, and touch controls."
     },
     {
       id: "wave-racing",
@@ -168,9 +168,9 @@ const PROJECTS_DATA: Record<"webs" | "apps" | "games", ProjectItem[]> = {
       video: "/Demos/Games/Wave Racing Gameplay.webm",
       link: "https://waveracing-game.netlify.app/",
       isLocalRewrite: true,
-      tags: ["Three.js", "React Three Fiber", "WebGL", "Speed Run"],
-      descEs: "Juego de carreras arcade de alta velocidad con físicas y curvas de alta dificultad.",
-      descEn: "High-speed arcade racing game with specialized physics and difficult corners."
+      tags: ["3D", "Three.js", "React Three Fiber", "WebGL"],
+      descEs: "Juego de carreras arcade 3D de alta velocidad con físicas realistas y curvas exigentes.",
+      descEn: "High-speed 3D arcade racing game with specialized physics and challenging corners."
     },
     {
       id: "wavetris",
@@ -202,8 +202,8 @@ const PROJECTS_DATA: Record<"webs" | "apps" | "games", ProjectItem[]> = {
       link: "https://wf-minesweeper.netlify.app/",
       isLocalRewrite: true,
       tags: ["React", "Vite", "Three.js", "CSS Variables"],
-      descEs: "El clásico juego de lógica buscaminas con estética neón, selector de dificultad y logo 3D.",
-      descEn: "The classic minesweeper logic game featuring neon aesthetics, difficulty selector, and 3D logo."
+      descEs: "El clásico juego de lógica buscaminas con estética neón y selector de dificultad.",
+      descEn: "The classic minesweeper logic game featuring neon aesthetics and difficulty selector."
     }
   ]
 }
