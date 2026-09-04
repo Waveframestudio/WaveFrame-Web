@@ -5,7 +5,6 @@ import { Navbar } from "@/components/Navbar"
 import { Hero } from "@/components/Hero"
 import { Features } from "@/components/Features"
 import { Showcase } from "@/components/Showcase"
-import { StorySection } from "@/components/StorySection"
 import { AboutSection } from "@/components/AboutSection"
 import { ProjectsSection } from "@/components/ProjectsSection"
 import { CTASection } from "@/components/CTASection"
@@ -56,7 +55,6 @@ function HomePage() {
       <Hero />
       <Features />
       <Showcase />
-      <StorySection />
       <AboutSection />
       <ProjectsSection />
       <CTASection />

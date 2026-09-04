@@ -85,31 +85,31 @@ export function Showcase() {
         <div ref={textRef} className="space-y-8 opacity-0">
           <div className="inline-flex items-center gap-2 glass rounded-full px-4 py-1.5 border border-border/40">
             <span className="text-xs font-semibold tracking-widest uppercase text-muted-foreground">
-              {language === 'es' ? 'Tecnología' : 'Technology'}
+              {language === 'es' ? 'Sistemas & Automatización' : 'Systems & Automation'}
             </span>
           </div>
           <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-[0.9]">
-            <span className="text-foreground block">{language === 'es' ? 'Arquitectura diseñada' : 'Architecture designed'}</span>
-            <span className="text-gradient block">{language === 'es' ? 'para el extremo.' : 'for the extreme.'}</span>
+            <span className="text-foreground block">{language === 'es' ? 'Sistemas de Alta Eficiencia' : 'High-Efficiency Systems'}</span>
+            <span className="text-gradient block">{language === 'es' ? 'Personales e Industriales.' : 'Personal & Industrial.'}</span>
           </h2>
           <p className="text-muted-foreground leading-relaxed text-lg">
             {language === 'es' 
-              ? 'Construida sobre infraestructura distribuida global con redundancia activa. Cada nodo aprende del conjunto.' 
-              : 'Built on global distributed infrastructure with active redundancy. Each node learns from the collective.'}
+              ? 'Diseñamos e implementamos arquitecturas de software avanzadas enfocadas en optimizar operaciones, eliminar cuellos de botella y multiplicar la productividad tanto en PyMEs como en grandes empresas.' 
+              : 'We design and implement advanced software architectures focused on optimizing operations, eliminating bottlenecks, and multiplying productivity across SMEs and enterprise companies.'}
           </p>
           <div className="space-y-4">
             {[
               { 
-                title: language === 'es' ? "Multi-región activa" : "Active Multi-region", 
-                desc: language === 'es' ? "12 regiones simultáneas, failover en &lt;50ms" : "12 simultaneous regions, failover in &lt;50ms" 
+                title: language === 'es' ? "Automatización de Procesos Críticos" : "Critical Process Automation", 
+                desc: language === 'es' ? "Flujos de trabajo inteligentes que reducen tiempos operativos y eliminan errores humanos." : "Intelligent workflows that reduce operational time and eliminate human errors." 
               },
               { 
-                title: language === 'es' ? "Edge Computing nativo" : "Native Edge Computing", 
-                desc: language === 'es' ? "Inferencia a menos de 5ms del usuario final" : "Inference under 5ms from the end user" 
+                title: language === 'es' ? "Sistemas Industriales & ERP/CRM A Medida" : "Industrial Systems & Custom ERP/CRM", 
+                desc: language === 'es' ? "Plataformas robustas conectadas en tiempo real para control total de planta y negocio." : "Robust real-time connected platforms for total plant and business control." 
               },
               { 
-                title: language === 'es' ? "Self-healing automático" : "Automatic Self-healing", 
-                desc: language === 'es' ? "Recuperación autónoma sin intervención humana" : "Autonomous recovery without human intervention" 
+                title: language === 'es' ? "Eficiencia Personal & Empresarial" : "Personal & Enterprise Efficiency", 
+                desc: language === 'es' ? "Herramientas hechas a la medida exacta de las necesidades de tu equipo para escalar." : "Tools custom-built to match your team's exact needs to scale effortlessly." 
               },
             ].map((item, i) => (
               <div key={i} className="flex gap-4 p-4 rounded-xl border border-border/30 hover:border-primary/30 transition-colors duration-300 group">
@@ -179,9 +179,9 @@ export function Showcase() {
 
           <div className="showcase-stats grid grid-cols-3 gap-4">
             {[
-              { value: "12", label: language === 'es' ? "Regiones globales" : "Global Regions" },
-              { value: "<5ms", label: language === 'es' ? "Latencia Edge" : "Edge Latency" },
-              { value: "99.99%", label: language === 'es' ? "SLA garantizado" : "Guaranteed SLA" },
+              { value: "+300%", label: language === 'es' ? "Eficiencia operativa" : "Operational Efficiency" },
+              { value: "100%", label: language === 'es' ? "Adaptado a tu negocio" : "Tailored to Your Business" },
+              { value: "99.99%", label: language === 'es' ? "Disponibilidad continua" : "Continuous Availability" },
             ].map((stat, i) => (
               <div key={i} className="showcase-stat opacity-0 glass-card rounded-xl p-4 text-center">
                 <div className="text-2xl font-black text-gradient-static">{stat.value}</div>

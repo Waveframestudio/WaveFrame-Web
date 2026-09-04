@@ -7,61 +7,215 @@ import { useGSAP } from "@gsap/react"
 
 gsap.registerPlugin(ScrollTrigger)
 
+const targetAudienceES = [
+  { label: "Startups & Emprendedores", icon: "🚀" },
+  { label: "Coaches, Consultores & Agencias", icon: "🎯" },
+  { label: "Empresas de Servicios & Logística", icon: "💼" },
+  { label: "Marcas E-Commerce & Retail", icon: "🛍️" },
+  { label: "PyMEs & Empresas en Crecimiento", icon: "🏢" },
+  { label: "Plantas Industriales & Fábricas", icon: "🏭" }
+]
+
+const targetAudienceEN = [
+  { label: "Startups & Entrepreneurs", icon: "🚀" },
+  { label: "Coaches, Consultants & Agencies", icon: "🎯" },
+  { label: "Service & Logistics Companies", icon: "💼" },
+  { label: "E-Commerce & Retail Brands", icon: "🛍️" },
+  { label: "SMEs & Growing Businesses", icon: "🏢" },
+  { label: "Industrial Plants & Factories", icon: "🏭" }
+]
+
 const featuresES = [
   {
-    tag: "Next-Gen", color: "from-primary/30 to-transparent",
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
-    title: "Interfaces Inmersivas",
-    desc: "Experiencias web de alto impacto construidas con el stack más avanzado para dominar el mercado digital con velocidad extrema.",
-    metric: "Ultra-Fast Load",
+    tag: "Conversión", 
+    color: "from-primary/30 to-transparent",
+    badge: "Ventas & Leads",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+      </svg>
+    ),
+    title: "Landing Pages de Alta Conversión",
+    desc: "Páginas web ultra rápidas diseñadas con estrategia visual para captar leads, impulsar campañas publicitarias y convertir visitas en clientes activos.",
+    metric: "Máxima Conversión",
   },
   {
-    tag: "Native", color: "from-chart-2/30 to-transparent",
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>,
-    title: "Ecosistemas Móviles",
-    desc: "Aplicaciones de alto rendimiento que redefinen la interacción en iOS y Android, diseñadas para escalar sin límites.",
-    metric: "Global Scale",
+    tag: "E-Commerce", 
+    color: "from-chart-2/30 to-transparent",
+    badge: "Ventas 24/7",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+      </svg>
+    ),
+    title: "Tiendas en Línea & E-Commerce",
+    desc: "Plataformas de venta online a medida, seguras y optimizadas para brindar una experiencia de compra fluida que maximice tus ingresos.",
+    metric: "Checkout Rápido",
   },
   {
-    tag: "Intelligent", color: "from-chart-4/30 to-transparent",
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
-    title: "Arquitecturas Autónomas",
-    desc: "Libera el potencial de tu empresa con sistemas inteligentes que automatizan procesos complejos mientras tú te enfocas en crecer.",
-    metric: "Efficiency +300%",
+    tag: "Aplicaciones", 
+    color: "from-chart-3/30 to-transparent",
+    badge: "iOS / Android / Web",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+      </svg>
+    ),
+    title: "Apps Web & Móviles Nativas",
+    desc: "Desarrollo de aplicaciones móviles y web de alto rendimiento con interfaces intuitivas y arquitecturas escalables preparadas para miles de usuarios.",
+    metric: "Multi-Plataforma",
+  },
+  {
+    tag: "Industria & Pymes", 
+    color: "from-chart-4/30 to-transparent",
+    badge: "Gestión A Medida",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0H9m1 0h1m-1 4h1m-1 0H9m1 0h1" />
+      </svg>
+    ),
+    title: "Sistemas Industriales & ERPs",
+    desc: "Software de gestión empresarial e industrial para control de stock, procesos operativos y automatización interna adaptado al 100% a tu empresa.",
+    metric: "Control Total",
+  },
+  {
+    tag: "Automatización", 
+    color: "from-primary/30 to-transparent",
+    badge: "Bots & IA",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
+    title: "Bots de Automatización & ATC",
+    desc: "Desarrollamos bots inteligentes de atención al cliente (ATC) e integraciones de automatización que responden dudas, agendan citas y operan 24/7 sin descanso.",
+    metric: "Eficiencia 24/7",
+  },
+  {
+    tag: "All-in-One", 
+    color: "from-chart-2/30 to-transparent",
+    badge: "Infraestructura",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    ),
+    title: "Hosting Cloud, Mantenimiento & Email",
+    desc: "Servicio integral de servidores ultra veloces, seguridad continua, correos corporativos y soporte para mantener tu ecosistema web óptimo siempre.",
+    metric: "99.9% Uptime",
   },
 ]
 
 const featuresEN = [
   {
-    tag: "Next-Gen", color: "from-primary/30 to-transparent",
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>,
-    title: "Immersive Interfaces",
-    desc: "High-impact web experiences built with the most advanced stack to dominate the digital market with extreme speed.",
-    metric: "Ultra-Fast Load",
+    tag: "Conversion", 
+    color: "from-primary/30 to-transparent",
+    badge: "Sales & Leads",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+      </svg>
+    ),
+    title: "High-Converting Landing Pages",
+    desc: "Ultra-fast web pages designed with visual strategy to capture leads, boost ad campaigns, and turn visits into active clients.",
+    metric: "Max Conversion",
   },
   {
-    tag: "Native", color: "from-chart-2/30 to-transparent",
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /></svg>,
-    title: "Mobile Ecosystems",
-    desc: "High-performance applications that redefine interaction on iOS and Android, designed to scale limitlessly.",
-    metric: "Global Scale",
+    tag: "E-Commerce", 
+    color: "from-chart-2/30 to-transparent",
+    badge: "24/7 Sales",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+      </svg>
+    ),
+    title: "Online Stores & E-Commerce",
+    desc: "Tailor-made, secure, and optimized online shopping platforms designed for seamless checkout and revenue growth.",
+    metric: "Fast Checkout",
   },
   {
-    tag: "Intelligent", color: "from-chart-4/30 to-transparent",
-    icon: <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
-    title: "Autonomous Architectures",
-    desc: "Unleash your company's potential with intelligent systems that automate complex processes while you focus on growth.",
-    metric: "Efficiency +300%",
+    tag: "Applications", 
+    color: "from-chart-3/30 to-transparent",
+    badge: "iOS / Android / Web",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+      </svg>
+    ),
+    title: "Web & Native Mobile Apps",
+    desc: "Development of high-performance mobile and web applications with intuitive interfaces and scalable architectures.",
+    metric: "Multi-Platform",
+  },
+  {
+    tag: "Industry & SMEs", 
+    color: "from-chart-4/30 to-transparent",
+    badge: "Custom Management",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0H9m1 0h1m-1 4h1m-1 0H9m1 0h1" />
+      </svg>
+    ),
+    title: "Industrial Systems & Custom ERPs",
+    desc: "Industrial and business management software for stock control, operational workflows, and internal automation.",
+    metric: "Total Control",
+  },
+  {
+    tag: "Automation", 
+    color: "from-primary/30 to-transparent",
+    badge: "Bots & AI",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+      </svg>
+    ),
+    title: "Automation Bots & Customer Care",
+    desc: "We build smart customer support (ATC) bots and automation integrations that handle inquiries, schedule appointments, and run 24/7.",
+    metric: "24/7 Efficiency",
+  },
+  {
+    tag: "All-in-One", 
+    color: "from-chart-2/30 to-transparent",
+    badge: "Infrastructure",
+    icon: (
+      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+      </svg>
+    ),
+    title: "Cloud Hosting, Maintenance & Email",
+    desc: "Full-service package including ultra-fast servers, continuous security, corporate emails, and ongoing support.",
+    metric: "99.9% Uptime",
   },
 ]
 
 export function Features() {
   const { language } = useLanguage()
   const features = language === 'es' ? featuresES : featuresEN
+  const audiences = language === 'es' ? targetAudienceES : targetAudienceEN
   const sectionRef = useRef<HTMLElement>(null)
   const isMobile = useIsMobile()
 
   useGSAP(() => {
+    // Sliding animation for audience chips from alternating sides
+    const chips = document.querySelectorAll(".audience-chip")
+    chips.forEach((chip, i) => {
+      const fromX = i % 2 === 0 ? -100 : 100
+      gsap.fromTo(
+        chip,
+        { opacity: 0, x: fromX },
+        {
+          opacity: 1,
+          x: 0,
+          duration: 0.9,
+          ease: "back.out(1.4)",
+          scrollTrigger: {
+            trigger: chip,
+            start: "top 90%",
+          },
+          delay: (i % 3) * 0.1,
+        }
+      )
+    })
+
     gsap.fromTo(
       ".feature-card",
       { opacity: 0, y: 40, rotateX: -15 },
@@ -75,6 +229,35 @@ export function Features() {
         scrollTrigger: { trigger: ".features-grid", start: "top 80%" },
       }
     )
+
+    // Mobile horizontal animation: start at last card and scroll smoothly to the first card
+    const gridContainer = document.querySelector(".features-grid") as HTMLElement | null
+    if (gridContainer) {
+      // Set initial scroll to end once layout renders
+      setTimeout(() => {
+        if (gridContainer) {
+          const maxScroll = gridContainer.scrollWidth - gridContainer.clientWidth
+          if (maxScroll > 0) {
+            gridContainer.scrollLeft = maxScroll
+            const scrollObj = { x: maxScroll }
+
+            gsap.to(scrollObj, {
+              x: 0,
+              duration: 1.8,
+              ease: "power3.inOut",
+              onUpdate: () => {
+                gridContainer.scrollLeft = scrollObj.x
+              },
+              scrollTrigger: {
+                trigger: gridContainer,
+                start: "top 85%",
+                once: true,
+              },
+            })
+          }
+        }
+      }, 100)
+    }
 
     if (!isMobile) {
       const cards = document.querySelectorAll(".feature-card")
@@ -113,95 +296,170 @@ export function Features() {
     }
   }, { scope: sectionRef, dependencies: [isMobile] })
 
-
   return (
-    <section ref={sectionRef} id="features" className="relative pt-20 pb-10 md:pb-40 overflow-hidden scroll-mt-32">
+    <section ref={sectionRef} id="features" className="relative pt-20 pb-10 md:pb-32 overflow-hidden scroll-mt-32">
       <div className="relative max-w-7xl mx-auto px-6">
-        <div className="text-center mb-16 md:mb-24 space-y-4">
-          <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full border border-white/10 mb-4 animate-float">
+        
+        {/* Header Intro */}
+        <div className="text-center mb-12 md:mb-16 space-y-4">
+          <div className="inline-flex items-center gap-2 glass px-4 py-1.5 rounded-full border border-white/10 mb-2 animate-float">
             <span className="text-[10px] font-bold tracking-[0.2em] uppercase text-primary">
-              {language === 'es' ? 'Sistemas Core' : 'Core Systems'}
+              {language === 'es' ? 'Soluciones Web de Alto Rendimiento' : 'High-Performance Web Solutions'}
             </span>
           </div>
-          <h2 className="text-4xl sm:text-5xl md:text-7xl font-black tracking-tighter text-white leading-[1.1] md:leading-[0.9]">
-            <span className="block md:whitespace-nowrap">{language === 'es' ? 'Diseñado para el' : 'Designed for the'}</span>
-            <span className="text-gradient block md:whitespace-nowrap">{language === 'es' ? 'Extremo.' : 'Extreme.'}</span>
+          
+          <h2 className="text-3xl sm:text-5xl md:text-6xl font-black tracking-tighter text-white leading-[1.1]">
+            {language === 'es' ? (
+              <>
+                Soluciones Web Estratégicas para <br className="hidden md:inline" />
+                <span className="text-gradient">Marcas, PyMEs y Negocios en Crecimiento</span>
+              </>
+            ) : (
+              <>
+                Strategic Web Solutions for <br className="hidden md:inline" />
+                <span className="text-gradient">Brands, SMEs & Growing Businesses</span>
+              </>
+            )}
           </h2>
-          <p className="text-white/40 text-base md:text-xl max-w-2xl mx-auto font-medium px-4 md:px-0">
+          
+          <p className="text-white/60 text-base md:text-xl max-w-3xl mx-auto font-medium leading-relaxed px-4 md:px-0 pt-2">
             {language === 'es' 
-              ? 'Cada módulo ha sido forjado para soportar las cargas de trabajo más exigentes con una elegancia visual sin precedentes.' 
-              : 'Each module has been forged to withstand the most demanding workloads with unprecedented visual elegance.'}
+              ? 'Trabajamos mano a mano con pequeños negocios, marcas emergentes, PyMEs y personas con ideas extraordinarias que buscan una presencia digital profesional, rápida y de alto impacto que potencie sus ventas y materialice sus proyectos.' 
+              : 'We work side-by-side with small businesses, emerging brands, SMEs, and individuals with extraordinary ideas seeking a professional, fast, high-impact digital presence to scale sales and bring projects to life.'}
+          </p>
+
+          {/* CTA Link / Button direct engagement */}
+          <div className="pt-4">
+            <a 
+              href="#contact" 
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-primary/10 hover:bg-primary/20 text-primary font-bold text-sm border border-primary/30 shadow-[0_0_20px_rgba(var(--primary),0.2)] transition-all duration-300 group"
+            >
+              <span>{language === 'es' ? 'Hablemos de tu proyecto' : 'Let\'s talk about your project'}</span>
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        {/* Target Audience Badges / Chips */}
+        <div className="mb-16 md:mb-20">
+          <p className="text-center text-xs uppercase tracking-widest text-white/40 font-bold mb-4">
+            {language === 'es' ? 'Diseñado para impulsar a:' : 'Designed to empower:'}
+          </p>
+          <div className="flex flex-wrap justify-center items-center gap-3 max-w-4xl mx-auto overflow-hidden px-2">
+            {audiences.map((aud, i) => (
+              <div 
+                key={i}
+                className="audience-chip glass px-4 py-2.5 rounded-2xl border border-white/10 flex items-center gap-2.5 text-white/90 text-sm font-semibold hover:border-primary/40 hover:bg-primary/5 transition-all duration-300 shadow-lg shadow-black/20"
+              >
+                <span>{aud.icon}</span>
+                <span>{aud.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Section Subtitle */}
+        <div className="text-center mb-10">
+          <h3 className="text-2xl md:text-3xl font-black text-white">
+            {language === 'es' ? 'Nuestros Servicios' : 'Our Services'}
+          </h3>
+          <p className="text-white/40 text-sm md:text-base font-medium mt-1">
+            {language === 'es' ? 'Arquitectura moderna, rápida y a medida sin las limitaciones de plataformas obsoletas.' : 'Modern, fast, custom architecture without the constraints of outdated platforms.'}
           </p>
         </div>
 
+        {/* Cards Grid (2x2 on Desktop, Carousel on Mobile) */}
         <div className="relative lg:perspective-1000">
-          {/* Carousel for mobile & tablet, grid for desktop */}
-          <div className="features-grid flex flex-row flex-nowrap lg:grid lg:grid-cols-3 gap-6 lg:gap-8 overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory -mx-6 px-6 lg:mx-0 lg:px-0 scrollbar-hide pb-12 lg:pb-0 touch-pan-x">
+          <div 
+            className="features-grid flex flex-row flex-nowrap lg:grid lg:grid-cols-2 gap-6 lg:gap-8 overflow-x-auto overflow-y-hidden lg:overflow-x-visible snap-x snap-mandatory -mx-6 px-6 lg:mx-0 lg:px-0 pb-8 lg:pb-0 touch-pan-x"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
             {features.map((f, i) => (
               <div
                 key={i}
-              className="feature-card group relative opacity-0 h-full flex-shrink-0 w-[85vw] md:w-[420px] lg:w-auto snap-center"
+                className="feature-card group relative h-full flex-shrink-0 w-[85vw] sm:w-[380px] md:w-[450px] lg:w-auto snap-center"
                 style={{ transformStyle: "preserve-3d" }}
               >
                 <div className="tilt-inner relative h-full transition-transform duration-500" style={{ transformStyle: "preserve-3d" }}>
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-                <div className="relative glass-card p-8 md:p-10 rounded-3xl border border-white/5 group-hover:border-white/20 transition-all duration-500 overflow-hidden h-full">
-                  <div className={`absolute top-0 right-0 w-32 h-32 bg-gradient-to-br ${f.color} blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
-                  
-                  <div className="relative z-10 space-y-6 md:space-y-8" style={{ transform: "translateZ(50px)" }}>
-                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500 border border-primary/20 shadow-[0_0_20px_rgba(var(--primary),0.1)]">
-                      {f.icon}
-                    </div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
+                  <div className="relative glass-card p-8 md:p-10 rounded-3xl border border-white/5 group-hover:border-white/20 transition-all duration-500 overflow-hidden h-full flex flex-col justify-between">
+                    <div className={`absolute top-0 right-0 w-36 h-36 bg-gradient-to-br ${f.color} blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
                     
-                    <div className="space-y-3 md:space-y-4">
-                      <h3 className="text-2xl md:text-3xl font-black text-white group-hover:text-primary transition-colors">{f.title}</h3>
-                      <p className="text-white/50 leading-relaxed font-medium text-base md:text-lg">{f.desc}</p>
+                    <div className="relative z-10 space-y-6">
+                      <div className="flex items-center justify-between">
+                        <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-500 border border-primary/20 shadow-[0_0_20px_rgba(var(--primary),0.1)]">
+                          {f.icon}
+                        </div>
+                        <span className="text-[11px] font-bold text-white/50 bg-white/5 px-3 py-1 rounded-full border border-white/10">
+                          {f.badge}
+                        </span>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <h4 className="text-2xl md:text-3xl font-black text-white group-hover:text-primary transition-colors leading-snug">
+                          {f.title}
+                        </h4>
+                        <p className="text-white/60 leading-relaxed font-medium text-base">
+                          {f.desc}
+                        </p>
+                      </div>
                     </div>
 
-                    <div className="pt-6 md:pt-8 flex items-center justify-between border-t border-white/5">
-                      <span className="text-[10px] font-bold tracking-widest uppercase text-white/30">{f.tag}</span>
-                      <span className="text-[10px] md:text-xs font-bold text-primary px-3 py-1 md:px-4 md:py-1.5 bg-primary/10 rounded-full border border-primary/20">{f.metric}</span>
+                    <div className="pt-6 mt-6 flex items-center justify-between border-t border-white/5 relative z-10">
+                      <span className="text-[10px] font-bold tracking-widest uppercase text-white/40">{f.tag}</span>
+                      <span className="text-[10px] md:text-xs font-bold text-primary px-3 py-1 bg-primary/10 rounded-full border border-primary/20">{f.metric}</span>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
-      </div>
 
         {/* Scroll hint dots — visible on mobile & tablet only */}
-        <div className="flex lg:hidden justify-center gap-2 mt-2 pb-2">
+        <div className="flex lg:hidden justify-center gap-2 mt-4 pb-2">
           {features.map((_, i) => (
             <div key={i} className="w-1.5 h-1.5 rounded-full bg-white/20" />
           ))}
         </div>
 
-        <div className="mt-8 md:mt-32 relative z-20 space-y-4">
-          {/* Row 1: Moving Left - Clean & Bold */}
-          <div className="py-4 md:py-8 bg-white/[0.02] backdrop-blur-md border-t border-white/10 relative overflow-hidden">
+        {/* Bottom Banner highlight */}
+        <div className="mt-16 md:mt-24 text-center">
+          <div className="inline-block glass-card p-6 md:p-8 rounded-3xl border border-primary/30 max-w-3xl mx-auto shadow-[0_0_30px_rgba(var(--primary),0.1)]">
+            <h4 className="text-xl md:text-2xl font-bold text-white mb-2">
+              {language === 'es' 
+                ? 'Nos encargamos 100% de tu ecosistema web' 
+                : 'We handle 100% of your web ecosystem'}
+            </h4>
+            <p className="text-white/60 text-sm md:text-base">
+              {language === 'es'
+                ? 'Olvídate de la complejidad técnica, servidores o problemas de seguridad. Nosotros lo gestionamos para que tú te dediques a hacer crecer tu negocio.'
+                : 'Forget about technical complexity, servers, or security issues. We manage everything so you can focus on expanding your business.'}
+            </p>
+          </div>
+        </div>
+
+        {/* Ticker bar */}
+        <div className="mt-16 md:mt-24 relative z-20 space-y-4">
+          <div className="py-4 md:py-8 bg-white/[0.02] backdrop-blur-md border-t border-b border-white/10 relative overflow-hidden">
             <div className="flex whitespace-nowrap animate-[ticker_50s_linear_infinite] w-fit">
               {[...Array(6)].map((_, i) => (
                 <div key={i} className="flex items-center gap-10 md:gap-16 px-6 md:px-8">
                   {[
-                    { s: language === 'es' ? "E-Commerce" : "E-Commerce", icon: <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /> },
-                    { s: language === 'es' ? "Apps Móviles" : "Mobile Apps", icon: <path d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" /> },
-                    { s: language === 'es' ? "Apps Web" : "Web Apps", icon: <path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /> },
-                    { s: language === 'es' ? "Apps De Escritorio" : "Desktop Apps", icon: <path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /> },
-                    { s: language === 'es' ? "Autobots" : "Autobots", icon: <path d="M13 10V3L4 14h7v7l9-11h-7z" /> },
-                    { s: language === 'es' ? "Webs" : "Websites", icon: <path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" /> }
+                    { s: language === 'es' ? "Landing Pages" : "Landing Pages" },
+                    { s: language === 'es' ? "Sitios Corporativos" : "Corporate Sites" },
+                    { s: language === 'es' ? "E-Commerce" : "E-Commerce" },
+                    { s: language === 'es' ? "Mantenimiento 24/7" : "24/7 Maintenance" },
+                    { s: language === 'es' ? "Cloud Hosting" : "Cloud Hosting" },
+                    { s: language === 'es' ? "Email Profesional" : "Business Email" }
                   ].map((item) => (
                     <div key={item.s} className="flex items-center gap-4 md:gap-6 group/item cursor-default">
-                      <svg className="w-6 h-6 md:w-8 md:h-8 text-primary transition-all duration-500 group-hover/item:scale-125" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        {item.icon}
-                      </svg>
-                      <span className="text-2xl md:text-4xl font-black tracking-tight text-white group-hover/item:text-primary transition-colors duration-500">
+                      <span className="text-xl md:text-3xl font-black tracking-tight text-white group-hover/item:text-primary transition-colors duration-500">
                         {item.s}
                       </span>
-                      {/* Brand Separator (Waves) */}
-                      <svg viewBox="0 0 256 120" className="w-[30px] md:w-[40px] h-[15px] md:h-[20px] opacity-20 ml-4 md:ml-8">
-                        <path d="M24 80c40-32 72-48 104-48s64 16 104 48" fill="none" stroke="currentColor" strokeWidth="20" strokeLinecap="round" className="text-white" />
-                      </svg>
+                      <span className="text-primary/40 font-bold">•</span>
                     </div>
                   ))}
                 </div>
@@ -209,31 +467,6 @@ export function Features() {
             </div>
             {/* Top Glow Line */}
             <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
-          </div>
-
-          {/* Row 2: Moving Right - High Contrast */}
-          <div className="py-4 md:py-8 bg-white/[0.01] border-b border-white/10 relative overflow-hidden">
-            <div className="flex whitespace-nowrap animate-[ticker_60s_linear_infinite_reverse] w-fit">
-              {[...Array(6)].map((_, i) => (
-                <div key={i} className="flex items-center gap-14 md:gap-20 px-8 md:px-10">
-                  {[
-                    language === 'es' ? "Webs" : "Websites", 
-                    language === 'es' ? "Autobots" : "Autobots", 
-                    language === 'es' ? "Apps De Escritorio" : "Desktop Apps", 
-                    language === 'es' ? "Apps Web" : "Web Apps", 
-                    language === 'es' ? "Apps Móviles" : "Mobile Apps", 
-                    language === 'es' ? "E-Commerce" : "E-Commerce"
-                  ].map((s) => (
-                    <div key={s} className="flex items-center gap-6 md:gap-10 group/item cursor-default">
-                      <span className="text-2xl md:text-4xl font-black tracking-tighter text-white/20 group-hover/item:text-white transition-all duration-500">
-                        {s}
-                      </span>
-                      <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-primary/40 group-hover/item:bg-primary group-hover/item:shadow-[0_0_15px_rgba(51,255,181,0.5)] transition-all" />
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
           </div>
 
           {/* Clean Side Fades */}
