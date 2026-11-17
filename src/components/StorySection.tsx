@@ -6,6 +6,7 @@ import { Canvas, useFrame } from "@react-three/fiber"
 import { Float, MeshDistortMaterial, Environment, Sphere } from "@react-three/drei"
 import * as THREE from "three"
 import { useLanguage } from "@/lib/LanguageContext"
+import { WebGLErrorBoundary } from "@/lib/webgl"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -167,13 +168,15 @@ export function StorySection() {
     <section ref={sectionRef} id="story" className="relative z-10 scroll-mt-32 overflow-hidden lg:overflow-visible">
       {/* Fixed 3D Scene Overlay for this section */}
       <div className="fixed inset-0 pointer-events-none opacity-40 z-0">
-        <Canvas 
-          camera={{ position: [0, 0, 8], fov: 40 }}
-          dpr={[1, 1.5]}
-          gl={{ powerPreference: "high-performance", antialias: false }}
-        >
-          <Story3D activeIndex={activeChapter} />
-        </Canvas>
+        <WebGLErrorBoundary>
+          <Canvas 
+            camera={{ position: [0, 0, 8], fov: 40 }}
+            dpr={[1, 1.5]}
+            gl={{ powerPreference: "high-performance", antialias: false }}
+          >
+            <Story3D activeIndex={activeChapter} />
+          </Canvas>
+        </WebGLErrorBoundary>
       </div>
 
 

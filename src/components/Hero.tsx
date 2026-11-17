@@ -77,12 +77,14 @@ const phrasesEN = [
   ["Radical", "Transformation"], ["Cutting-edge", "Code"], ["Developing", "Solutions"],
 ]
 
+import { useWebGLSupport, WebGLErrorBoundary } from "@/lib/webgl"
+
 export function Hero() {
   const { language, t } = useLanguage()
   const isMobile = useIsMobile()
   const phrases = language === 'es' ? phrasesES : phrasesEN
   
-  const [webGLAvailable, setWebGLAvailable] = useState(true)
+  const webGLAvailable = useWebGLSupport()
   const [currentPhrase, setCurrentPhrase] = useState(phrases[0])
   const titleRef = useRef<HTMLHeadingElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -92,36 +94,24 @@ export function Hero() {
     const randomIdx = Math.floor(Math.random() * phrases.length)
     setCurrentPhrase(phrases[randomIdx])
 
-    try {
-      const canvas = document.createElement("canvas")
-      setWebGLAvailable(!!(window.WebGLRenderingContext && (canvas.getContext("webgl") || canvas.getContext("experimental-webgl"))))
-    } catch (e) {
-      setWebGLAvailable(false)
-    }
-
     const ctx = gsap.context(() => {
       // 1. Initial State
-      gsap.set([".hud-element", ".title-reveal", ".hero-description", ".hero-cta", ".scroll-indicator", ".hero-canvas-container"], {
+      gsap.set([".title-reveal", ".hero-description", ".hero-cta", ".scroll-indicator"], {
         opacity: 0
       })
 
       // 2. Entrance Timeline
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
 
-      tl.to(".hero-canvas-container", {
-        opacity: 1,
-        duration: 3,
-        ease: "power2.inOut"
-      })
-        .to(".hud-element", {
+      tl.to(".hud-element", {
           opacity: 1,
-          duration: 2,
+          duration: 1.5,
           stagger: 0.2
-        }, "-=2.5")
+        })
         .fromTo(".title-reveal",
           { y: 100, skewY: 10, opacity: 0 },
           { y: 0, skewY: 0, opacity: 1, duration: 1.5, stagger: 0.2 },
-          "-=1.5"
+          "-=1.2"
         )
         .to(".hero-description", {
           opacity: 1,
@@ -178,8 +168,10 @@ export function Hero() {
 
       {/* 3D Scene - Only local on desktop */}
       {!isMobile && (
-        <div className="hero-canvas-container absolute inset-0 z-0 pointer-events-none opacity-0">
-          {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
+        <div className="hero-canvas-container absolute inset-0 z-0 pointer-events-none">
+          <WebGLErrorBoundary fallback={<FallbackOrb />}>
+            {webGLAvailable ? <HeroScene /> : <FallbackOrb />}
+          </WebGLErrorBoundary>
         </div>
       )}
 

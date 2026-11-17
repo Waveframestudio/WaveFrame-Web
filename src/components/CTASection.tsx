@@ -6,6 +6,7 @@ import { Float, Environment, Sphere, MeshDistortMaterial, Points, PointMaterial 
 import * as THREE from "three"
 import { useLanguage } from "@/lib/LanguageContext"
 import { useIsMobile } from "@/hooks/useIsMobile"
+import { WebGLErrorBoundary } from "@/lib/webgl"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -58,19 +59,21 @@ export function CTASection() {
   return (
     <section ref={sectionRef} id="cta" className="relative pt-2 pb-32 overflow-hidden bg-[#060c14] scroll-mt-32">
       <div className="absolute inset-0 z-0">
-        <Canvas 
-          camera={{ position: [0, 0, 5] }}
-          dpr={[1, 1.5]}
-          gl={{ powerPreference: "high-performance", antialias: true }}
-        >
-          <Starfield />
-          <Float speed={4} rotationIntensity={2} floatIntensity={2}>
-            <Sphere args={[isMobile ? 1 : 1.5, 32, 32]} position={[0, 0, -2]}>
-              <MeshDistortMaterial color="#3dd6f5" speed={2} distort={0.6} roughness={0} metalness={1} transparent opacity={0.2} />
-            </Sphere>
-          </Float>
-          <Environment preset="night" />
-        </Canvas>
+        <WebGLErrorBoundary>
+          <Canvas 
+            camera={{ position: [0, 0, 5] }}
+            dpr={[1, 1.5]}
+            gl={{ powerPreference: "high-performance", antialias: true }}
+          >
+            <Starfield />
+            <Float speed={4} rotationIntensity={2} floatIntensity={2}>
+              <Sphere args={[isMobile ? 1 : 1.5, 32, 32]} position={[0, 0, -2]}>
+                <MeshDistortMaterial color="#3dd6f5" speed={2} distort={0.6} roughness={0} metalness={1} transparent opacity={0.2} />
+              </Sphere>
+            </Float>
+            <Environment preset="night" />
+          </Canvas>
+        </WebGLErrorBoundary>
       </div>
 
       <div ref={contentRef} className="relative z-10 max-w-5xl mx-auto px-6 text-center">

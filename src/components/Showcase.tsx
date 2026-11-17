@@ -5,6 +5,7 @@ import * as THREE from "three"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { useLanguage } from "@/lib/LanguageContext"
+import { WebGLErrorBoundary } from "@/lib/webgl"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -130,20 +131,39 @@ export function Showcase() {
             <div className="absolute inset-0 bg-primary/5 rounded-3xl blur-2xl animate-pulse-glow" />
             <div className="relative w-full h-full min-h-[360px] rounded-3xl overflow-hidden glass-card flex items-center justify-center">
               {webgl ? (
-                <Canvas 
-                  camera={{ position: [0, 0, 4], fov: 50 }} 
-                  gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }} 
-                  dpr={[1, 1.5]}
-                  className="w-full h-full absolute inset-0"
-                >
-                  <ambientLight intensity={0.3} />
-                  <pointLight position={[3, 3, 3]} color="#3dd6f5" intensity={3} />
-                  <pointLight position={[-3, -3, 2]} color="#6040ff" intensity={2} />
-                  <Float speed={2} rotationIntensity={0.4} floatIntensity={0.5}>
-                    <ShowcaseCube />
-                  </Float>
-                  <Environment preset="night" />
-                </Canvas>
+                <WebGLErrorBoundary fallback={
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="relative w-36 h-36" style={{ perspective: "600px" }}>
+                      <div className="absolute inset-0" style={{ transformStyle: "preserve-3d", animation: "float 7s ease-in-out infinite, spin 12s linear infinite" }}>
+                        {[
+                          { transform: "translateZ(72px)", bg: "oklch(0.74 0.18 195 / 0.3)" },
+                          { transform: "translateZ(-72px) rotateY(180deg)", bg: "oklch(0.74 0.18 195 / 0.2)" },
+                          { transform: "rotateY(90deg) translateZ(72px)", bg: "oklch(0.65 0.2 260 / 0.3)" },
+                          { transform: "rotateY(-90deg) translateZ(72px)", bg: "oklch(0.65 0.2 260 / 0.2)" },
+                          { transform: "rotateX(90deg) translateZ(72px)", bg: "oklch(0.7 0.18 195 / 0.25)" },
+                          { transform: "rotateX(-90deg) translateZ(72px)", bg: "oklch(0.7 0.18 195 / 0.15)" },
+                        ].map((face, i) => (
+                          <div key={i} className="absolute inset-0 border border-primary/40" style={{ transform: face.transform, background: face.bg }} />
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                }>
+                  <Canvas 
+                    camera={{ position: [0, 0, 4], fov: 50 }} 
+                    gl={{ alpha: true, antialias: false, powerPreference: "high-performance" }} 
+                    dpr={[1, 1.5]}
+                    className="w-full h-full absolute inset-0"
+                  >
+                    <ambientLight intensity={0.3} />
+                    <pointLight position={[3, 3, 3]} color="#3dd6f5" intensity={3} />
+                    <pointLight position={[-3, -3, 2]} color="#6040ff" intensity={2} />
+                    <Float speed={2} rotationIntensity={0.4} floatIntensity={0.5}>
+                      <ShowcaseCube />
+                    </Float>
+                    <Environment preset="night" />
+                  </Canvas>
+                </WebGLErrorBoundary>
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative w-36 h-36" style={{ perspective: "600px" }}>

@@ -5,6 +5,7 @@ import { Canvas } from "@react-three/fiber"
 import { Logo3DModel } from "./Logo3D"
 import { useLanguage } from "@/lib/LanguageContext"
 import { useIsMobile } from "@/hooks/useIsMobile"
+import { WebGLErrorBoundary } from "@/lib/webgl"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -41,13 +42,15 @@ export function AboutSection() {
             <div className="about-reveal flex flex-row items-center lg:flex-col lg:items-start gap-4">
               {/* 3D Logo moved here */}
               <div className="h-32 w-32 lg:h-40 lg:w-40 mb-0 lg:mb-[-20px] relative z-10 pointer-events-none -ml-2 lg:-ml-6">
-                <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ alpha: true }}>
-                  <ambientLight intensity={1.5} />
-                  <pointLight position={[10, 10, 10]} intensity={25} color="#3dd6f5" />
-                  <pointLight position={[-10, -10, -10]} intensity={20} color="#6040ff" />
-                  <spotLight position={[0, 5, 0]} intensity={30} angle={0.5} penumbra={1} color="#ffffff" />
-                  <Logo3DModel />
-                </Canvas>
+                <WebGLErrorBoundary>
+                  <Canvas camera={{ position: [0, 0, 5], fov: 45 }} gl={{ alpha: true }}>
+                    <ambientLight intensity={1.5} />
+                    <pointLight position={[10, 10, 10]} intensity={25} color="#3dd6f5" />
+                    <pointLight position={[-10, -10, -10]} intensity={20} color="#6040ff" />
+                    <spotLight position={[0, 5, 0]} intensity={30} angle={0.5} penumbra={1} color="#ffffff" />
+                    <Logo3DModel />
+                  </Canvas>
+                </WebGLErrorBoundary>
               </div>
 
               <div className="inline-flex items-center gap-3 glass px-4 py-2 rounded-full border border-primary/20">

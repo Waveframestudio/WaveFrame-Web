@@ -373,7 +373,7 @@ export function Features() {
         {/* Cards Grid (2x2 on Desktop, Carousel on Mobile) */}
         <div className="relative lg:perspective-1000">
           <div 
-            className="features-grid flex flex-row flex-nowrap lg:grid lg:grid-cols-2 gap-6 lg:gap-8 overflow-x-auto overflow-y-hidden lg:overflow-x-visible snap-x snap-mandatory -mx-6 px-6 lg:mx-0 lg:px-0 pb-8 lg:pb-0 touch-pan-x"
+            className="features-grid flex flex-row flex-nowrap lg:grid lg:grid-cols-2 gap-6 lg:gap-8 overflow-x-auto lg:overflow-x-visible snap-x snap-mandatory -mx-6 px-6 lg:mx-0 lg:px-0 pb-8 lg:pb-0 touch-pan-x touch-pan-y overscroll-x-contain overscroll-y-auto"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
             {features.map((f, i) => (
