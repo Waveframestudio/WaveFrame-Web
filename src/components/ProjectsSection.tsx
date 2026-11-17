@@ -5,7 +5,14 @@ import { useLanguage } from "@/lib/LanguageContext"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const projectsRow1 = [
+interface ProjectItem {
+  name: string
+  image?: string
+  video?: string
+  link: string
+}
+
+const projectsRow1: ProjectItem[] = [
   { name: "Rüne Car Rental", image: "/projects/rune.png", link: "#" },
   { name: "SubUrban Store", image: "/projects/SubUrban.png", link: "#" },
   { name: "GamerTech Store", image: "/projects/gamertech.jpeg", link: "#" },
@@ -14,9 +21,11 @@ const projectsRow1 = [
   { name: "Wave Barber", image: "/projects/wave-barber.png", link: "https://wave-barbershop.netlify.app/" },
 ]
 
-const projectsRow2 = [
+const projectsRow2: ProjectItem[] = [
   { name: "Landing Crunchy - Mi Gusto x Flamin' Hot", image: "/projects/landing-crunchy.png", link: "https://migusto.com.ar/crunchy/" },
   { name: "QR Generator", image: "/projects/qr-generator.png", link: "https://www.migusto.com.ar/tools/QR/" },
+  { name: "AURA Social App", video: "/projects/AURA.mp4", link: "/projects/apps" },
+  { name: "Password Generator", video: "/projects/passgen.mp4", link: "/projects/apps" },
   { name: "Realtime Translate", image: "/projects/translate.png", link: "#" },
   { name: "Massive email sender", image: "/projects/massive-emailsystem.png", link: "#" },
   { name: "Photo Party App", image: "/projects/photo-party.png", link: "https://mis15bianca-recuerdos.netlify.app/" },
@@ -76,18 +85,43 @@ export function ProjectsSection() {
   )
 }
 
-function ProjectCard({ project }: { project: { name: string, image: string, link: string } }) {
+function ProjectCard({ project }: { project: ProjectItem }) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+
   return (
     <a 
       href={project.link}
+      onMouseEnter={() => {
+        if (videoRef.current) {
+          videoRef.current.play().catch(() => {})
+        }
+      }}
+      onMouseLeave={() => {
+        if (videoRef.current) {
+          videoRef.current.pause()
+          videoRef.current.currentTime = 0.5
+        }
+      }}
       className="group relative block w-[300px] md:w-[450px] h-[200px] md:h-[280px] flex-shrink-0 rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer bg-white/5 border border-white/10"
     >
-      <img 
-        src={project.image} 
-        alt={project.name} 
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-        loading="lazy"
-      />
+      {project.video ? (
+        <video 
+          ref={videoRef}
+          src={`${project.video}#t=0.5`}
+          loop
+          muted
+          playsInline
+          preload="metadata"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+        />
+      ) : (
+        <img 
+          src={project.image} 
+          alt={project.name} 
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+          loading="lazy"
+        />
+      )}
       <div className="absolute inset-0 bg-gradient-to-t from-[#060c14] via-[#060c14]/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
       
       <div className="absolute inset-x-0 bottom-0 p-8 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
