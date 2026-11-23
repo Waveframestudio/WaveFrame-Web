@@ -1,66 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
-        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- Página Principal -->
   <url>
-    <loc>https://waveframe.studio/</loc>
-    <lastmod>2025-11-25</lastmod>
+    <loc>https://waveframe.com.ar/</loc>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://waveframe.studio/og-image.jpg</image:loc>
-      <image:title>WaveFrame Studio - Agencia de Desarrollo Web</image:title>
+      <image:loc>https://waveframe.com.ar/og-image.png</image:loc>
+      <image:title>WaveFrame Studio - Desarrollo de Software y Soluciones Web en Argentina</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://waveframe.com.ar/icon.png</image:loc>
+      <image:title>Logo oficial de WaveFrame Studio</image:title>
     </image:image>
   </url>
 
-  <!-- Sección About -->
+  <!-- Portfolio / Proyectos -->
   <url>
-    <loc>https://waveframe.studio/#about</loc>
-    <lastmod>2025-11-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Sección Servicios -->
-  <url>
-    <loc>https://waveframe.studio/#servicios</loc>
-    <lastmod>2025-11-25</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Sección Proyectos -->
-  <url>
-    <loc>https://waveframe.studio/#projects</loc>
-    <lastmod>2025-11-25</lastmod>
+    <loc>https://waveframe.com.ar/projects</loc>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
 
-  <!-- Sección Contacto -->
   <url>
-    <loc>https://waveframe.studio/#contacto</loc>
-    <lastmod>2025-11-25</lastmod>
-    <changefreq>monthly</changefreq>
+    <loc>https://waveframe.com.ar/projects/webs</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Página de Privacidad -->
   <url>
-    <loc>https://waveframe.studio/privacidad</loc>
-    <lastmod>2025-11-25</lastmod>
+    <loc>https://waveframe.com.ar/projects/apps</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://waveframe.com.ar/projects/games</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Preguntas Frecuentes -->
+  <url>
+    <loc>https://waveframe.com.ar/faq</loc>
+    <lastmod>2026-11-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Legales -->
+  <url>
+    <loc>https://waveframe.com.ar/privacidad</loc>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
 
-  <!-- Página Legal -->
   <url>
-    <loc>https://waveframe.studio/legales</loc>
-    <lastmod>2025-11-25</lastmod>
+    <loc>https://waveframe.com.ar/terminos</loc>
+    <lastmod>2026-11-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

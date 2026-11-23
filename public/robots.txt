@@ -1,31 +1,16 @@
-# robots.txt para WaveFrame Studio
+# robots.txt para WaveFrame Studio (https://waveframe.com.ar)
 
 User-agent: *
 Allow: /
 Disallow: /admin/
 Disallow: /api/
-Disallow: /_next/
 Disallow: /private/
 
-# Sitemap
-Sitemap: https://waveframe.studio/sitemap.xml
+# Sitemap oficial
+Sitemap: https://waveframe.com.ar/sitemap.xml
 
-# Crawl-delay para bots específicos
 User-agent: Googlebot
-Crawl-delay: 0
+Allow: /
 
 User-agent: Bingbot
-Crawl-delay: 1
-
-# Bloquear bots malintencionados
-User-agent: AhrefsBot
-Disallow: /
-
-User-agent: SemrushBot
-Disallow: /
-
-User-agent: MJ12bot
-Disallow: /
-
-User-agent: DotBot
-Disallow: /
+Allow: /
