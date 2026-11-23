@@ -42,14 +42,14 @@ export function Footer() {
       { label: "Nosotros", href: "#about" },
       { label: "Cómo Trabajamos", href: "#story" },
       { label: "FAQ", href: "/faq" },
-      { label: "Contacto", href: "https://wa.me/5493876117799" }
+      { label: "Contacto", href: "https://wa.me/5491163704522" }
     ]
     : [
       { label: "Projects", href: "#projects" },
       { label: "About Us", href: "#about" },
       { label: "How We Work", href: "#story" },
       { label: "FAQ", href: "/faq" },
-      { label: "Contact", href: "https://wa.me/5493876117799" }
+      { label: "Contact", href: "https://wa.me/5491163704522" }
     ]
 
   return (
