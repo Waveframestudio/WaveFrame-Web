@@ -62,11 +62,23 @@ function HomePage() {
   )
 }
 
-// Scroll to top on route change
-function ScrollToTop() {
+// Scroll to top and update canonical URL on route change
+function PageRouterSEO() {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Update canonical tag dynamically per route
+    let canonicalLink = document.querySelector('link[rel="canonical"]');
+    const fullUrl = `https://waveframe.com.ar${pathname === '/' ? '/' : pathname}`;
+    if (canonicalLink) {
+      canonicalLink.setAttribute('href', fullUrl);
+    } else {
+      canonicalLink = document.createElement('link');
+      canonicalLink.setAttribute('rel', 'canonical');
+      canonicalLink.setAttribute('href', fullUrl);
+      document.head.appendChild(canonicalLink);
+    }
   }, [pathname]);
   return null;
 }
@@ -83,7 +95,7 @@ export function App() {
             <HeroScene />
           </div>
         )}
-        <ScrollToTop />
+        <PageRouterSEO />
         <CursorGlow />
         <Navbar />
         <Routes>
